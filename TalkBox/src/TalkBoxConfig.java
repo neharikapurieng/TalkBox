@@ -11,9 +11,9 @@ public class TalkBoxConfig {
 	public JButton num5;
 	public JButton num6;
 	public JButton num7;
-	public JButton num8;
-	public JButton num9;
-	public JButton num0;
+	//public JButton num8;
+	//public JButton num9;
+	//public JButton num0;
 	
 	public JFrame frame;
 	
@@ -32,21 +32,21 @@ public class TalkBoxConfig {
 		num4 = new JButton("4");
 		num5 = new JButton("5");
 		num6 = new JButton("6");
-		num7 = new JButton("7");
-		num8 = new JButton("8");
-		num9 = new JButton("9");
-		num0 = new JButton("0");
+		num7 = new JButton("RECORD");
+		//num8 = new JButton("8");
+		//num9 = new JButton("9");
+		//num0 = new JButton("0");
 	
-		num1.setBounds(0,100,75,75);
-		num2.setBounds(75,100,75,75);
-		num3.setBounds(150,100,75,75);
-		num4.setBounds(0,175,75,75);
-		num5.setBounds(75,175,75,75);
-		num6.setBounds(150,175,75,75);
-		num7.setBounds(0,250,75,75);
-		num8.setBounds(75,250,75,75);
-		num9.setBounds(150,250,75,75);
-		num0.setBounds(0,325,150,75);
+		num1.setBounds(0,100,150,150);
+		num2.setBounds(150,100,150,150);
+		num3.setBounds(300,100,150,150);
+		num4.setBounds(450,100,150,150);
+		num5.setBounds(600,100,150,150);
+		num6.setBounds(750,100,150,150);
+		num7.setBounds(300,300,250,100);
+		//num8.setBounds(75,250,75,75);
+		//num9.setBounds(150,250,75,75);
+		//num0.setBounds(0,325,150,75);
 		
 		panel.add(num1);
 		panel.add(num2);
@@ -55,9 +55,9 @@ public class TalkBoxConfig {
 		panel.add(num5);
 		panel.add(num6);
 		panel.add(num7);
-		panel.add(num8);
-		panel.add(num9);
-		panel.add(num0);
+		//panel.add(num8);
+		//panel.add(num9);
+		//panel.add(num0);
 		
 		frame.add(panel);
 		
