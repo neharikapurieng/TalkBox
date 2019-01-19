@@ -11,7 +11,7 @@ public class TalkBoxConfig {
 	public JButton num5;
 	public JButton num6;
 	public JButton num7;
-	//public JButton num8;
+	public JButton num8;
 	//public JButton num9;
 	//public JButton num0;
 	
@@ -33,7 +33,7 @@ public class TalkBoxConfig {
 		num5 = new JButton("5");
 		num6 = new JButton("6");
 		num7 = new JButton("RECORD");
-		//num8 = new JButton("8");
+		num8 = new JButton("Your TalkBox");
 		//num9 = new JButton("9");
 		//num0 = new JButton("0");
 	
@@ -44,7 +44,7 @@ public class TalkBoxConfig {
 		num5.setBounds(600,100,150,150);
 		num6.setBounds(750,100,150,150);
 		num7.setBounds(300,300,250,100);
-		//num8.setBounds(75,250,75,75);
+		num8.setBounds(300,5,250,75);
 		//num9.setBounds(150,250,75,75);
 		//num0.setBounds(0,325,150,75);
 		
@@ -55,7 +55,7 @@ public class TalkBoxConfig {
 		panel.add(num5);
 		panel.add(num6);
 		panel.add(num7);
-		//panel.add(num8);
+		panel.add(num8);
 		//panel.add(num9);
 		//panel.add(num0);
 		

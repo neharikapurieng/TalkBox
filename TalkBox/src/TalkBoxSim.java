@@ -23,6 +23,9 @@ public class TalkBoxSim {
 		config.num6.setBackground(Color.yellow);
 		config.num7.setBackground(Color.green);
 		config.num7.setFont(new Font("Arial", Font.PLAIN, 20));
+		config.num8.setFont(new Font("Arial", Font.PLAIN, 35));
+
+		
 	}
 	
 
