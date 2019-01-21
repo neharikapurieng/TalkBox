@@ -52,6 +52,7 @@ public class Gui extends Application {
 	       button4.setLayoutY(570);
 	       button5.setLayoutX(395);
 	       button5.setLayoutY(570);
+	    
 	       
 	        pane.getChildren().add(rectangle1);
 	        pane.getChildren().add(rectangle2);
