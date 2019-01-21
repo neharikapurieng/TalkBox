@@ -65,8 +65,7 @@ public class Gui extends Application {
 	        
 	        Scene scene = new Scene(pane,1150,400);
 	        primaryStage.setScene(scene);
-	        
-	        primaryStage.setTitle("Talkbox");
+	        primaryStage.setTitle("Ractangle");
 	        primaryStage.show();
 	        
 	        button1.setOnAction(e -> handle("/Sound/Hello.wav"));
