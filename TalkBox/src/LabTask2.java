@@ -9,6 +9,7 @@ public class LabTask2 {
 
 		System.out.println("labtask3");
 		System.out.println("labtask3");
+		System.out.println("labtask3");
 
 
 	}
