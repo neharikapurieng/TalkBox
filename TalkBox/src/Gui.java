@@ -66,7 +66,7 @@ public class Gui extends Application {
 	        Scene scene = new Scene(pane,1150,400);
 	        primaryStage.setScene(scene);
 	        
-	        primaryStage.setTitle("Rectangle");
+	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
 	        
 	        button1.setOnAction(e -> handle("/Sound/Hello.wav"));
@@ -75,10 +75,8 @@ public class Gui extends Application {
 	        button4.setOnAction(e -> handle("/Sound/Laugh.wav"));
 	        button5.setOnAction(e -> handle("/Sound/Good Morning.wav"));
 	        button6.setOnAction(e -> handle("/Sound/Clap.wav"));
-	        
 		 }
 	  
-
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
@@ -88,10 +86,9 @@ public class Gui extends Application {
 				clip.start();
 				this.collide = true;
 					}
-			catch(Exception e) {		
+			catch(Exception e) {	
 			}
 		}
-	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
