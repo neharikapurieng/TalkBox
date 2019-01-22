@@ -73,7 +73,7 @@ public class GuiConfig extends Application {
 	        primaryStage.show();
 	        
 	       ListView <File> ListofAudio = new ListView<File>();
-	       ListofAudio.getItems().addAll(finder("bin"));
+	       ListofAudio.getItems().addAll(finder("bin/Audio"));
 	       pane.getChildren().add(ListofAudio);
 	       ListofAudio.setLayoutX(600);
 	       ListofAudio.setLayoutY(400);
@@ -84,13 +84,70 @@ public class GuiConfig extends Application {
 	       confirm.setLayoutY(400);
 	       pane.getChildren().add(confirm);
 	    
-	        button1.setOnAction(e -> handle("/bin/Hello.wav"));
-	        button2.setOnAction(e -> handle("/bin/Bye.wav"));
-	        button3.setOnAction(e -> handle("/bin/Yes.wav"));
-	        button4.setOnAction(e -> handle("/bin/Laugh.wav"));
-	        button5.setOnAction(e -> handle("/bin/Good Morning.wav"));
-	        button6.setOnAction(e -> handle("/bin/Clap.wav"));
+	       button1.setOnAction(e -> handle("bin/Audio/Hello.wav"));
+	       button2.setOnAction(e -> handle("bin/Audio/Bye.wav"));
+	       button3.setOnAction(e -> handle("bin/Audio/Yes.wav"));
+	       button4.setOnAction(e -> handle("bin/Audio/Laugh.wav"));
+	       button5.setOnAction(e -> handle("bin/Audio/Good Morning.wav"));
+	       button6.setOnAction(e -> handle("bin/Audio/Clap.wav"));
+	  
+	       TreeItem<String> root, profile1, profile2;
+	       root = new TreeItem<String>();
+	       root.setExpanded(true);
+	       
+	       profile1 = branch("Greetings",root);
+	       branch("Hello",profile1);
+	       branch("Good Morning",profile1);
+	       
+	       profile2 = branch("Noises",root);
+	       branch("Laugh",profile2);
+	       branch("Clap",profile2);
+	       
+	       TreeView <String> Tree = new TreeView<>(root);
+	       Tree.setShowRoot(false);
+	       
+	       pane.getChildren().add(Tree);
+	       Tree.setLayoutX(600);
+	       Tree.setLayoutY(0);
+	       Tree.setMaxSize(200, 350);
+	       
+	       Button AddProfile = new Button("Add Profile");
+	       AddProfile.setLayoutX(800);
+	       AddProfile.setLayoutY(50);
+	       pane.getChildren().add(AddProfile);
+	       
+	       Button RemoveProfile = new Button("Remove Profile");
+	       RemoveProfile.setLayoutX(800);
+	       RemoveProfile.setLayoutY(150);
+	       pane.getChildren().add(RemoveProfile);
+	       
+	       Button AddSound = new Button("Add Sound");
+	       AddSound.setLayoutX(800);
+	       AddSound.setLayoutY(200);
+	       pane.getChildren().add(AddSound);
+	       
+	       Button SetProfile= new Button("Set Profile");
+	       SetProfile.setLayoutX(800);
+	       SetProfile.setLayoutY(0);
+	       pane.getChildren().add(SetProfile);
+	       
+	       Button EditProfile = new Button("Edit Profile");
+	       EditProfile.setLayoutX(800);
+	       EditProfile.setLayoutY(100);
+	       pane.getChildren().add(EditProfile);
+	       
+	       
+	       
 	        
+	  }
+	  
+	  public TreeItem<String> branch(String title, TreeItem<String> parent){
+		  TreeItem<String> item = new TreeItem<>(title);
+		  item.setExpanded(false);
+		  parent.getChildren().add(item);
+		  return item;
+		  
+		  
 	  }
 	  
 	  public void File() {
@@ -102,7 +159,6 @@ public class GuiConfig extends Application {
 	  
 	  public File[] finder(String dirName) {
 				File directoryPath = new File(dirName);
-			
 				File[] files=directoryPath.listFiles(new FilenameFilter() {
 					@Override
 					public boolean accept(File dir, String name) {
@@ -117,7 +173,7 @@ public class GuiConfig extends Application {
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
-				AudioInputStream audio = AudioSystem.getAudioInputStream(getClass().getResource(s));
+				AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
 				this.clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
