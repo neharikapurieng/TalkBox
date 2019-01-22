@@ -149,13 +149,12 @@ public class GuiConfig extends Application {
 		  
 		  
 	  }
-	  
+	  /*
 	  public void File() {
 		  File list = new File(this.getClass().getResource("/").getFile());
 		  System.out.println(list.getAbsolutePath());
-		  
-		  
 			}
+			*/
 	  
 	  public File[] finder(String dirName) {
 				File directoryPath = new File(dirName);
