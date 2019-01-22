@@ -1,4 +1,7 @@
 package TalkBoxConfig;
+import java.io.File;
+import java.io.FilenameFilter;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -68,6 +71,40 @@ public class GuiConfig extends Application {
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
+	        
+	       ListView <File> ListofAudio = new ListView<File>();
+	       ListofAudio.getItems().addAll(finder("bin"));
+	       pane.getChildren().add(ListofAudio);
+	       ListofAudio.setLayoutX(600);
+	       ListofAudio.setLayoutY(400);
+	       ListofAudio.setMaxSize(200, 200);
+	       
+	       Button confirm = new Button("Confirm");
+	       confirm.setLayoutX(800);
+	       confirm.setLayoutY(400);
+	       pane.getChildren().add(confirm);
+	    
+	  }
+	  
+	  public void File() {
+		  File list = new File(this.getClass().getResource("/").getFile());
+		  System.out.println(list.getAbsolutePath());
+		  
+		  
+			}
+	  
+	  public File[] finder(String dirName) {
+				File directoryPath = new File(dirName);
+			
+				File[] files=directoryPath.listFiles(new FilenameFilter() {
+					@Override
+					public boolean accept(File dir, String name) {
+						return name.endsWith(".wav");
+					}
+				});
+				return files;
+		}
+
 
 	        /*
 	        button1.setOnAction(e -> handle("/Sound/Hello.wav"));
@@ -77,7 +114,7 @@ public class GuiConfig extends Application {
 	        button5.setOnAction(e -> handle("/Sound/Good Morning.wav"));
 	        button6.setOnAction(e -> handle("/Sound/Clap.wav"));
 	        */
-		 }
+
 	  /*
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
