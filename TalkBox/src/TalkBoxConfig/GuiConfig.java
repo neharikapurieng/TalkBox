@@ -84,6 +84,13 @@ public class GuiConfig extends Application {
 	       confirm.setLayoutY(400);
 	       pane.getChildren().add(confirm);
 	    
+	        button1.setOnAction(e -> handle("/bin/Hello.wav"));
+	        button2.setOnAction(e -> handle("/bin/Bye.wav"));
+	        button3.setOnAction(e -> handle("/bin/Yes.wav"));
+	        button4.setOnAction(e -> handle("/bin/Laugh.wav"));
+	        button5.setOnAction(e -> handle("/bin/Good Morning.wav"));
+	        button6.setOnAction(e -> handle("/bin/Clap.wav"));
+	        
 	  }
 	  
 	  public void File() {
@@ -106,16 +113,7 @@ public class GuiConfig extends Application {
 		}
 
 
-	        /*
-	        button1.setOnAction(e -> handle("/Sound/Hello.wav"));
-	        button2.setOnAction(e -> handle("/Sound/Bye.wav"));
-	        button3.setOnAction(e -> handle("/Sound/Yes.wav"));
-	        button4.setOnAction(e -> handle("/Sound/Laugh.wav"));
-	        button5.setOnAction(e -> handle("/Sound/Good Morning.wav"));
-	        button6.setOnAction(e -> handle("/Sound/Clap.wav"));
-	        */
-
-	  /*
+	  
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
@@ -128,7 +126,7 @@ public class GuiConfig extends Application {
 			catch(Exception e) {	
 			}
 		}
-*/
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
