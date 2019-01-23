@@ -185,19 +185,14 @@ public class GuiConfig extends Application {
 	       
 	  }
 	 
-	  
+	  /*
 	  public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
 		  return item;
 	  }
-	  /*
-	  public void File() {
-		  File list = new File(this.getClass().getResource("/").getFile());
-		  System.out.println(list.getAbsolutePath());
-			}
-			*/
+
 	  
 	  public File[] finder(String dirName) {
 				File directoryPath = new File(dirName);
@@ -209,7 +204,7 @@ public class GuiConfig extends Application {
 				});
 				return files;
 		}
-
+*/
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
