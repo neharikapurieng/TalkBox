@@ -84,12 +84,12 @@ public class GuiConfig extends Application {
 	       confirm.setLayoutY(400);
 	       pane.getChildren().add(confirm);
 	    
-	       button1.setOnAction(e -> handle("bin/Audio/Hello.wav"));
-	       button2.setOnAction(e -> handle("bin/Audio/Bye.wav"));
-	       button3.setOnAction(e -> handle("bin/Audio/Yes.wav"));
-	       button4.setOnAction(e -> handle("bin/Audio/Laugh.wav"));
-	       button5.setOnAction(e -> handle("bin/Audio/Good Morning.wav"));
-	       button6.setOnAction(e -> handle("bin/Audio/Clap.wav"));
+	       button1.setOnAction(e -> handle("src/Audio/Hello.wav"));
+	       button2.setOnAction(e -> handle("src/Audio/Bye.wav"));
+	       button3.setOnAction(e -> handle("src/Audio/Yes.wav"));
+	       button4.setOnAction(e -> handle("src/Audio/Laugh.wav"));
+	       button5.setOnAction(e -> handle("src/Audio/Good Morning.wav"));
+	       button6.setOnAction(e -> handle("src/Audio/Clap.wav"));
 	  
 	       TreeItem<String> root, profile1, profile2;
 	       root = new TreeItem<String>();
