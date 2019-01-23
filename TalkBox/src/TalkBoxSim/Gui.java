@@ -6,13 +6,9 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 public class Gui extends Application {
@@ -107,7 +103,8 @@ public class Gui extends Application {
 				clip.start();
 				this.collide = true;
 					}
-			catch(Exception e) {	
+			catch(Exception e) {
+				System.out.println("Can't find audio file");
 			}
 		}
 
