@@ -23,9 +23,13 @@ public class GuiConfig extends Application {
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
-		
+		   primaryStage.setTitle("TalkBoxConfig");
 	       Pane pane = new Pane();
+	      
 		    
+	       
+	      
+	       
 	       Button button1 = new Button("Sound 1");
 	       Button button2 = new Button("Sound 2");
 	       Button button3 = new Button("Sound 3");
@@ -45,32 +49,29 @@ public class GuiConfig extends Application {
 	       button5.setLayoutY(200);
 	       button6.setLayoutX(400);
 	       button6.setLayoutY(200);
+	       
 	    
-	       button1.setMinWidth(75);
-	       button1.setMinHeight(75);
-	       button2.setMinWidth(75);
-	       button2.setMinHeight(75);
-	       button3.setMinWidth(75);
-	       button3.setMinHeight(75);
-	       button4.setMinWidth(75);
-	       button4.setMinHeight(75);
-	       button5.setMinWidth(75);
-	       button5.setMinHeight(75);
-	       button6.setMinWidth(75);
-	       button6.setMinHeight(75);
-
+	       button1.setMinSize(75, 75);
+	       button2.setMinSize(75, 75);
+	       button3.setMinSize(75, 75);
+	       button4.setMinSize(75, 75);
+	       button5.setMinSize(75, 75);
+	       button6.setMinSize(75, 75);
+	      
 	        pane.getChildren().add(button1);
 	        pane.getChildren().add(button2);
 	        pane.getChildren().add(button3);
 	        pane.getChildren().add(button4);
 	        pane.getChildren().add(button5);
 	        pane.getChildren().add(button6);
+	    
 	     
 	        
 	        Scene scene = new Scene(pane,900,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
+	       
 	        
 	       ListView <File> ListofAudio = new ListView<File>();
 	       ListofAudio.getItems().addAll(finder("bin/Audio"));
@@ -110,6 +111,12 @@ public class GuiConfig extends Application {
 	       Tree.setLayoutX(600);
 	       Tree.setLayoutY(0);
 	       Tree.setMaxSize(200, 350);
+	       
+	       Button AddButton = new Button("Add Button");
+	       AddButton.setLayoutX(0);
+	       AddButton.setLayoutY(0);
+	       AddButton.setMinSize(75, 75);
+	       pane.getChildren().add(AddButton);
 	       
 	       Button AddProfile = new Button("Add Profile");
 	       AddProfile.setLayoutX(800);
@@ -158,6 +165,7 @@ public class GuiConfig extends Application {
 	       AudioBar.setLayoutY(580);
 	       pane.getChildren().add(AudioBar);
 	       AudioBar.setMinSize(200, 15);
+	      
 	        
 	       TextField text = new TextField("Enter Filename");
 	       text.setLayoutX(0);
@@ -165,6 +173,7 @@ public class GuiConfig extends Application {
 	       pane.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
 	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
+	       
 	  }
 	 
 	  
