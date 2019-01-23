@@ -167,8 +167,6 @@ public class GuiConfig extends Application {
 				return files;
 		}
 
-
-	  
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
@@ -179,6 +177,7 @@ public class GuiConfig extends Application {
 				this.collide = true;
 					}
 			catch(Exception e) {	
+				System.out.println("Can't find audio file");
 			}
 		}
 
