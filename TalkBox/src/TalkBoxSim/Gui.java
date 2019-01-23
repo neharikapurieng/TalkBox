@@ -1,15 +1,14 @@
+package TalkBoxSim;
+import java.io.File;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.*;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 public class Gui extends Application {
@@ -42,18 +41,13 @@ public class Gui extends Application {
 	       button6.setLayoutX(1000);
 	       button6.setLayoutY(150);
 	    
-	       button1.setMinWidth(150);
-	       button1.setMinHeight(150);
-	       button2.setMinWidth(150);
-	       button2.setMinHeight(150);
-	       button3.setMinWidth(150);
-	       button3.setMinHeight(150);
-	       button4.setMinWidth(150);
-	       button4.setMinHeight(150);
-	       button5.setMinWidth(150);
-	       button5.setMinHeight(150);
-	       button6.setMinWidth(150);
-	       button6.setMinHeight(150);
+	      button1.setMinSize(100,100);
+	      button2.setMinSize(100,100);
+	      button3.setMinSize(100,100);
+	      button4.setMinSize(100,100);
+	      button5.setMinSize(100,100);
+	      button6.setMinSize(100,100);
+
 
 	        pane.getChildren().add(button1);
 	        pane.getChildren().add(button2);
@@ -65,28 +59,47 @@ public class Gui extends Application {
 	        
 	        Scene scene = new Scene(pane,1150,400);
 	        primaryStage.setScene(scene);
-	        
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
+
 	        
-	        button1.setOnAction(e -> handle("/Sound/Hello.wav"));
-	        button2.setOnAction(e -> handle("/Sound/Bye.wav"));
-	        button3.setOnAction(e -> handle("/Sound/Yes.wav"));
-	        button4.setOnAction(e -> handle("/Sound/Laugh.wav"));
-	        button5.setOnAction(e -> handle("/Sound/Good Morning.wav"));
-	        button6.setOnAction(e -> handle("/Sound/Clap.wav"));
+	        button1.setOnAction(e -> handle("src/Audio/Hello.wav"));
+	        button2.setOnAction(e -> handle("src/Audio//Bye.wav"));
+	        button3.setOnAction(e -> handle("src/Audio/Yes.wav"));
+	        button4.setOnAction(e -> handle("src/Audio/Laugh.wav"));
+	        button5.setOnAction(e -> handle("src/Audio/Good Morning.wav"));
+	        button6.setOnAction(e -> handle("src/Audio/Clap.wav"));
+	        
+	        pane.setStyle("-fx-background-color: #B0E0E6;");
+	        button1.setTextFill(Color.BLACK);
+	        button2.setTextFill(Color.BLACK);
+	        button3.setTextFill(Color.BLACK);
+	        button4.setTextFill(Color.BLACK);
+	        button5.setTextFill(Color.BLACK);
+	        button6.setTextFill(Color.BLACK);
+	        
+	        Label label = new Label("TalkBox");
+		       label.setLabelFor(pane);
+		       label.setLayoutX(500);
+		       label.setLayoutY(35);
+		       label.setStyle("-fx-font-family: TRON; -fx-font-size: 40;");
+		       pane.getChildren().add(label);
+	        
+	        
+	        
 		 }
 	  
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
-				AudioInputStream audio = AudioSystem.getAudioInputStream(getClass().getResource(s));
+				AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
 				this.clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
 				this.collide = true;
 					}
-			catch(Exception e) {	
+			catch(Exception e) {
+				System.out.println("Can't find audio file");
 			}
 		}
 
