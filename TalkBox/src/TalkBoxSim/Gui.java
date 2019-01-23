@@ -41,18 +41,13 @@ public class Gui extends Application {
 	       button6.setLayoutX(1000);
 	       button6.setLayoutY(150);
 	    
-	       button1.setMinWidth(150);
-	       button1.setMinHeight(150);
-	       button2.setMinWidth(150);
-	       button2.setMinHeight(150);
-	       button3.setMinWidth(150);
-	       button3.setMinHeight(150);
-	       button4.setMinWidth(150);
-	       button4.setMinHeight(150);
-	       button5.setMinWidth(150);
-	       button5.setMinHeight(150);
-	       button6.setMinWidth(150);
-	       button6.setMinHeight(150);
+	      button1.setMinSize(100,100);
+	      button2.setMinSize(100,100);
+	      button3.setMinSize(100,100);
+	      button4.setMinSize(100,100);
+	      button5.setMinSize(100,100);
+	      button6.setMinSize(100,100);
+
 
 	        pane.getChildren().add(button1);
 	        pane.getChildren().add(button2);
