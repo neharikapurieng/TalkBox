@@ -185,7 +185,7 @@ public class GuiConfig extends Application {
 	       
 	  }
 	 
-	  /*
+	  
 	  public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
@@ -204,7 +204,7 @@ public class GuiConfig extends Application {
 				});
 				return files;
 		}
-*/
+
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
