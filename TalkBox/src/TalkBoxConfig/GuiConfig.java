@@ -7,14 +7,14 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.text.*;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 public class GuiConfig extends Application {
 	
@@ -140,18 +140,39 @@ public class GuiConfig extends Application {
 	       Record.setLayoutX(0);
 	       Record.setLayoutY(500);
 	       pane.getChildren().add(Record);
+	       Record.setMinSize(100, 80);
 	       
+	       Button Start = new Button("Start");
+	       Start.setLayoutX(110);
+	       Start.setLayoutY(500);
+	       pane.getChildren().add(Start);
 	       
+	       Button Stop = new Button("Stop");
+	       Stop.setLayoutX(110);
+	       Stop.setLayoutY(530);
+	       pane.getChildren().add(Stop);
+	      
+	       
+	       ProgressBar AudioBar = new ProgressBar();
+	       AudioBar.setLayoutX(0);
+	       AudioBar.setLayoutY(580);
+	       pane.getChildren().add(AudioBar);
+	       AudioBar.setMinSize(200, 15);
 	        
+	       TextField text = new TextField("Enter Filename");
+	       text.setLayoutX(0);
+	       text.setLayoutY(470);
+	       pane.getChildren().add(text);
+	       text.setOnMouseClicked(e -> text.clear());
+	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
 	  }
+	 
 	  
 	  public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
 		  return item;
-		  
-		  
 	  }
 	  /*
 	  public void File() {
