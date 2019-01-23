@@ -1,4 +1,5 @@
 package TalkBoxConfig;
+import java.awt.Font;
 import java.io.File;
 import java.io.FilenameFilter;
 
@@ -16,6 +17,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.scene.control.Label;
 public class GuiConfig extends Application {
 	
 	boolean collide = false;
@@ -173,6 +175,13 @@ public class GuiConfig extends Application {
 	       pane.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
 	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
+	       
+	       Label label = new Label("TalkBox");
+	       label.setLabelFor(pane);
+	       label.setLayoutX(200);
+	       label.setLayoutY(80);
+	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
+	       pane.getChildren().add(label);
 	       
 	  }
 	 

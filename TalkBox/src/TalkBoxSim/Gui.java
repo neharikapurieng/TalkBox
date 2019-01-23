@@ -1,4 +1,6 @@
 package TalkBoxSim;
+import java.io.File;
+
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -70,18 +72,29 @@ public class Gui extends Application {
 	        primaryStage.show();
 
 	        
-	        button1.setOnAction(e -> handle("/Sound/Hello.wav"));
-	        button2.setOnAction(e -> handle("/Sound/Bye.wav"));
-	        button3.setOnAction(e -> handle("/Sound/Yes.wav"));
-	        button4.setOnAction(e -> handle("/Sound/Laugh.wav"));
-	        button5.setOnAction(e -> handle("/Sound/Good Morning.wav"));
-	        button6.setOnAction(e -> handle("/Sound/Clap.wav"));
+	        button1.setOnAction(e -> handle("src/Audio/Hello.wav"));
+	        button2.setOnAction(e -> handle("src/Audio//Bye.wav"));
+	        button3.setOnAction(e -> handle("src/Audio/Yes.wav"));
+	        button4.setOnAction(e -> handle("src/Audio/Laugh.wav"));
+	        button5.setOnAction(e -> handle("src/Audio/Good Morning.wav"));
+	        button6.setOnAction(e -> handle("src/Audio/Clap.wav"));
+	        
+	        pane.setStyle("-fx-background-color: #B0E0E6;");
+	        button1.setTextFill(Color.BLACK);
+	        button2.setTextFill(Color.BLACK);
+	        button3.setTextFill(Color.BLACK);
+	        button4.setTextFill(Color.BLACK);
+	        button5.setTextFill(Color.BLACK);
+	        button6.setTextFill(Color.BLACK);
+	        
+	        
+	        
 		 }
 	  
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
-				AudioInputStream audio = AudioSystem.getAudioInputStream(getClass().getResource(s));
+				AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
 				this.clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
