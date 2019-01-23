@@ -87,6 +87,13 @@ public class Gui extends Application {
 	        button5.setTextFill(Color.BLACK);
 	        button6.setTextFill(Color.BLACK);
 	        
+	        Label label = new Label("TalkBox");
+		       label.setLabelFor(pane);
+		       label.setLayoutX(500);
+		       label.setLayoutY(35);
+		       label.setStyle("-fx-font-family: TRON; -fx-font-size: 40;");
+		       pane.getChildren().add(label);
+	        
 	        
 	        
 		 }
