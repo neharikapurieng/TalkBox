@@ -136,6 +136,10 @@ public class GuiConfig extends Application {
 	       EditProfile.setLayoutY(100);
 	       pane.getChildren().add(EditProfile);
 	       
+	       Button Record = new Button("Record");
+	       Record.setLayoutX(0);
+	       Record.setLayoutY(500);
+	       pane.getChildren().add(Record);
 	       
 	       
 	        
