@@ -113,7 +113,7 @@ public class GuiConfig extends Application {
 	       Tree.setLayoutX(600);
 	       Tree.setLayoutY(0);
 	       Tree.setMaxSize(200, 350);
-	       
+	       /*
 	       Button AddButton = new Button("Add Button");
 	       AddButton.setLayoutX(0);
 	       AddButton.setLayoutY(0);
@@ -175,7 +175,7 @@ public class GuiConfig extends Application {
 	       pane.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
 	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
-	       
+	       */
 	       Label label = new Label("TalkBox");
 	       label.setLabelFor(pane);
 	       label.setLayoutX(200);
