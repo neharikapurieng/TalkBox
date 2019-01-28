@@ -23,6 +23,7 @@ public class GuiConfig extends Application {
 	int ctr = 375 + 75;
 	int number = 6;
 	String profilename = "";
+	String soundname = "";
 	
 	TreeItem<String> root, profile1, profile2;
 	TreeView <String> Tree;
@@ -31,7 +32,9 @@ public class GuiConfig extends Application {
 	int row = 0;
 	Button SetProfile;
 	ArrayList<Button> BList;
-	String src;
+	ArrayList<TreeItem> TItems;
+	String src = "src/Audio/";
+	TextField PN;
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
@@ -53,16 +56,7 @@ public class GuiConfig extends Application {
 	    	   pane.getChildren().add(BList.get(k));
 	    	   x += 75;
 	       }
-	       
-	       src = "src/Audio/";
-	       BList.get(0).setOnAction(e -> handle(src + "Hello.wav"));
-	       BList.get(1).setOnAction(e -> handle(src + "Bye.wav"));
-	       BList.get(2).setOnAction(e -> handle(src + "Yes.wav"));
-	       BList.get(3).setOnAction(e -> handle(src + "Good Morning.wav"));
-	       BList.get(4).setOnAction(e -> handle(src + "Laugh.wav"));
-	       BList.get(5).setOnAction(e -> handle(src + "Clap.wav"));
-	       
-	        
+	         
 	       
 	        Scene scene = new Scene(pane,1100,600);
 	        primaryStage.setScene(scene);
@@ -71,38 +65,31 @@ public class GuiConfig extends Application {
 	        
 
 	       ListView <File> ListofAudio = new ListView<File>();
-	       ListofAudio.getItems().addAll(finder("bin/Audio"));
+	       ListofAudio.getItems().addAll(finder("src/Audio"));
 	       pane.getChildren().add(ListofAudio);
 	       ListofAudio.setLayoutX(800);
 	       ListofAudio.setLayoutY(400);
 	       ListofAudio.setMaxSize(200, 200);
-	       
-
-	       
-	       Button confirm = new Button("Confirm");
-	       confirm.setLayoutX(1000);
-	       confirm.setLayoutY(400);
-	       pane.getChildren().add(confirm);
+	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,temp)-> {
+	    	   soundname = temp.toString();
+	       });
+	      
 	       
 	       root = new TreeItem<String>();
 	       root.setExpanded(true);
 	       
-	       profile1 = branch("Greetings",root);
-	       branch("Hello",profile1);
-	       branch("Yes",profile1);
-	       
-	       profile2 = branch("Noises",root);
-	       branch("Laugh",profile2);
-	       branch("Clap",profile2);
-	       
-	       
+	       TItems = new ArrayList<>();
+	       TItems.add(branch("Byes",root));
+	       TItems.add(branch("Noises",root));
+	 
+	           
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
 	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,temp) -> {   
 	    	   if(temp != null) {
 	    		   row = Tree.getRow(temp);
 	    		   profilename = temp.getValue();
-	    		   System.out.println(profilename);
+	    		  // System.out.println(profilename);
 	    	   }
 	       });
 	          
@@ -125,20 +112,26 @@ public class GuiConfig extends Application {
 	       AddButton.setMinSize(75, 75);
 	       pane.getChildren().add(AddButton);
 	       
-	       Button AddProfile = new Button("Add Profile");
-	       AddProfile.setLayoutX(1000);
-	       AddProfile.setLayoutY(50);
-	       pane.getChildren().add(AddProfile);
 	       
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
-	       RemoveProfile.setLayoutY(150);
+	       RemoveProfile.setLayoutY(100);
 	       pane.getChildren().add(RemoveProfile);
 	       
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
-	       AddSound.setLayoutY(200);
+	       AddSound.setLayoutY(400);
 	       pane.getChildren().add(AddSound);
+	       
+	       
+	       PN = new TextField("Enter Profile Name");
+	       PN.setLayoutX(800);
+	       PN.setLayoutY(350);
+	       pane.getChildren().add(PN);
+	       PN.setOnMouseClicked(e -> PN.clear());
+	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
+	   
+	       
 	       
 	       Button SetProfile= new Button("Set Profile");
 	       SetProfile.setLayoutX(1000);
@@ -147,7 +140,7 @@ public class GuiConfig extends Application {
 	       
 	       Button EditProfile = new Button("Edit Profile");
 	       EditProfile.setLayoutX(1000);
-	       EditProfile.setLayoutY(100);
+	       EditProfile.setLayoutY(50);
 	       pane.getChildren().add(EditProfile);
 	       
 	       Button Record = new Button("Record");
@@ -181,6 +174,8 @@ public class GuiConfig extends Application {
 	       text.setOnMouseClicked(e -> text.clear());
 	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
 	       
+
+	       
 	       Label label = new Label("TalkBox");
 	       label.setLabelFor(pane);
 	       label.setLayoutX(400);
@@ -190,6 +185,7 @@ public class GuiConfig extends Application {
 	       
 	       AddButton.setOnAction(e -> pane.getChildren().add(BAdder()));
 	       SetProfile.setOnAction(e -> swapAudio());
+	       AddSound.setOnAction(e -> SoundAdder(soundname));
 	       
 	     
 	  }
@@ -226,6 +222,9 @@ public class GuiConfig extends Application {
 		  return BList.get(number - 1);
 	  }
 
+	  public void ProfileAdder(String title) {
+		  TItems.add(branch(title,root));
+	  }
 	  
 
 	  public void swapAudio() {
@@ -237,9 +236,17 @@ public class GuiConfig extends Application {
 
 		  for(int i = 0; i < size; i++) {
 			  String name = al.get(i);
-			  System.out.println(name);
+			 // System.out.println(name);
 			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
 		  }
+	  }
+	  
+	  public void SoundAdder(String s) {
+		  StringBuilder e = new StringBuilder();
+		  e.append(s);
+		  e.delete(0, 10);
+		  e.delete(e.length()-4, e.length());
+		  branch(e.toString(),root.getChildren().get(row));
 	  }
 
 

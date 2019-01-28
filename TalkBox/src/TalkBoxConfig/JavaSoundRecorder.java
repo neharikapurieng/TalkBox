@@ -8,10 +8,11 @@ import java.io.*;
  */
 public class JavaSoundRecorder {
     // record duration, in milliseconds
-    static final long RECORD_TIME = 60000;  // 1 minute
+    static final long RECORD_TIME = 5000;  // 5 seconds
  
     // path of the wav file
-    File wavFile = new File("E:/Test/RecordAudio.wav");
+    public File wavFile = new File("src/Audio/RecordAudio.wav");
+ 
  
     // format of audio file
     AudioFileFormat.Type fileType = AudioFileFormat.Type.WAVE;
@@ -30,6 +31,7 @@ public class JavaSoundRecorder {
         boolean bigEndian = true;
         AudioFormat format = new AudioFormat(sampleRate, sampleSizeInBits,
                                              channels, signed, bigEndian);
+
         return format;
     }
  
@@ -94,7 +96,7 @@ public class JavaSoundRecorder {
                 recorder.finish();
             }
         });
- 
+
         stopper.start();
  
         // start recording
