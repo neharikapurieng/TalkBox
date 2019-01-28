@@ -6,6 +6,7 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -37,11 +38,12 @@ public class GuiConfig extends Application {
 	ArrayList<TreeItem> TItems;
 	String src = "src/Audio/";
 	TextField PN;
+	Pane pane;
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
 		   primaryStage.setTitle("TalkBoxConfig");
-	       Pane pane = new Pane();
+	       pane = new Pane();
 	      
 	      BList = new ArrayList<>();
 	       for(int i = 0; i < 6; i++) {
@@ -81,10 +83,7 @@ public class GuiConfig extends Application {
 	       root.setExpanded(true);
 	       
 	       TItems = new ArrayList<>();
-	       TItems.add(branch("Byes",root));
-	       TItems.add(branch("Noises",root));
-	 
-	           
+	          
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
 	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,temp) -> {   
@@ -114,11 +113,12 @@ public class GuiConfig extends Application {
 	       AddButton.setMinSize(75, 75);
 	       pane.getChildren().add(AddButton);
 	       
-	       
+	       /*
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
 	       pane.getChildren().add(RemoveProfile);
+	       */
 	       
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
@@ -140,26 +140,19 @@ public class GuiConfig extends Application {
 	       SetProfile.setLayoutY(0);
 	       pane.getChildren().add(SetProfile);
 	       
+	       /*
 	       Button EditProfile = new Button("Edit Profile");
 	       EditProfile.setLayoutX(1000);
 	       EditProfile.setLayoutY(50);
 	       pane.getChildren().add(EditProfile);
+	       */
 	       
 	       Button Record = new Button("Record");
 	       Record.setLayoutX(0);
 	       Record.setLayoutY(500);
 	       pane.getChildren().add(Record);
 	       Record.setMinSize(100, 80);
-	       Record.setOnAction(new EventHandler<ActionEvent>() {
-	    	   
-	    	   public void handle(ActionEvent e) {
-	    		   
-	    		   
-	    		  JavaSoundRecorder sound = new JavaSoundRecorder();   
-	    		  sound.start();
-	    	   }
-	    	   
-	       });
+	       Record.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.start(); });
 	       
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(110);
@@ -169,20 +162,11 @@ public class GuiConfig extends Application {
 	       Button Stop = new Button("Stop");
 	       Stop.setLayoutX(110);
 	       Stop.setLayoutY(530);
-	       Stop.setOnAction(new EventHandler<ActionEvent>() {
-	    	   
-	    	   public void handle(ActionEvent e) {
-	    		   
-	    		   
-	    		  JavaSoundRecorder sound = new JavaSoundRecorder();
-	    		  sound.finish();
-	    	   }
-	    	   
-	       });
+	       Stop.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.finish(); });
 	       
 	       pane.getChildren().add(Stop);
 	      
-	       
+	      
 	       ProgressBar AudioBar = new ProgressBar();
 	       AudioBar.setLayoutX(0);
 	       AudioBar.setLayoutY(580);
@@ -209,6 +193,8 @@ public class GuiConfig extends Application {
 	       AddButton.setOnAction(e -> pane.getChildren().add(BAdder()));
 	       SetProfile.setOnAction(e -> swapAudio());
 	       AddSound.setOnAction(e -> SoundAdder(soundname));
+	       RemoveButton.setOnAction(e -> BRemover());
+	      // RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	       
 	     
 	  }
@@ -244,10 +230,22 @@ public class GuiConfig extends Application {
 		  number += 1;
 		  return BList.get(number - 1);
 	  }
+	  
+	  public void BRemover() {
+		  pane.getChildren().remove(BList.get(BList.size() - 1));
+		  BList.remove(BList.size() - 1);
+		  ctr-=75;
+		  number-=1;
+	  }
 
 	  public void ProfileAdder(String title) {
 		  TItems.add(branch(title,root));
 	  }
+	  
+	  /*
+	  public void ProfileRemover(int r) {
+		  TItems.remove(r);
+	  }*/
 	  
 
 	  public void swapAudio() {
@@ -271,6 +269,10 @@ public class GuiConfig extends Application {
 		  e.delete(e.length()-4, e.length());
 		  branch(e.toString(),root.getChildren().get(row));
 	  }
+	  
+	  public void SoundEditor(String s) {
+		 
+	  }
 
 
 	  public void handle(String s) {	
@@ -287,8 +289,7 @@ public class GuiConfig extends Application {
 			}
 		}
 	  
-	  
-	  
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
