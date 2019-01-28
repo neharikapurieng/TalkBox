@@ -6,6 +6,8 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -148,6 +150,16 @@ public class GuiConfig extends Application {
 	       Record.setLayoutY(500);
 	       pane.getChildren().add(Record);
 	       Record.setMinSize(100, 80);
+	       Record.setOnAction(new EventHandler<ActionEvent>() {
+	    	   
+	    	   public void handle(ActionEvent e) {
+	    		   
+	    		   
+	    		  JavaSoundRecorder sound = new JavaSoundRecorder();   
+	    		  sound.start();
+	    	   }
+	    	   
+	       });
 	       
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(110);
@@ -157,6 +169,17 @@ public class GuiConfig extends Application {
 	       Button Stop = new Button("Stop");
 	       Stop.setLayoutX(110);
 	       Stop.setLayoutY(530);
+	       Stop.setOnAction(new EventHandler<ActionEvent>() {
+	    	   
+	    	   public void handle(ActionEvent e) {
+	    		   
+	    		   
+	    		  JavaSoundRecorder sound = new JavaSoundRecorder();
+	    		  sound.finish();
+	    	   }
+	    	   
+	       });
+	       
 	       pane.getChildren().add(Stop);
 	      
 	       
@@ -263,6 +286,9 @@ public class GuiConfig extends Application {
 				System.out.println("Can't find audio file");
 			}
 		}
+	  
+	  
+	  
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
