@@ -74,8 +74,8 @@ public class GuiConfig extends Application {
 	       ListofAudio.setLayoutX(800);
 	       ListofAudio.setLayoutY(400);
 	       ListofAudio.setMaxSize(200, 200);
-	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,temp)-> {
-	    	   soundname = temp.toString();
+	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
+	    	   soundname = newValue.toString();
 	       });
 	      
 	       
@@ -113,12 +113,12 @@ public class GuiConfig extends Application {
 	       AddButton.setMinSize(75, 75);
 	       pane.getChildren().add(AddButton);
 	       
-	       /*
+	       
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
 	       pane.getChildren().add(RemoveProfile);
-	       */
+	       
 	       
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
@@ -194,8 +194,8 @@ public class GuiConfig extends Application {
 	       SetProfile.setOnAction(e -> swapAudio());
 	       AddSound.setOnAction(e -> SoundAdder(soundname));
 	       RemoveButton.setOnAction(e -> BRemover());
-	      // RemoveProfile.setOnAction(e -> ProfileRemover(row));
-	       
+	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
+	      
 	     
 	  }
 	 
@@ -242,10 +242,12 @@ public class GuiConfig extends Application {
 		  TItems.add(branch(title,root));
 	  }
 	  
-	  /*
+	  
 	  public void ProfileRemover(int r) {
-		  TItems.remove(r);
-	  }*/
+		  root.getChildren().remove(r);
+	  }
+	 
+	  
 	  
 
 	  public void swapAudio() {
@@ -270,10 +272,6 @@ public class GuiConfig extends Application {
 		  branch(e.toString(),root.getChildren().get(row));
 	  }
 	  
-	  public void SoundEditor(String s) {
-		 
-	  }
-
 
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
