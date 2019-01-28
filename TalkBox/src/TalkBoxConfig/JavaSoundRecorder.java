@@ -73,6 +73,7 @@ public class JavaSoundRecorder {
         line.stop();
         line.close();
         System.out.println("Finished");
+        System.out.println();
     }
  
     /**
