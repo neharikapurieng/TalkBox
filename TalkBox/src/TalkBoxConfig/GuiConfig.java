@@ -28,11 +28,10 @@ public class GuiConfig extends Application {
 	TreeView <String> Tree;
 	public TreeItem<String> temp;
 	
-	int buttons = 6;
 	int row = 0;
 	Button SetProfile;
 	ArrayList<Button> BList;
-	 String src;
+	String src;
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
@@ -223,7 +222,6 @@ public class GuiConfig extends Application {
 		  BList.get(number).setLayoutY(50);
 		  BList.get(number).setMinSize(75, 75);
 		  ctr += 75;
-		  buttons += 1;
 		  number += 1;
 		  return BList.get(number - 1);
 	  }
