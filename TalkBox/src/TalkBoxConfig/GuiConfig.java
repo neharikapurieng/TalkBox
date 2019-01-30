@@ -1,13 +1,14 @@
 package TalkBoxConfig;
-import java.awt.Font;
 import java.io.File;
 import java.io.FilenameFilter;
-
+import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -22,134 +23,136 @@ public class GuiConfig extends Application {
 	
 	boolean collide = false;
 	Clip clip;
+	int ctr = 375 + 75;
+	int number = 6;
+	String profilename = "";
+	String soundname = "";
+	
+	TreeItem<String> root, profile1, profile2;
+	TreeView <String> Tree;
+	public TreeItem<String> temp;
+	
+	int row = 0;
+	Button SetProfile;
+	ArrayList<Button> BList;
+	ArrayList<TreeItem> TItems;
+	String src = "src/Audio/";
+	TextField PN;
+	Pane pane;
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
 		   primaryStage.setTitle("TalkBoxConfig");
-	       Pane pane = new Pane();
+	       pane = new Pane();
 	      
-		    
+	      BList = new ArrayList<>();
+	       for(int i = 0; i < 6; i++) {
+	    	   String buttonname = String.format("Sound %x", i);
+	    	   BList.add(new Button(buttonname));
+	       }
+	  
+	       int x = 0;
+	       for(int k = 0; k < BList.size(); k++) {
+	    	   int y = 50;
+	    	   BList.get(k).setLayoutX(x);
+	    	   BList.get(k).setLayoutY(y);
+	    	   BList.get(k).setMinSize(75, 75);
+	    	   pane.getChildren().add(BList.get(k));
+	    	   x += 75;
+	       }
+	         
 	       
-	      
-	       
-	       Button button1 = new Button("Sound 1");
-	       Button button2 = new Button("Sound 2");
-	       Button button3 = new Button("Sound 3");
-	       Button button4 = new Button("Sound 4");
-	       Button button5 = new Button("Sound 5");
-	       Button button6 = new Button("Sound 6");
-	       
-	       button1.setLayoutX(0);
-	       button1.setLayoutY(200);
-	       button2.setLayoutX(80);
-	       button2.setLayoutY(200);
-	       button3.setLayoutX(160);
-	       button3.setLayoutY(200);
-	       button4.setLayoutX(240);
-	       button4.setLayoutY(200);
-	       button5.setLayoutX(320);
-	       button5.setLayoutY(200);
-	       button6.setLayoutX(400);
-	       button6.setLayoutY(200);
-	       
-	    
-	       button1.setMinSize(75, 75);
-	       button2.setMinSize(75, 75);
-	       button3.setMinSize(75, 75);
-	       button4.setMinSize(75, 75);
-	       button5.setMinSize(75, 75);
-	       button6.setMinSize(75, 75);
-	      
-	        pane.getChildren().add(button1);
-	        pane.getChildren().add(button2);
-	        pane.getChildren().add(button3);
-	        pane.getChildren().add(button4);
-	        pane.getChildren().add(button5);
-	        pane.getChildren().add(button6);
-	    
-	     
-	        
-	        Scene scene = new Scene(pane,900,600);
+	        Scene scene = new Scene(pane,1100,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
-	       
 	        
+
 	       ListView <File> ListofAudio = new ListView<File>();
-	       ListofAudio.getItems().addAll(finder("bin/Audio"));
+	       ListofAudio.getItems().addAll(finder("src/Audio"));
 	       pane.getChildren().add(ListofAudio);
-	       ListofAudio.setLayoutX(600);
+	       ListofAudio.setLayoutX(800);
 	       ListofAudio.setLayoutY(400);
 	       ListofAudio.setMaxSize(200, 200);
+	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
+	    	   soundname = newValue.toString();
+	       });
+	      
 	       
-	       Button confirm = new Button("Confirm");
-	       confirm.setLayoutX(800);
-	       confirm.setLayoutY(400);
-	       pane.getChildren().add(confirm);
-	    
-	       button1.setOnAction(e -> handle("src/Audio/Hello.wav"));
-	       button2.setOnAction(e -> handle("src/Audio/Bye.wav"));
-	       button3.setOnAction(e -> handle("src/Audio/Yes.wav"));
-	       button4.setOnAction(e -> handle("src/Audio/Laugh.wav"));
-	       button5.setOnAction(e -> handle("src/Audio/Good Morning.wav"));
-	       button6.setOnAction(e -> handle("src/Audio/Clap.wav"));
-	  
-	       TreeItem<String> root, profile1, profile2;
 	       root = new TreeItem<String>();
 	       root.setExpanded(true);
 	       
-	       profile1 = branch("Greetings",root);
-	       branch("Hello",profile1);
-	       branch("Good Morning",profile1);
-	       
-	       profile2 = branch("Noises",root);
-	       branch("Laugh",profile2);
-	       branch("Clap",profile2);
-	       
+	       TItems = new ArrayList<>();
+	          
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
+	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,temp) -> {   
+	    	   if(temp != null) {
+	    		   row = Tree.getRow(temp);
+	    		   profilename = temp.getValue();
+	    		  // System.out.println(profilename);
+	    	   }
+	       });
+	          
 	       
 	       pane.getChildren().add(Tree);
-	       Tree.setLayoutX(600);
+	       Tree.setLayoutX(800);
 	       Tree.setLayoutY(0);
 	       Tree.setMaxSize(200, 350);
 	       
+	       Button RemoveButton = new Button("Remove Button");
+	       RemoveButton.setLayoutX(475);
+	       RemoveButton.setLayoutY(525);
+	       RemoveButton.setMinSize(75, 75);
+	       pane.getChildren().add(RemoveButton);
+	       
+	       
 	       Button AddButton = new Button("Add Button");
-	       AddButton.setLayoutX(0);
-	       AddButton.setLayoutY(0);
+	       AddButton.setLayoutX(400);
+	       AddButton.setLayoutY(525);
 	       AddButton.setMinSize(75, 75);
 	       pane.getChildren().add(AddButton);
 	       
-	       Button AddProfile = new Button("Add Profile");
-	       AddProfile.setLayoutX(800);
-	       AddProfile.setLayoutY(50);
-	       pane.getChildren().add(AddProfile);
 	       
 	       Button RemoveProfile = new Button("Remove Profile");
-	       RemoveProfile.setLayoutX(800);
-	       RemoveProfile.setLayoutY(150);
+	       RemoveProfile.setLayoutX(1000);
+	       RemoveProfile.setLayoutY(100);
 	       pane.getChildren().add(RemoveProfile);
 	       
+	       
 	       Button AddSound = new Button("Add Sound");
-	       AddSound.setLayoutX(800);
-	       AddSound.setLayoutY(200);
+	       AddSound.setLayoutX(1000);
+	       AddSound.setLayoutY(400);
 	       pane.getChildren().add(AddSound);
 	       
+	       
+	       PN = new TextField("Enter Profile Name");
+	       PN.setLayoutX(800);
+	       PN.setLayoutY(350);
+	       pane.getChildren().add(PN);
+	       PN.setOnMouseClicked(e -> PN.clear());
+	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
+	   
+	       
+	       
 	       Button SetProfile= new Button("Set Profile");
-	       SetProfile.setLayoutX(800);
+	       SetProfile.setLayoutX(1000);
 	       SetProfile.setLayoutY(0);
 	       pane.getChildren().add(SetProfile);
 	       
+	       /*
 	       Button EditProfile = new Button("Edit Profile");
-	       EditProfile.setLayoutX(800);
-	       EditProfile.setLayoutY(100);
+	       EditProfile.setLayoutX(1000);
+	       EditProfile.setLayoutY(50);
 	       pane.getChildren().add(EditProfile);
+	       */
 	       
 	       Button Record = new Button("Record");
 	       Record.setLayoutX(0);
 	       Record.setLayoutY(500);
 	       pane.getChildren().add(Record);
 	       Record.setMinSize(100, 80);
+	       Record.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.start(); });
 	       
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(110);
@@ -159,9 +162,11 @@ public class GuiConfig extends Application {
 	       Button Stop = new Button("Stop");
 	       Stop.setLayoutX(110);
 	       Stop.setLayoutY(530);
+	       Stop.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.finish(); });
+	       
 	       pane.getChildren().add(Stop);
 	      
-	       
+	      
 	       ProgressBar AudioBar = new ProgressBar();
 	       AudioBar.setLayoutX(0);
 	       AudioBar.setLayoutY(580);
@@ -176,17 +181,26 @@ public class GuiConfig extends Application {
 	       text.setOnMouseClicked(e -> text.clear());
 	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
 	       
+
+	       
 	       Label label = new Label("TalkBox");
 	       label.setLabelFor(pane);
-	       label.setLayoutX(200);
-	       label.setLayoutY(80);
+	       label.setLayoutX(400);
+	       label.setLayoutY(10);
 	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
 	       pane.getChildren().add(label);
 	       
+	       AddButton.setOnAction(e -> pane.getChildren().add(BAdder()));
+	       SetProfile.setOnAction(e -> swapAudio());
+	       AddSound.setOnAction(e -> SoundAdder(soundname));
+	       RemoveButton.setOnAction(e -> BRemover());
+	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
+	      
+	     
 	  }
 	 
-	  
-	  public TreeItem<String> branch(String title, TreeItem<String> parent){
+
+	public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
@@ -204,6 +218,60 @@ public class GuiConfig extends Application {
 				});
 				return files;
 		}
+	  
+	  
+	  public Button BAdder() {
+		  String num = String.format("Sound %d", number);
+		  BList.add(new Button(num));
+		  BList.get(number).setLayoutX(ctr);
+		  BList.get(number).setLayoutY(50);
+		  BList.get(number).setMinSize(75, 75);
+		  ctr += 75;
+		  number += 1;
+		  return BList.get(number - 1);
+	  }
+	  
+	  public void BRemover() {
+		  pane.getChildren().remove(BList.get(BList.size() - 1));
+		  BList.remove(BList.size() - 1);
+		  ctr-=75;
+		  number-=1;
+	  }
+
+	  public void ProfileAdder(String title) {
+		  TItems.add(branch(title,root));
+	  }
+	  
+	  
+	  public void ProfileRemover(int r) {
+		  root.getChildren().remove(r);
+	  }
+	 
+	  
+	  
+
+	  public void swapAudio() {
+		  int size = root.getChildren().get(row).getChildren().size();
+		  ArrayList<String> al = new ArrayList<String>();
+		  for(int k = 0; k < size; k++) {
+			  al.add(root.getChildren().get(row).getChildren().get(k).getValue());
+		  }
+
+		  for(int i = 0; i < size; i++) {
+			  String name = al.get(i);
+			 // System.out.println(name);
+			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
+		  }
+	  }
+	  
+	  public void SoundAdder(String s) {
+		  StringBuilder e = new StringBuilder();
+		  e.append(s);
+		  e.delete(0, 10);
+		  e.delete(e.length()-4, e.length());
+		  branch(e.toString(),root.getChildren().get(row));
+	  }
+	  
 
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
@@ -218,6 +286,8 @@ public class GuiConfig extends Application {
 				System.out.println("Can't find audio file");
 			}
 		}
+	  
+
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
