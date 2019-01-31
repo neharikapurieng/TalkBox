@@ -6,9 +6,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -19,26 +16,33 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
+
 public class GuiConfig extends Application {
 	
 	boolean collide = false;
 	Clip clip;
-	int ctr = 375 + 75;
 	int number = 6;
 	String profilename = "";
 	String soundname = "";
 	
 	TreeItem<String> root, profile1, profile2;
 	TreeView <String> Tree;
-	public TreeItem<String> temp;
 	
 	int row = 0;
 	Button SetProfile;
 	ArrayList<Button> BList;
+	@SuppressWarnings("rawtypes")
 	ArrayList<TreeItem> TItems;
 	String src = "src/Audio/";
 	TextField PN;
 	Pane pane;
+	
+	int ctr = 480;
+	int increment = 0;
+	int increment2 = 0;
+	int count = 6;
+	
+	
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
@@ -58,7 +62,7 @@ public class GuiConfig extends Application {
 	    	   BList.get(k).setLayoutY(y);
 	    	   BList.get(k).setMinSize(75, 75);
 	    	   pane.getChildren().add(BList.get(k));
-	    	   x += 75;
+	    	   x += 80;
 	       }
 	         
 	       
@@ -86,14 +90,15 @@ public class GuiConfig extends Application {
 	          
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
-	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,temp) -> {   
-	    	   if(temp != null) {
-	    		   row = Tree.getRow(temp);
-	    		   profilename = temp.getValue();
+	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
+	    	   if(NewValue != null) {
+	    		   row = Tree.getRow(NewValue);
+	    		   profilename = NewValue.getValue();
 	    		  // System.out.println(profilename);
 	    	   }
 	       });
 	          
+	    
 	       
 	       pane.getChildren().add(Tree);
 	       Tree.setLayoutX(800);
@@ -104,6 +109,7 @@ public class GuiConfig extends Application {
 	       RemoveButton.setLayoutX(475);
 	       RemoveButton.setLayoutY(525);
 	       RemoveButton.setMinSize(75, 75);
+	 
 	       pane.getChildren().add(RemoveButton);
 	       
 	       
@@ -219,14 +225,29 @@ public class GuiConfig extends Application {
 				return files;
 		}
 	  
-	  
 	  public Button BAdder() {
 		  String num = String.format("Sound %d", number);
 		  BList.add(new Button(num));
+		  if(count <=9) {
 		  BList.get(number).setLayoutX(ctr);
 		  BList.get(number).setLayoutY(50);
 		  BList.get(number).setMinSize(75, 75);
-		  ctr += 75;
+		  ctr += 80;
+		  }
+		  else if(count > 9 && count <= 19) {
+			  BList.get(number).setLayoutX(increment);
+			  BList.get(number).setLayoutY(125);
+			  BList.get(number).setMinSize(75, 75);
+			  increment += 80;
+		  }
+		  else {
+			  System.out.println(number);
+			  BList.get(number).setLayoutX(increment2);
+			  BList.get(number).setLayoutY(200);
+			  BList.get(number).setMinSize(75, 75);
+			  increment2 += 80;
+		  }
+		  count++;
 		  number += 1;
 		  return BList.get(number - 1);
 	  }
@@ -234,7 +255,16 @@ public class GuiConfig extends Application {
 	  public void BRemover() {
 		  pane.getChildren().remove(BList.get(BList.size() - 1));
 		  BList.remove(BList.size() - 1);
-		  ctr-=75;
+		  if(count <= 9) {
+			  ctr -=80;
+		  }
+		  else if(count > 9 && count <= 19) {
+			  increment -=80;
+		  }
+		  else {
+			  increment2 -=80;
+		  }
+		  count-=1;
 		  number-=1;
 	  }
 
@@ -246,9 +276,6 @@ public class GuiConfig extends Application {
 	  public void ProfileRemover(int r) {
 		  root.getChildren().remove(r);
 	  }
-	 
-	  
-	  
 
 	  public void swapAudio() {
 		  int size = root.getChildren().get(row).getChildren().size();
