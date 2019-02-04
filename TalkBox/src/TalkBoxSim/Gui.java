@@ -63,9 +63,9 @@ public class Gui extends Application {
 	      pane.getChildren().add(button3);
 	       pane.getChildren().add(button4);
 	        pane.getChildren().add(button5);
-	        pane.getChildren().add(button6);
+	       pane.getChildren().add(button6);
 	        
-	        //pane.getChildren().addAll(button1,button2,button3,button4,button5,button6);
+	      //  pane.getChildren().addAll(button1,button2,button3,button4,button5,button6);
 	     
 	        
 	        Scene scene = new Scene(pane,1150,400);

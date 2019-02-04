@@ -116,21 +116,6 @@ public class GuiConfig extends Application implements Serializable {
 	       Tree.setLayoutY(0);
 	       Tree.setMaxSize(200, 350);
 	       
-	       /*
-	       Button RemoveButton = new Button("Remove Button");
-	       RemoveButton.setLayoutX(475);
-	       RemoveButton.setLayoutY(525);
-	       RemoveButton.setMinSize(75, 75);
-	 
-	       Back.getChildren().add(RemoveButton);
-	       
-	       
-	       Button AddButton = new Button("Add Button");
-	       AddButton.setLayoutX(400);
-	       AddButton.setLayoutY(525);
-	       AddButton.setMinSize(75, 75);
-	       Back.getChildren().add(AddButton);
-	       */
 	       
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
@@ -229,8 +214,7 @@ public class GuiConfig extends Application implements Serializable {
 	       
 	       SetProfile.setOnAction(e -> swapAudio());
 	       AddSound.setOnAction(e -> SoundAdder(soundname));
-	       
-	       
+
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	      
 	     
@@ -263,22 +247,28 @@ public class GuiConfig extends Application implements Serializable {
 	    	   BList.add(new Button(buttonname));
 	       }
 		   int ctr = 0;
-		   for(Button e : BList) {
-			   e.setMinSize(75, 75);
-			   if(ctr <= 9) {
-				  sp.add(e,ctr,0);
-				   ctr++;
-			   }
-			   else if(ctr > 9 && ctr <= 19) {
-				   sp.add(e, ctr - 10, 1);
-				   ctr++;
-			   }
-			   else if(ctr > 19 && ctr <= 29) {
-				   sp.add(e, ctr - 20, 2);
-				   ctr++;
-			   }
-		   }
-}
+		   int count = numofbuttons;
+		 for(int j = 0; j <= Math.ceil(numofbuttons%10);j++) {
+			 if(count > 10) {
+				 for(int k = 0; k < 10; k++) {
+					 BList.get(ctr).setMinSize(75, 75);
+					 sp.add(BList.get(ctr), k, j);
+					 ctr++;
+					 count--;
+					 System.out.println(count);
+				 }
+			 }
+			 else {
+				 for(int h = 0; h < count; h++) {
+					 BList.get(ctr).setMinSize(75, 75);
+					 sp.add(BList.get(ctr), h, j);
+					 ctr++;
+					 System.out.println(ctr);
+			 }
+		 }
+		 }
+	  }
+
 	  
 	  public void ProfileAdder(String title) {
 		  TItems.add(branch(title,root));
@@ -326,9 +316,6 @@ public class GuiConfig extends Application implements Serializable {
 		}
 	  
 
-	  
-	  
-	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
