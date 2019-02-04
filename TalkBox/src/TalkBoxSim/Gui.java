@@ -13,7 +13,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 public class Gui extends Application {
 	
-	boolean collide = false;
+	private boolean collide = false;
 	Clip clip;
 	
 	  public void start(Stage primaryStage) {
@@ -49,12 +49,14 @@ public class Gui extends Application {
 	      button6.setMinSize(100,100);
 
 
-	        pane.getChildren().add(button1);
-	        pane.getChildren().add(button2);
-	        pane.getChildren().add(button3);
-	        pane.getChildren().add(button4);
-	        pane.getChildren().add(button5);
-	        pane.getChildren().add(button6);
+	     //   pane.getChildren().add(button1);
+	     // pane.getChildren().add(button2);
+	     //   pane.getChildren().add(button3);
+	     //   pane.getChildren().add(button4);
+	     //   pane.getChildren().add(button5);
+	     //   pane.getChildren().add(button6);
+	        
+	        pane.getChildren().addAll(button1,button2,button3,button4,button5,button6);
 	     
 	        
 	        Scene scene = new Scene(pane,1150,400);
@@ -90,8 +92,11 @@ public class Gui extends Application {
 		 }
 	  
 	  public void handle(String s) {	
-			if(this.collide == true) this.clip.stop();
+			if(this.collide == true) { 
+				this.clip.stop();
+			}
 			try {
+				
 				AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
 				this.clip = AudioSystem.getClip();
 				clip.open(audio);
