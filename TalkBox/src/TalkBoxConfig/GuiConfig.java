@@ -116,6 +116,7 @@ public class GuiConfig extends Application implements Serializable {
 	       Tree.setLayoutY(0);
 	       Tree.setMaxSize(200, 350);
 	       
+	       /*
 	       Button RemoveButton = new Button("Remove Button");
 	       RemoveButton.setLayoutX(475);
 	       RemoveButton.setLayoutY(525);
@@ -129,7 +130,7 @@ public class GuiConfig extends Application implements Serializable {
 	       AddButton.setLayoutY(525);
 	       AddButton.setMinSize(75, 75);
 	       Back.getChildren().add(AddButton);
-	       
+	       */
 	       
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
@@ -199,7 +200,7 @@ public class GuiConfig extends Application implements Serializable {
 	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});
 	       
 	       Button SerializeButton = new Button("Serialize");
-	       SerializeButton.setLayoutX(500);
+	       SerializeButton.setLayoutX(550);
 	       SerializeButton.setLayoutY(500);
 	       Back.getChildren().add(SerializeButton);
 	       SerializeButton.setOnAction(e ->{
@@ -226,11 +227,9 @@ public class GuiConfig extends Application implements Serializable {
 	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
 	       Back.getChildren().add(label);
 	       
-	      // AddButton.setOnAction(e -> pane.getChildren().add(BAdder()));
 	       SetProfile.setOnAction(e -> swapAudio());
 	       AddSound.setOnAction(e -> SoundAdder(soundname));
 	       
-	      // RemoveButton.setOnAction(e -> BRemover());
 	       
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	      
