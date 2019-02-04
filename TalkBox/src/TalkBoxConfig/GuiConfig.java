@@ -209,7 +209,7 @@ public class GuiConfig extends Application implements Serializable {
 	    	   tbc.NumOfAudioButtons = numofbuttons;
 	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size();
 	    	   tbc.NumOfButtons = numofbuttons + 7;
-	    	   tbc.PathToAudioFiles = Paths.get(src); 
+	    	   tbc.PathToAudioFiles = null;
 	    	   tbc.AudioName = null;
 				Serializer.Save(tbc, "bin/TalkBoxData/TalkBoxData.tbc");
 			} catch (Exception e1) {
