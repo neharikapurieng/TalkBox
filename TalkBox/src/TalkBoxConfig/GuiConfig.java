@@ -248,14 +248,13 @@ public class GuiConfig extends Application implements Serializable {
 	       }
 		   int ctr = 0;
 		   int count = numofbuttons;
-		 for(int j = 0; j <= Math.ceil(numofbuttons%10);j++) {
-			 if(count > 10) {
+		 for(int j = 0; j <= Math.ceil(numofbuttons/10);j++) {
+			 if(count >= 10) {
 				 for(int k = 0; k < 10; k++) {
 					 BList.get(ctr).setMinSize(75, 75);
 					 sp.add(BList.get(ctr), k, j);
 					 ctr++;
 					 count--;
-					 System.out.println(count);
 				 }
 			 }
 			 else {
@@ -263,7 +262,6 @@ public class GuiConfig extends Application implements Serializable {
 					 BList.get(ctr).setMinSize(75, 75);
 					 sp.add(BList.get(ctr), h, j);
 					 ctr++;
-					 System.out.println(ctr);
 			 }
 		 }
 		 }

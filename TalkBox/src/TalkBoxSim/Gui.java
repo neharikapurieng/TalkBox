@@ -38,13 +38,24 @@ public class Gui extends Application {
 
 	  public void Adder(GridPane p) {
 		  int ctr = 0;
-		  for(int i = 0; i < Math.round(b.Buttons.size()/10);i++) {
-			  for(int j = 0; j < 10; j++) {
-		  b.Buttons.get(ctr).setMinSize(75, 75);
-		  p.add(b.Buttons.get(ctr), j, i);
-		  ctr++;
-			  }
-		  }
+		  int count = tbc.NumOfAudioButtons;
+		  for(int j = 0; j <= Math.ceil(tbc.NumOfAudioButtons/10);j++) {
+				 if(count >= 10) {
+					 for(int k = 0; k < 10; k++) {
+						 b.Buttons.get(ctr).setMinSize(75, 75);
+						 GridP.add(b.Buttons.get(ctr), k, j);
+						 ctr++;
+						 count--;
+					 }
+				 }
+				 else {
+					 for(int h = 0; h < count; h++) {
+						 b.Buttons.get(ctr).setMinSize(75, 75);
+						 GridP.add(b.Buttons.get(ctr), h, j);
+						 ctr++;
+				 }
+			 }
+			 }
 	  }
 	  
 	  
