@@ -68,7 +68,7 @@ public class GuiConfig extends Application implements Serializable {
 	
 	  public void start(Stage primaryStage) {
 		  // Create a scene and place a button in the scene
-		   primaryStage.setTitle("TalkBoxConfig");
+		    primaryStage.setTitle("TalkBoxConfig");
 		    Pane pane = new Pane();
 	        Scene scene = new Scene(pane,1100,600);
 	        primaryStage.setScene(scene);
@@ -212,6 +212,7 @@ public class GuiConfig extends Application implements Serializable {
 	    	   Gui g = new Gui();
 	    	  try {
 				g.start(new Stage());
+				primaryStage.close();	
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
