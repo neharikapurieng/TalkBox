@@ -217,7 +217,6 @@ public class GuiConfig extends Application implements Serializable {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
-	    	   
 	       });
 	       
 	       Label label = new Label("TalkBox");
