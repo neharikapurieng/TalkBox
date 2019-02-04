@@ -135,9 +135,7 @@ public class GuiConfig extends Application implements Serializable {
 	       Back.getChildren().add(PN);
 	       PN.setOnMouseClicked(e -> PN.clear());
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
-	   
-	       
-	       
+
 	       SetProfile.setLayoutX(1000);
 	       SetProfile.setLayoutY(0);
 	       Back.getChildren().add(SetProfile);
@@ -213,8 +211,8 @@ public class GuiConfig extends Application implements Serializable {
 	       Back.getChildren().add(label);
 	       
 	       SetProfile.setOnAction(e -> swapAudio());
-	       AddSound.setOnAction(e -> SoundAdder(soundname));
-
+	       AddSound.setOnAction(e ->
+	       SoundAdder(soundname));
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	      
 	     
@@ -286,6 +284,7 @@ public class GuiConfig extends Application implements Serializable {
 
 		  for(int i = 0; i < size; i++) {
 			  String name = al.get(i);
+			  BList.get(i).setText(name);
 			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
 		  }
 	  }

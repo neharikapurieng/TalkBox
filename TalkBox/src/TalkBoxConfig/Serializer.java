@@ -1,5 +1,7 @@
 package TalkBoxConfig;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
@@ -10,8 +12,11 @@ public class Serializer {
 	
 	
 public static void Save(Serializable data, String s) throws Exception{
-	ObjectOutputStream os = new ObjectOutputStream(Files.newOutputStream(Paths.get(s)));
+	File e = new File(s);
+	e.mkdir();
+	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(e));
 	os.writeObject(data);
+	os.close();
 }	
 	
 public static Object Load( String s) throws Exception{
