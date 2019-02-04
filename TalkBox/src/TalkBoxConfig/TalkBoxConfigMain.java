@@ -8,6 +8,10 @@ import javafx.scene.layout.BorderPane;
 
 
 public class TalkBoxConfigMain extends Application {
+	
+
+	
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
@@ -21,6 +25,7 @@ public class TalkBoxConfigMain extends Application {
 		 
 		}
 	}
+	
 	
 	public static void main(String[] args) {
 		launch(args);
