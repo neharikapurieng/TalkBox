@@ -13,7 +13,6 @@ public class Serializer {
 	
 public static void Save(Serializable data, String s) throws Exception{
 	File e = new File(s);
-	e.mkdir();
 	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(e));
 	os.writeObject(data);
 	os.close();
