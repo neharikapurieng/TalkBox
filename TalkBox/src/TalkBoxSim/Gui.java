@@ -1,17 +1,20 @@
 package TalkBoxSim;
-import java.io.File;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
+import java.awt.Insets;
 
+import TalkBoxConfig.GuiConfig;
+import TalkBoxConfig.Serializer;
+import TalkBoxConfig.TalkBoxConfiguration;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+
 public class Gui extends Application {
+<<<<<<< HEAD
 	
 	private boolean collide = false;
 	Clip clip;
@@ -47,8 +50,11 @@ public class Gui extends Application {
 	      button4.setMinSize(100,100);
 	      button5.setMinSize(100,100);
 	      button6.setMinSize(100,100);
+=======
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 
 
+<<<<<<< HEAD
 	     //   pane.getChildren().add(button1);
 	     // pane.getChildren().add(button2);
 	     //   pane.getChildren().add(button3);
@@ -90,7 +96,30 @@ public class Gui extends Application {
 	        
 	        
 		 }
+=======
+	  TalkBoxConfiguration tbc;
+	  Buttons b = new Buttons();
+	  GridPane GridP = new GridPane();
+	  ScrollPane ScrollP = new ScrollPane(GridP);
+	  public void start(Stage primaryStage) throws Exception {
+		  tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
+		  Pane pane = new Pane();
+		  Pane Back = new Pane();
+		  GridP.setLayoutX(0);
+		  GridP.setLayoutY(100);
+		  ScrollP.setLayoutX(0);
+		  ScrollP.setLayoutY(100);
+		  GridP.setMinSize(800, 300);
+		  ScrollP.setMinSize(800, 300);
+		  Adder(GridP);
+		  pane.getChildren().addAll(ScrollP,Back);
+		  Scene scene = new Scene(pane,800,400);
+		  primaryStage.setScene(scene);
+		  primaryStage.show();
+	  }
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 	  
+<<<<<<< HEAD
 	  public void handle(String s) {	
 			if(this.collide == true) { 
 				this.clip.stop();
@@ -107,6 +136,20 @@ public class Gui extends Application {
 				System.out.println("Can't find audio file");
 			}
 		}
+=======
+	  public void Adder(GridPane p) {
+		  int ctr = 0;
+		  for(int i = 0; i < Math.round(b.Buttons.size()/10);i++) {
+			  for(int j = 0; j < 10; j++) {
+		  b.Buttons.get(ctr).setMinSize(75, 75);
+		  p.add(b.Buttons.get(ctr), j, i);
+		  ctr++;
+			  }
+		  }
+	  }
+	  
+	  
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
