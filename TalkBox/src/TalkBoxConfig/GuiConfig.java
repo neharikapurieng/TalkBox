@@ -214,8 +214,7 @@ public class GuiConfig extends Application implements Serializable {
 	       
 	       SetProfile.setOnAction(e -> swapAudio());
 	       AddSound.setOnAction(e -> SoundAdder(soundname));
-	       
-	       
+
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	      
 	     
