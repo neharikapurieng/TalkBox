@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+
+import TalkBoxSim.Gui;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -202,6 +204,20 @@ public class GuiConfig extends Application implements Serializable {
 	    	   
 	       });
 	       
+	       Button LaunchSim = new Button("Launch");
+	       LaunchSim.setLayoutX(500);
+	       LaunchSim.setLayoutY(550);
+	       Back.getChildren().add(LaunchSim);
+	       LaunchSim.setOnAction(e -> {
+	    	   Gui g = new Gui();
+	    	  try {
+				g.start(new Stage());
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	    	   
+	       });
 	       
 	       Label label = new Label("TalkBox");
 	       label.setLabelFor(pane);
