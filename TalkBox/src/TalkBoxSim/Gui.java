@@ -1,5 +1,6 @@
 package TalkBoxSim;
 
+<<<<<<< HEAD
 import java.awt.Insets;
 import java.io.File;
 
@@ -8,12 +9,17 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import TalkBoxConfig.GuiConfig;
+=======
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 import TalkBoxConfig.Serializer;
 import TalkBoxConfig.TalkBoxConfiguration;
 import javafx.application.Application;
 import javafx.scene.Scene;
+<<<<<<< HEAD
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+=======
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -22,6 +28,7 @@ import javafx.stage.Stage;
 
 public class Gui extends Application {
 
+<<<<<<< HEAD
 	
 	private boolean collide = false;
 	Clip clip;
@@ -101,6 +108,8 @@ public class Gui extends Application {
 	        
 		 }
 
+=======
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 	  TalkBoxConfiguration tbc;
 	  Buttons b = new Buttons();
 	  GridPane GridP = new GridPane();
@@ -122,6 +131,7 @@ public class Gui extends Application {
 		  primaryStage.show();
 	  }
 
+<<<<<<< HEAD
 	  public void handle(String s) {	
 			if(this.collide == true) { 
 				this.clip.stop();
@@ -138,16 +148,29 @@ public class Gui extends Application {
 				System.out.println("Can't find audio file");
 			}
 	  }
+=======
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 	
 	  public void Adder(GridPane p) {
 		  int ctr = 0;
-		  for(int i = 0; i < Math.round(b.Buttons.size()/10);i++) {
-			  for(int j = 0; j < 10; j++) {
-		  b.Buttons.get(ctr).setMinSize(75, 75);
-		  p.add(b.Buttons.get(ctr), j, i);
-		  ctr++;
-			  }
-		  }
+		  int count = tbc.NumOfAudioButtons;
+		  for(int j = 0; j <= Math.ceil(tbc.NumOfAudioButtons/10);j++) {
+				 if(count >= 10) {
+					 for(int k = 0; k < 10; k++) {
+						 b.Buttons.get(ctr).setMinSize(75, 75);
+						 GridP.add(b.Buttons.get(ctr), k, j);
+						 ctr++;
+						 count--;
+					 }
+				 }
+				 else {
+					 for(int h = 0; h < count; h++) {
+						 b.Buttons.get(ctr).setMinSize(75, 75);
+						 GridP.add(b.Buttons.get(ctr), h, j);
+						 ctr++;
+				 }
+			 }
+			 }
 	  }
 	  
 	  
@@ -157,5 +180,7 @@ public class Gui extends Application {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
 	}
+
+
 
 }

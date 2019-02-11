@@ -22,6 +22,7 @@ public class TalkBoxConfiguration implements Serializable
 	public int NumOfButtons;
 	public Path PathToAudioFiles;
 	public String[][] AudioName;
+	public String[][] Profiles;
 
 	/**
      * Returns the number of physical buttons that when pressed will play an audio file.
@@ -68,6 +69,12 @@ public class TalkBoxConfiguration implements Serializable
     public String[][] getAudioFileNames(){
     	return AudioName;
     }
+    
+    public String[][] getProfile() {
+		return Profiles;
+    	
+    }
+   
  
    
 }
