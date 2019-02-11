@@ -4,8 +4,8 @@ import java.io.File;
 import java.io.FilenameFilter;
 import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
-
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -36,7 +36,7 @@ public class GuiConfig extends Application implements Serializable {
 	String profilename = "";
 	String soundname = "";
 	
-	TreeItem<String> root, profile1, profile2;
+	TreeItem<String> root;
 	TreeView <String> Tree;
 	
 	int row = 0;
@@ -198,7 +198,7 @@ public class GuiConfig extends Application implements Serializable {
 	    	   tbc.AudioName = null;
 				Serializer.Save(tbc, "bin/TalkBoxData/TalkBoxData.tbc");
 			} catch (Exception e1) {
-				System.out.println("Exception Caught Cannot Serialize");
+			e1.printStackTrace();
 			}
 	    	   
 	       });
