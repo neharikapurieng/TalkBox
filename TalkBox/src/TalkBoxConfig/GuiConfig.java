@@ -1,6 +1,8 @@
 package TalkBoxConfig;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.Serializable;
 import java.nio.file.Path;
@@ -16,11 +18,13 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -65,7 +69,7 @@ public class GuiConfig extends Application implements Serializable {
 	}
 	
 	
-	  public void start(Stage primaryStage) {
+	  public void start(Stage primaryStage) throws FileNotFoundException {
 		  // Create a scene and place a button in the scene
 		    primaryStage.setTitle("TalkBoxConfig");
 		    Pane pane = new Pane();
@@ -73,24 +77,28 @@ public class GuiConfig extends Application implements Serializable {
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
-	        
-	       Back = new Pane();
+	        scene.getStylesheets().add("application.css");       
+	        Back = new Pane();
 	       
 	       sp = new GridPane();
 	       sc = new ScrollPane(sp);
-		   sp.setMinSize(800, 400);
-	       sc.setMinSize(800, 400);
-	       sc.setMaxSize(800, 400);
+	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+		   sp.setMinSize(800, 300);
+		   sp.setLayoutY(80);
+		   sc.setLayoutY(80);
+	       sc.setMinSize(800, 300);
+	       sc.setMaxSize(800, 300);
 	       pane.getChildren().addAll(Back,sc);
 		
+
 	       
-	       
-	       ListView <File> ListofAudio = new ListView<File>();
-	       ListofAudio.getItems().addAll(finder(src));
+	       ListView <String> ListofAudio = new ListView<String>();
+	       ListofAudio.getItems().addAll(ListofAudio());
 	       pane.getChildren().add(ListofAudio);
 	       ListofAudio.setLayoutX(800);
-	       ListofAudio.setLayoutY(400);
-	       ListofAudio.setMaxSize(200, 200);
+	       ListofAudio.setLayoutY(300);
+	       ListofAudio.setMaxSize(200, 175);
 	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
 	    	   soundname = newValue.toString();
 	       });
@@ -109,13 +117,12 @@ public class GuiConfig extends Application implements Serializable {
 	    		   profilename = NewValue.getValue();
 	    	   }
 	       });
-	          
-	    
+	       
 	       
 	       pane.getChildren().add(Tree);
 	       Tree.setLayoutX(800);
-	       Tree.setLayoutY(0);
-	       Tree.setMaxSize(200, 350);
+	       Tree.setLayoutY(30);
+	       Tree.setMaxSize(200, 200);
 	       
 	       
 	       Button RemoveProfile = new Button("Remove Profile");
@@ -132,21 +139,21 @@ public class GuiConfig extends Application implements Serializable {
 	       
 	       PN = new TextField("Enter Profile Name");
 	       PN.setLayoutX(800);
-	       PN.setLayoutY(350);
+	       PN.setLayoutY(230);
 	       Back.getChildren().add(PN);
 	       PN.setOnMouseClicked(e -> PN.clear());
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
 
 	       SetProfile.setLayoutX(1000);
-	       SetProfile.setLayoutY(0);
+	       SetProfile.setLayoutY(30);
 	       Back.getChildren().add(SetProfile);
 	       
 	       
 	       Button Record = new Button("Record");
-	       Record.setLayoutX(0);
-	       Record.setLayoutY(500);
+	       Record.setLayoutX(800);
+	       Record.setLayoutY(520);
 	       Back.getChildren().add(Record);
-	       Record.setMinSize(100, 80);
+	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); try {
 			sound.start();
 		} catch (InterruptedException e1) {
@@ -155,42 +162,36 @@ public class GuiConfig extends Application implements Serializable {
 		} });
 	       
 	       Button Start = new Button("Start");
-	       Start.setLayoutX(110);
-	       Start.setLayoutY(500);
+	       Start.setLayoutX(880);
+	       Start.setLayoutY(540);
 	       Back.getChildren().add(Start);
 	       
 	       Button Stop = new Button("Stop");
-	       Stop.setLayoutX(110);
-	       Stop.setLayoutY(530);
+	       Stop.setLayoutX(925);
+	       Stop.setLayoutY(540);
 	       Stop.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.stop();});
 	       
 	       Back.getChildren().add(Stop);
 	      
-	      
-	       ProgressBar AudioBar = new ProgressBar();
-	       AudioBar.setLayoutX(0);
-	       AudioBar.setLayoutY(580);
-	       Back.getChildren().add(AudioBar);
-	       AudioBar.setMinSize(200, 15);
-	      
-	        
 	       TextField text = new TextField("Enter Filename");
-	       text.setLayoutX(0);
-	       text.setLayoutY(470);
+	       text.setLayoutX(875);
+	       text.setLayoutY(570);
 	       Back.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
 	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
 	       
 	       TextField numofB = new TextField("Enter number of buttons");
-	       numofB.setLayoutX(400);
-	       numofB.setLayoutY(500);
+	       numofB.setLayoutX(0);
+	       numofB.setLayoutY(475);
+	       numofB.setMinSize(200, 50);
 	       Back.getChildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
 	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});
 	       
 	       Button SerializeButton = new Button("Serialize");
-	       SerializeButton.setLayoutX(550);
-	       SerializeButton.setLayoutY(500);
+	       SerializeButton.setLayoutX(350);
+	       SerializeButton.setLayoutY(450);
+	       SerializeButton.setMinSize(100, 100);
 	       Back.getChildren().add(SerializeButton);
 	       SerializeButton.setOnAction(e ->{
 	    	   
@@ -209,8 +210,9 @@ public class GuiConfig extends Application implements Serializable {
 	       });
 	       
 	       Button LaunchSim = new Button("Launch");
-	       LaunchSim.setLayoutX(500);
-	       LaunchSim.setLayoutY(550);
+	       LaunchSim.setLayoutX(600);
+	       LaunchSim.setLayoutY(450);
+	       LaunchSim.setMinSize(100, 100);
 	       Back.getChildren().add(LaunchSim);
 	       LaunchSim.setOnAction(e -> {
 	    	   Gui g = new Gui();
@@ -223,19 +225,38 @@ public class GuiConfig extends Application implements Serializable {
 			}
 	       });
 	       
-	       Label label = new Label("TalkBox");
+	       Label labelProfile = new Label("Profiles");
+	       labelProfile.setLabelFor(pane);
+	       labelProfile.setLayoutX(860);
+	       labelProfile.setLayoutY(0);
+	       labelProfile.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+	       Back.getChildren().add(labelProfile);
+	       
+	       Label labelAudio = new Label("Audio");
+	       labelAudio.setLabelFor(pane);
+	       labelAudio.setLayoutX(860);
+	       labelAudio.setLayoutY(270);
+	       labelAudio.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+	       Back.getChildren().add(labelAudio);
+	       
+	       Label label = new Label("TalkBox Preview");
 	       label.setLabelFor(pane);
-	       label.setLayoutX(400);
+	       label.setLayoutX(325);
 	       label.setLayoutY(10);
 	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
 	       Back.getChildren().add(label);
+	       
+	       Label labelRecord = new Label("Record Audio");
+	       labelRecord.setLabelFor(pane);
+	       labelRecord.setLayoutX(825);
+	       labelRecord.setLayoutY(490);
+	       labelRecord.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+	       Back.getChildren().add(labelRecord);
 	       
 	       SetProfile.setOnAction(e -> swapAudio());
 	       AddSound.setOnAction(e ->
 	       SoundAdder(soundname));
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
-	      
-	     
 	  }
 	 
 
@@ -260,6 +281,7 @@ public class GuiConfig extends Application implements Serializable {
 	 
 
 	  public void bAdder() {
+      sp.getChildren().clear();
 		   for(int i = 0; i < numofbuttons; i++) {
 	    	   String buttonname = String.format("Sound %d", i);
 	    	   BList.add(new Button(buttonname));
@@ -310,11 +332,7 @@ public class GuiConfig extends Application implements Serializable {
 	  }
 	  
 	  public void SoundAdder(String s) {
-		  StringBuilder e = new StringBuilder();
-		  e.append(s);
-		  e.delete(0, 22);
-		  e.delete(e.length()-4, e.length());
-		  branch(e.toString(),root.getChildren().get(row));
+		  branch(s,root.getChildren().get(row));
 	  }
 	  
 
@@ -331,7 +349,16 @@ public class GuiConfig extends Application implements Serializable {
 				System.out.println("Can't find audio file");
 			}
 		}
-	  
+	  public ArrayList<String> ListofAudio() {
+		  ArrayList<String> al = new ArrayList<String>();
+		  for(File temp : finder(src)){
+			  StringBuilder sb = new StringBuilder();
+			  sb.append(temp.getName());
+			  sb.delete(sb.length()-4, sb.length());
+			  al.add(sb.toString());
+		  }
+		return al;
+	  }
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
