@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
@@ -39,6 +40,7 @@ public class GuiConfig extends Application implements Serializable {
 	Clip clip;
 	String profilename = "";
 	String soundname = "";
+	String filename;
 	
 	TreeItem<String> root;
 	TreeView <String> Tree;
@@ -48,7 +50,7 @@ public class GuiConfig extends Application implements Serializable {
 	public ArrayList<Button> BList;
 	@SuppressWarnings("rawtypes")
 	ArrayList<TreeItem> TItems;
-	String src = "bin/TalkBoxData/Audio/";
+	String src = "src/Audio/";
 	TextField PN;
 	public Pane pane;
 	GridPane sp;
@@ -153,14 +155,19 @@ public class GuiConfig extends Application implements Serializable {
 	       Record.setLayoutY(520);
 	       Back.getChildren().add(Record);
 
-	       Record.setMinSize(100, 80);
-	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
-
+	       TextField text = new TextField("Enter Filename");
+	       text.setLayoutX(875);
+	       text.setLayoutY(570);
+	       Back.getChildren().add(text);
+	       text.setOnMouseClicked(e -> text.clear());
+	       text.setOnAction(e -> filename = text.getText());
+	       
 	       Record.setMinSize(75, 75);
-	       Record.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); try {
-
+	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
+	    	sound.SoundFormart();
+	    	sound.temp = filename;
 			sound.start();
-		} catch (InterruptedException e1) {
+		} catch (InterruptedException | LineUnavailableException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} });
@@ -172,23 +179,13 @@ public class GuiConfig extends Application implements Serializable {
 	       
 	       Button Stop = new Button("Stop");
 
-	       Stop.setLayoutX(110);
-	       Stop.setLayoutY(530);
-	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-
 	       Stop.setLayoutX(925);
 	       Stop.setLayoutY(540);
-	       Stop.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.stop();});
+	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
 
 	       
 	       Back.getChildren().add(Stop);
 	      
-	       TextField text = new TextField("Enter Filename");
-	       text.setLayoutX(875);
-	       text.setLayoutY(570);
-	       Back.getChildren().add(text);
-	       text.setOnMouseClicked(e -> text.clear());
-	       Stop.setOnMouseClicked(e -> {if(text.getText().isEmpty())text.insertText(0, "Enter Filename");});
 	       
 	       TextField numofB = new TextField("Enter number of buttons");
 	       numofB.setLayoutX(0);
@@ -212,7 +209,7 @@ public class GuiConfig extends Application implements Serializable {
 	    	   tbc.NumOfButtons = numofbuttons + 7;
 	    	   tbc.PathToAudioFiles = null;
 	    	   tbc.AudioName = null;
-				Serializer.Save(tbc, "bin/TalkBoxData/TalkBoxData.tbc");
+				Serializer.Save(tbc, "bin/TalkBoxData/");
 			} catch (Exception e1) {
 			e1.printStackTrace();
 			}

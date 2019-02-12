@@ -12,8 +12,9 @@ public class Serializer {
 	
 	
 public static void Save(Serializable data, String s) throws Exception{
-	File e = new File(s);
-	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(e));
+	File directory = new File(s);
+	directory.mkdir();
+	ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream("bin/TalkBoxData/TalkBoxData.tbc"));
 	os.writeObject(data);
 	os.close();
 }	

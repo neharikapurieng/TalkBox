@@ -16,7 +16,7 @@ public class Sound {
 	
 	
 	private TargetDataLine targetLine;
-	
+	public String temp;
 	
 	
 	public Sound() {
@@ -70,7 +70,7 @@ public class Sound {
 		 public void run()  {
 				
 				AudioInputStream audioStream = new AudioInputStream(targetLine);
-				File audioFile = new File("S.wav");
+				File audioFile = new File(temp + ".wav");
 				try {
 				AudioSystem.write(audioStream, AudioFileFormat.Type.WAVE, audioFile);
 				}
@@ -86,7 +86,8 @@ public class Sound {
 		
 		
 		thread.start();
-		Thread.sleep(10000); // This is how long the recorder will play in milliseconds
+		Thread.sleep(2000); // This is how long the recorder will play in milliseconds
+		stop();
 		}
 		catch(InterruptedException ie) {
 			
@@ -96,38 +97,8 @@ public class Sound {
 	}
 	
 	public void stop() {
-		
-	
 	this.targetLine.stop();
 	this.targetLine.close();
 	}
 	
-	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		System.out.println("Starting Sound Test...");
-		
-
-			Sound sound = new Sound();
-			try {
-				sound.SoundFormart();
-			} catch (LineUnavailableException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			try {
-				sound.start();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			sound.stop();
-				
-		System.out.println("Stopped Recording");
-				
-		
-		}
-		
-
 }	
