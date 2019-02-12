@@ -152,8 +152,13 @@ public class GuiConfig extends Application implements Serializable {
 	       Record.setLayoutX(800);
 	       Record.setLayoutY(520);
 	       Back.getChildren().add(Record);
+
+	       Record.setMinSize(100, 80);
+	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
+
 	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); try {
+
 			sound.start();
 		} catch (InterruptedException e1) {
 			// TODO Auto-generated catch block
@@ -166,9 +171,15 @@ public class GuiConfig extends Application implements Serializable {
 	       Back.getChildren().add(Start);
 	       
 	       Button Stop = new Button("Stop");
+
+	       Stop.setLayoutX(110);
+	       Stop.setLayoutY(530);
+	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
+
 	       Stop.setLayoutX(925);
 	       Stop.setLayoutY(540);
 	       Stop.setOnAction(e ->{ JavaSoundRecorder sound = new JavaSoundRecorder(); sound.stop();});
+
 	       
 	       Back.getChildren().add(Stop);
 	      
@@ -279,8 +290,12 @@ public class GuiConfig extends Application implements Serializable {
 		}
 	 
 
+
+	  
+
 	  public void bAdder() {
       sp.getChildren().clear();
+
 		   for(int i = 0; i < numofbuttons; i++) {
 	    	   String buttonname = String.format("Sound %d", i);
 	    	   BList.add(new Button(buttonname));
@@ -305,7 +320,8 @@ public class GuiConfig extends Application implements Serializable {
 		 }
 		 }
 	  }
-
+	  
+	  
 	  
 	  public void ProfileAdder(String title) {
 		  TItems.add(branch(title,root));
@@ -335,7 +351,7 @@ public class GuiConfig extends Application implements Serializable {
 	  }
 	  
 
-	  public void handle(String s) {	
+	  public void handle(String s) {	// Play Audio Files and checks if it exists
 			if(this.collide == true) this.clip.stop();
 			try {
 				AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
