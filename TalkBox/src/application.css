@@ -10,7 +10,7 @@
 }
 
 .button{
-	-fx-background-color:grey;  
+	-fx-background-color:linear-gradient(#383838, #FFA07A);    
 }
 
 .treeview{
@@ -18,6 +18,10 @@
 	-fx-font-style:italic;
 }
 
-.scrollpane{
+.scroll-pane > .viewpoint{
 -fx-background-image:url("background.jpg"); 	
+}
+
+.grid-pane{
+	-fx-background-color:aquamarine; 
 }

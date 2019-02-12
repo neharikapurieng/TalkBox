@@ -90,8 +90,7 @@ public class GuiConfig extends Application implements Serializable {
 	       sc.setMinSize(800, 300);
 	       sc.setMaxSize(800, 300);
 	       pane.getChildren().addAll(Back,sc);
-		
-
+	
 	       
 	       ListView <String> ListofAudio = new ListView<String>();
 	       ListofAudio.getItems().addAll(ListofAudio());
