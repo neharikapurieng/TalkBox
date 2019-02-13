@@ -8,6 +8,7 @@ import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -208,7 +209,9 @@ public class GuiConfig extends Application implements Serializable {
 	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size();
 	    	   tbc.NumOfButtons = numofbuttons + 7;
 	    	   tbc.PathToAudioFiles = null;
-	    	   tbc.AudioName = null;
+	    	   tbc.AudioName = audioFiles();
+	    	   tbc.path = src;
+	    	   tbc.Profiles = profiles();
 				Serializer.Save(tbc, "bin/TalkBoxData/");
 			} catch (Exception e1) {
 			e1.printStackTrace();
@@ -271,8 +274,7 @@ public class GuiConfig extends Application implements Serializable {
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
-		  return item;
-	  }
+		  return item; }
 
 	  
 	  public File[] finder(String dirName) {
@@ -280,19 +282,11 @@ public class GuiConfig extends Application implements Serializable {
 				File[] files=directoryPath.listFiles(new FilenameFilter() {
 					@Override
 					public boolean accept(File dir, String name) {
-						return name.endsWith(".wav");
-					}
-				});
-				return files;
-		}
+						return name.endsWith(".wav");}});
+				return files;}
 	 
-
-
-	  
-
 	  public void bAdder() {
       sp.getChildren().clear();
-
 		   for(int i = 0; i < numofbuttons; i++) {
 	    	   String buttonname = String.format("Sound %d", i);
 	    	   BList.add(new Button(buttonname));
@@ -305,49 +299,32 @@ public class GuiConfig extends Application implements Serializable {
 					 BList.get(ctr).setMinSize(75, 75);
 					 sp.add(BList.get(ctr), k, j);
 					 ctr++;
-					 count--;
-				 }
-			 }
+					 count--;}}
 			 else {
 				 for(int h = 0; h < count; h++) {
 					 BList.get(ctr).setMinSize(75, 75);
 					 sp.add(BList.get(ctr), h, j);
-					 ctr++;
-			 }
-		 }
-		 }
-	  }
-	  
-	  
+					 ctr++; }}}}
 	  
 	  public void ProfileAdder(String title) {
-		  TItems.add(branch(title,root));
-	  }
+		  TItems.add(branch(title,root)); }
 	  
-
 	  public void ProfileRemover(int r) {
-		  root.getChildren().remove(r);
-	  }
+		  root.getChildren().remove(r);}
 
 	  public void swapAudio() {
 		  int size = root.getChildren().get(row).getChildren().size();
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(int k = 0; k < size; k++) {
-			  al.add(root.getChildren().get(row).getChildren().get(k).getValue());
-		  }
-
+			  al.add(root.getChildren().get(row).getChildren().get(k).getValue());}
 		  for(int i = 0; i < size; i++) {
 			  String name = al.get(i);
 			  BList.get(i).setText(name);
-			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
-		  }
-	  }
+			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));}}
 	  
 	  public void SoundAdder(String s) {
-		  branch(s,root.getChildren().get(row));
-	  }
+		  branch(s,root.getChildren().get(row)); }
 	  
-
 	  public void handle(String s) {	// Play Audio Files and checks if it exists
 			if(this.collide == true) this.clip.stop();
 			try {
@@ -355,22 +332,39 @@ public class GuiConfig extends Application implements Serializable {
 				this.clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
-				this.collide = true;
-					}
+				this.collide = true;}
 			catch(Exception e) {	
-				System.out.println("Can't find audio file");
-			}
-		}
+				System.out.println("Can't find audio file");}}
+	  
 	  public ArrayList<String> ListofAudio() {
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(File temp : finder(src)){
 			  StringBuilder sb = new StringBuilder();
 			  sb.append(temp.getName());
 			  sb.delete(sb.length()-4, sb.length());
-			  al.add(sb.toString());
+			  al.add(sb.toString());}
+		return al;}
+	  
+	  public String[][] audioFiles(){
+		  String[][] temp = new String[root.getChildren().size()][BList.size()];
+		  for(int i = 0; i < root.getChildren().size(); i++) {
+		  int numofAudio = TItems.get(i).getChildren().size();
+			for(int j = 0; j < numofAudio; j++) {
+				temp[i][j] = TItems.get(i).getChildren().get(j).toString();}}
+		  for(String[] row : temp) {
+			  System.out.println(Arrays.toString(row));}
+		return temp;}
+	  
+	  public String[] profiles() {
+		  String[] temp = new String[root.getChildren().size()];
+		  for(int i = 0; i < temp.length; i++) {
+			  temp[i] = root.getChildren().get(i).toString();
 		  }
-		return al;
+		  System.out.println(Arrays.toString(temp));
+		  return temp;
 	  }
+	  
+	  
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
