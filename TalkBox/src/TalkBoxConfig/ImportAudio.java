@@ -13,10 +13,10 @@ import javafx.stage.Stage;
 public class ImportAudio {
 
 	private Stage stage;
-	Path to;
-	Path from;
-	String src = "src/Audio/";
-	String name;
+	private Path to;
+	private Path from;
+	private String src = "src/Audio/";
+	public String name;
 	
 	public void init(Stage stage) {
 		this.stage = stage;

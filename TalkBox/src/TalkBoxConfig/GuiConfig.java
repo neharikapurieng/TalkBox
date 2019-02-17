@@ -40,39 +40,46 @@ import javafx.scene.control.Label;
 
 
 
-public class GuiConfig extends Application implements Serializable {
+public class GuiConfig extends Application {
 	
-	private static final long serialVersionUID = 1L;
+	//Audio Clips
 	boolean collide = false;
-	Clip clip;
-	String profilename = "";
-	String soundname = "";
-	String filename;
+	private Clip clip;
 	
-	TreeItem<String> root;
-	TreeView <String> Tree;
+	//Strings
+	public String profilename = "";
+	private String soundname = "";
+	private String filename;
+	public String src = "src/Audio/";
 	
-	int row = 0;
-	Button SetProfile;
-	public ArrayList<Button> BList;
+	//Profile & Audio
+	private TreeItem<String> root;
+	public TreeView <String> Tree;
 	@SuppressWarnings("rawtypes")
-	ArrayList<TreeItem> TItems;
-	String src = "src/Audio/";
-	TextField PN;
+	private ArrayList<TreeItem> TItems;
+	public ArrayList<Button> BList;
+	private ListView <String> ListofAudio;
+	
+	//Items to Pane
+	private Button SetProfile;
+	private TextField PN;
+	
+	//Panes
 	public Pane pane;
-	ListView <String> ListofAudio;
-	GridPane sp;
-	Pane Back;
-	public static ScrollPane sc;
+	private GridPane sp;
+	private Pane Back;
+	public ScrollPane sc;
+	
+	//Ints
 	int ctr = 480;
+	int row = 0;
 	int increment = 0;
 	int increment2 = 0;
 
-	
+	//Serialization
 	public int numofbuttons;
 	public Path pathtofile = null;
-	
-	String refresh = "";
+
 	
 	
 	public GuiConfig() {
@@ -150,19 +157,16 @@ public class GuiConfig extends Application implements Serializable {
 	       Tree.setLayoutY(30);
 	       Tree.setMaxSize(200, 200);
 	       
-	       
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
 	       Back.getChildren().add(RemoveProfile);
-	       
 	       
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
 	       AddSound.setLayoutY(400);
 	       Back.getChildren().add(AddSound);
 	       
-
 	       PN = new TextField("Enter Profile Name");
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
@@ -173,7 +177,6 @@ public class GuiConfig extends Application implements Serializable {
 	       SetProfile.setLayoutX(1000);
 	       SetProfile.setLayoutY(30);
 	       Back.getChildren().add(SetProfile);
-	       
 	       
 	       Button Record = new Button("Record");
 	       Record.setLayoutX(800);
@@ -218,13 +221,12 @@ public class GuiConfig extends Application implements Serializable {
 	       numofB.setOnMouseClicked(e -> numofB.clear());
 	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});
 	       
-	       Button SerializeButton = new Button("Serialize");
-	       SerializeButton.setLayoutX(350);
-	       SerializeButton.setLayoutY(450);
-	       SerializeButton.setMinSize(100, 100);
-	       Back.getChildren().add(SerializeButton);
-	       SerializeButton.setOnAction(e ->{
-	    	   
+	       Button LaunchSim = new Button("Launch");
+	       LaunchSim.setLayoutX(450);
+	       LaunchSim.setLayoutY(425);
+	       LaunchSim.setMinSize(150, 150);
+	       Back.getChildren().add(LaunchSim);
+	       LaunchSim.setOnAction(e -> {
 	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
 	    	   try {
 	    	   tbc.NumOfAudioButtons = numofbuttons;
@@ -238,15 +240,6 @@ public class GuiConfig extends Application implements Serializable {
 			} catch (Exception e1) {
 			e1.printStackTrace();
 			}
-	    	   
-	       });
-	       
-	       Button LaunchSim = new Button("Launch");
-	       LaunchSim.setLayoutX(600);
-	       LaunchSim.setLayoutY(450);
-	       LaunchSim.setMinSize(100, 100);
-	       Back.getChildren().add(LaunchSim);
-	       LaunchSim.setOnAction(e -> {
 	    	   Gui g = new Gui();
 	    	  try {
 				g.start(new Stage());
