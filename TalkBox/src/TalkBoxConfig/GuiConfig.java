@@ -36,7 +36,7 @@ import javafx.scene.control.Label;
 
 public class GuiConfig extends Application implements Serializable {
 	
-	private static final long serialVersionUID = 1L;
+	
 	boolean collide = false;
 	Clip clip;
 	String profilename = "";
@@ -74,7 +74,7 @@ public class GuiConfig extends Application implements Serializable {
 	
 	  public void start(Stage primaryStage) throws FileNotFoundException {
 		  // Create a scene and place a button in the scene
-		    primaryStage.setTitle("TalkBoxConfig");
+		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbox
 		    Pane pane = new Pane();
 	        Scene scene = new Scene(pane,1100,600);
 	        primaryStage.setScene(scene);
@@ -106,7 +106,7 @@ public class GuiConfig extends Application implements Serializable {
 	       });
 	      
 	       
-	       root = new TreeItem<String>();
+	       root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
 	       root.setExpanded(true);
 	       
 	       TItems = new ArrayList<>();
@@ -143,7 +143,7 @@ public class GuiConfig extends Application implements Serializable {
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
 	       Back.getChildren().add(PN);
-	       PN.setOnMouseClicked(e -> PN.clear());
+	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
 
 	       SetProfile.setLayoutX(1000);
@@ -194,7 +194,7 @@ public class GuiConfig extends Application implements Serializable {
 	       numofB.setMinSize(200, 50);
 	       Back.getChildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});
+	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});  //?
 	       
 	       Button SerializeButton = new Button("Serialize");
 	       SerializeButton.setLayoutX(350);
@@ -206,9 +206,9 @@ public class GuiConfig extends Application implements Serializable {
 	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
 	    	   try {
 	    	   tbc.NumOfAudioButtons = numofbuttons;
-	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size();
-	    	   tbc.NumOfButtons = numofbuttons + 7;
-	    	   tbc.PathToAudioFiles = null;
+	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size(); //?
+	    	   tbc.NumOfButtons = numofbuttons + 7; //?
+	    	   tbc.PathToAudioFiles = null; // 
 	    	   tbc.AudioName = audioFiles();
 	    	   tbc.path = src;
 	    	   tbc.Profiles = profiles();
@@ -225,7 +225,7 @@ public class GuiConfig extends Application implements Serializable {
 	       LaunchSim.setMinSize(100, 100);
 	       Back.getChildren().add(LaunchSim);
 	       LaunchSim.setOnAction(e -> {
-	    	   Gui g = new Gui();
+	    	   Gui g = new Gui(); //?
 	    	  try {
 				g.start(new Stage());
 				primaryStage.close();	
@@ -281,7 +281,7 @@ public class GuiConfig extends Application implements Serializable {
 				File directoryPath = new File(dirName);
 				File[] files=directoryPath.listFiles(new FilenameFilter() {
 					@Override
-					public boolean accept(File dir, String name) {
+					public boolean accept(File dir, String name) {     //?
 						return name.endsWith(".wav");}});
 				return files;}
 	 
