@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.io.Serializable;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -17,9 +18,13 @@ import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
@@ -27,6 +32,7 @@ import javafx.scene.control.TreeView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -54,6 +60,7 @@ public class GuiConfig extends Application implements Serializable {
 	String src = "src/Audio/";
 	TextField PN;
 	public Pane pane;
+	ListView <String> ListofAudio;
 	GridPane sp;
 	Pane Back;
 	public static ScrollPane sc;
@@ -76,7 +83,7 @@ public class GuiConfig extends Application implements Serializable {
 		  // Create a scene and place a button in the scene
 		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbox
 		    Pane pane = new Pane();
-	        Scene scene = new Scene(pane,1100,600);
+	        Scene scene = new Scene(pane,1115,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
@@ -93,9 +100,27 @@ public class GuiConfig extends Application implements Serializable {
 	       sc.setMinSize(800, 300);
 	       sc.setMaxSize(800, 300);
 	       pane.getChildren().addAll(Back,sc);
-	
 	       
-	       ListView <String> ListofAudio = new ListView<String>();
+	       Menu menu = new Menu();
+	       menu.setText("File");
+	       Menu refresh = new Menu();
+	       refresh.setText("Refresh");
+	       MenuItem mi = new MenuItem("Import Audio");
+	       mi.setStyle("-fx-text-fill:black");
+	       menu.getItems().addAll(mi);
+	       
+	       mi.setOnAction(e -> {
+	    	   ImportAudio ia = new ImportAudio();  
+	    	   ia.open();
+	    	   ListofAudio();
+	       });
+	       
+
+	       MenuBar mb = new MenuBar();
+	       mb.getMenus().addAll(menu,refresh);
+	       pane.getChildren().add(mb);
+	       
+	       ListofAudio = new ListView<String>();
 	       ListofAudio.getItems().addAll(ListofAudio());
 	       pane.getChildren().add(ListofAudio);
 	       ListofAudio.setLayoutX(800);
@@ -120,7 +145,6 @@ public class GuiConfig extends Application implements Serializable {
 	    	   }
 	       });
 	       
-	       
 	       pane.getChildren().add(Tree);
 	       Tree.setLayoutX(800);
 	       Tree.setLayoutY(30);
@@ -137,6 +161,7 @@ public class GuiConfig extends Application implements Serializable {
 	       AddSound.setLayoutX(1000);
 	       AddSound.setLayoutY(400);
 	       Back.getChildren().add(AddSound);
+	       
 	       
 	       
 	       PN = new TextField("Enter Profile Name");
@@ -175,13 +200,13 @@ public class GuiConfig extends Application implements Serializable {
 	       
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(880);
-	       Start.setLayoutY(540);
+	       Start.setLayoutY(530);
 	       Back.getChildren().add(Start);
 	       
 	       Button Stop = new Button("Stop");
 
 	       Stop.setLayoutX(925);
-	       Stop.setLayoutY(540);
+	       Stop.setLayoutY(530);
 	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
 
 	       
@@ -323,7 +348,7 @@ public class GuiConfig extends Application implements Serializable {
 			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));}}
 	  
 	  public void SoundAdder(String s) {
-		  branch(s,root.getChildren().get(row)); }
+		  branch(s,root.getChildren().get(row));}
 	  
 	  public void handle(String s) {	// Play Audio Files and checks if it exists
 			if(this.collide == true) this.clip.stop();
@@ -337,13 +362,15 @@ public class GuiConfig extends Application implements Serializable {
 				System.out.println("Can't find audio file");}}
 	  
 	  public ArrayList<String> ListofAudio() {
+		  ListofAudio.getItems().clear();
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(File temp : finder(src)){
 			  StringBuilder sb = new StringBuilder();
 			  sb.append(temp.getName());
 			  sb.delete(sb.length()-4, sb.length());
 			  al.add(sb.toString());}
-		return al;}
+		  return al;
+		  }
 	  
 	  public String[][] audioFiles(){
 		  String[][] temp = new String[root.getChildren().size()][BList.size()];
@@ -364,8 +391,6 @@ public class GuiConfig extends Application implements Serializable {
 		  return temp;
 	  }
 	  
-	  
-
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
