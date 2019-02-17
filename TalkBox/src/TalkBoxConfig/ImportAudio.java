@@ -16,6 +16,7 @@ public class ImportAudio {
 	Path to;
 	Path from;
 	String src = "src/Audio/";
+	String name;
 	
 	public void init(Stage stage) {
 		this.stage = stage;
@@ -24,6 +25,7 @@ public class ImportAudio {
 	public void open() {
 		FileChooser fc = new FileChooser();
 		File file = fc.showOpenDialog(stage);
+		name = file.getName();
 		to = Paths.get(src + file.getName());
 		from = file.toPath();
 		fc.setInitialDirectory(new File(System.getProperty("user.home")));

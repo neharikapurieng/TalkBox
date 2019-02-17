@@ -72,6 +72,8 @@ public class GuiConfig extends Application implements Serializable {
 	public int numofbuttons;
 	public Path pathtofile = null;
 	
+	String refresh = "";
+	
 	
 	public GuiConfig() {
 		SetProfile = new Button("Set Profile");
@@ -103,8 +105,6 @@ public class GuiConfig extends Application implements Serializable {
 	       
 	       Menu menu = new Menu();
 	       menu.setText("File");
-	       Menu refresh = new Menu();
-	       refresh.setText("Refresh");
 	       MenuItem mi = new MenuItem("Import Audio");
 	       mi.setStyle("-fx-text-fill:black");
 	       menu.getItems().addAll(mi);
@@ -112,12 +112,12 @@ public class GuiConfig extends Application implements Serializable {
 	       mi.setOnAction(e -> {
 	    	   ImportAudio ia = new ImportAudio();  
 	    	   ia.open();
-	    	   ListofAudio();
+	    	   refresh(ia.name);
 	       });
 	       
 
 	       MenuBar mb = new MenuBar();
-	       mb.getMenus().addAll(menu,refresh);
+	       mb.getMenus().addAll(menu);
 	       pane.getChildren().add(mb);
 	       
 	       ListofAudio = new ListView<String>();
@@ -162,8 +162,7 @@ public class GuiConfig extends Application implements Serializable {
 	       AddSound.setLayoutY(400);
 	       Back.getChildren().add(AddSound);
 	       
-	       
-	       
+
 	       PN = new TextField("Enter Profile Name");
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
@@ -208,11 +207,9 @@ public class GuiConfig extends Application implements Serializable {
 	       Stop.setLayoutX(925);
 	       Stop.setLayoutY(530);
 	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-
 	       
 	       Back.getChildren().add(Stop);
 	      
-	       
 	       TextField numofB = new TextField("Enter number of buttons");
 	       numofB.setLayoutX(0);
 	       numofB.setLayoutY(475);
@@ -362,7 +359,6 @@ public class GuiConfig extends Application implements Serializable {
 				System.out.println("Can't find audio file");}}
 	  
 	  public ArrayList<String> ListofAudio() {
-		  ListofAudio.getItems().clear();
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(File temp : finder(src)){
 			  StringBuilder sb = new StringBuilder();
@@ -389,6 +385,13 @@ public class GuiConfig extends Application implements Serializable {
 		  }
 		  System.out.println(Arrays.toString(temp));
 		  return temp;
+	  }
+	 
+	  public void refresh(String s) {
+		  StringBuilder sb = new StringBuilder();
+		  sb.append(s);
+		  sb.delete(sb.length()-4, sb.length());
+		  ListofAudio.getItems().add(sb.toString());
 	  }
 	  
 	public static void main(String[] args) {
