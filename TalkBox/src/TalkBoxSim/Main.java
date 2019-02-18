@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.BorderPane;
 
-
+// Application is part of the f(x) that gives us all the functionalities of an application we can use 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
