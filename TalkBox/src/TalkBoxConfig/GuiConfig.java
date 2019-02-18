@@ -324,9 +324,10 @@ public class GuiConfig extends Application implements Serializable {
 			   for(int i = ctr2; i < numofbuttons; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
 		    	   BList.add(new Button(buttonname));
-		    	   BList.get(i).setPadding(new Insets(10,10,10,10));
+		    	   BList.get(i).setPadding(new Insets(10,10,10,10)); // tried adding padding to the buttons
 		       }
 			  this.ctr2 = 0;
+			 
 			   int count = numofbuttons;
 			 for(int j = 0; j <= Math.ceil(numofbuttons/10);j++) {
 				 if(count >= 10) {
