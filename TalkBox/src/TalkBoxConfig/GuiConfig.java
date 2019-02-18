@@ -19,6 +19,7 @@ import javax.sound.sampled.LineUnavailableException;
 import TalkBoxSim.Gui;
 import javafx.application.Application;
 import javafx.application.Platform;
+import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
@@ -67,6 +68,9 @@ public class GuiConfig extends Application implements Serializable {
 	int ctr = 480;
 	int increment = 0;
 	int increment2 = 0;
+	private int  repeat=0;
+	private int ctr2;
+	
 
 	
 	public int numofbuttons;
@@ -128,6 +132,7 @@ public class GuiConfig extends Application implements Serializable {
 	       ListofAudio.setMaxSize(200, 175);
 	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
 	    	   soundname = newValue.toString();
+	    	  
 	       });
 	      
 	       
@@ -140,7 +145,7 @@ public class GuiConfig extends Application implements Serializable {
 	       Tree.setShowRoot(false);
 	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
 	    	   if(NewValue != null) {
-	    		   row = Tree.getRow(NewValue);
+	    		   row = Tree.getRow(NewValue); 
 	    		   profilename = NewValue.getValue();
 	    	   }
 	       });
@@ -219,7 +224,8 @@ public class GuiConfig extends Application implements Serializable {
 	       numofB.setMinSize(200, 50);
 	       Back.getChildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});  //?
+	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();
+	       this.repeat++;});  //?
 	       
 	       Button SerializeButton = new Button("Serialize");
 	       SerializeButton.setLayoutX(350);
@@ -310,26 +316,31 @@ public class GuiConfig extends Application implements Serializable {
 						return name.endsWith(".wav");}});
 				return files;}
 	 
+
 	  public void bAdder() {
-      sp.getChildren().clear();
-		   for(int i = 0; i < numofbuttons; i++) {
-	    	   String buttonname = String.format("Sound %d", i);
-	    	   BList.add(new Button(buttonname));
-	       }
-		   int ctr = 0;
-		   int count = numofbuttons;
-		 for(int j = 0; j <= Math.ceil(numofbuttons/10);j++) {
-			 if(count >= 10) {
-				 for(int k = 0; k < 10; k++) {
-					 BList.get(ctr).setMinSize(75, 75);
-					 sp.add(BList.get(ctr), k, j);
-					 ctr++;
-					 count--;}}
-			 else {
-				 for(int h = 0; h < count; h++) {
-					 BList.get(ctr).setMinSize(75, 75);
-					 sp.add(BList.get(ctr), h, j);
-					 ctr++; }}}}
+		  
+		 
+	      sp.getChildren().clear();
+			   for(int i = ctr2; i < numofbuttons; i++) {
+		    	   String buttonname = String.format("Sound %d", i+1);
+		    	   BList.add(new Button(buttonname));
+		    	   BList.get(i).setPadding(new Insets(10,10,10,10));
+		       }
+			  this.ctr2 = 0;
+			   int count = numofbuttons;
+			 for(int j = 0; j <= Math.ceil(numofbuttons/10);j++) {
+				 if(count >= 10) {
+					 for(int k = 0; k < 10; k++) {
+						 BList.get(ctr2).setMinSize(75, 75);
+						 sp.add(BList.get(ctr2), k, j);
+						 ctr2++;
+						 count--;}}
+				 else {
+					 for(int h = 0; h < count; h++) {
+						 BList.get(ctr2).setMinSize(75, 75);
+						 sp.add(BList.get(ctr2), h, j);
+						 ctr2++; }}}}
+
 	  
 	  public void ProfileAdder(String title) {
 		  TItems.add(branch(title,root)); }
