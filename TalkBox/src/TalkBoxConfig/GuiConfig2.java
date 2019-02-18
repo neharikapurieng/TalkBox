@@ -268,6 +268,8 @@ public class GuiConfig2 extends Application {
 	    	   refresh(ia.name);
 	       });
 	       
+	       GuiConfig2 gui = new GuiConfig2();
+	       gui.ClickMenuButton();
 
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
