@@ -13,9 +13,10 @@ import javafx.stage.Stage;
 public class ImportAudio {
 
 	private Stage stage;
-	Path to;
-	Path from;
-	String src = "src/Audio/";
+	private Path to;
+	private Path from;
+	private String src = "src/Audio/";
+	public String name;
 	
 	public void init(Stage stage) {
 		this.stage = stage;
@@ -24,6 +25,7 @@ public class ImportAudio {
 	public void open() {
 		FileChooser fc = new FileChooser();
 		File file = fc.showOpenDialog(stage);
+		name = file.getName();
 		to = Paths.get(src + file.getName());
 		from = file.toPath();
 		fc.setInitialDirectory(new File(System.getProperty("user.home")));
