@@ -23,6 +23,7 @@ public class Main extends Application {
 	}
 	
 	public static void main(String[] args) {
+		// a method inside Application, whenever called it will launch the app as a Java Fx (app)
 		launch(args);
 	}
 }
