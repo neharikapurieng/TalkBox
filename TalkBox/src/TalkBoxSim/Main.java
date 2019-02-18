@@ -9,6 +9,8 @@ import javafx.scene.layout.BorderPane;
 // Application is part of the f(x) that gives us all the functionalities of an application we can use 
 public class Main extends Application {
 	@Override
+	// launch will call start
+	// the window is called the stage and the content like buttons is called scene 
 	public void start(Stage primaryStage) {
 		try {
 			BorderPane root = new BorderPane();
