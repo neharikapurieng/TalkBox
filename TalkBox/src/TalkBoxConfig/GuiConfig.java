@@ -290,14 +290,14 @@ public class GuiConfig extends Application {
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	  }
 	 
-
+// add titles for audio files 
 	public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
 		  return item; }
 
-	  
+	// put all the audio files into an array   
 	  public File[] finder(String dirName) {
 				File directoryPath = new File(dirName);
 				File[] files=directoryPath.listFiles(new FilenameFilter() {
