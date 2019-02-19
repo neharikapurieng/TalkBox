@@ -80,10 +80,10 @@ public class GuiConfig extends Application {
 	        scene.getStylesheets().add("application.css");       
 	        Back = new Pane();
 	       
-	       sp = new GridPane();
-	       sc = new ScrollPane(sp);
-	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+	       sp = new GridPane(); // matrix 
+	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
+	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
+	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
 		   sp.setMinSize(800, 300);
 		   sp.setLayoutY(80);
 		   sc.setLayoutY(80);
@@ -92,22 +92,23 @@ public class GuiConfig extends Application {
 	       pane.getChildren().addAll(Back,sc);
 	       
 	       Menu menu = new Menu();
-	       menu.setText("File");
-	       MenuItem mi = new MenuItem("Import Audio");
+	       menu.setText("File"); // file button 
+	       MenuItem mi = new MenuItem("Import Audio"); // another button when we press file
 	       mi.setStyle("-fx-text-fill:black");
 	       menu.getItems().addAll(mi);
 	       
 	       mi.setOnAction(e -> {
 	    	   ImportAudio ia = new ImportAudio();  
-	    	   ia.open();
-	    	   refresh(ia.name);
+	    	   ia.open(); 
+	    	   refresh(ia.name);// leads to home directory 
 	       });
 	       
-
+	       // make the menu bar 
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
 	       pane.getChildren().add(mb);
 	       
+	       //list of pre-recorded audios 
 	       ListofAudio = new ListView<String>();
 	       ListofAudio.getItems().addAll(ListofAudio());
 	       pane.getChildren().add(ListofAudio);
@@ -123,12 +124,17 @@ public class GuiConfig extends Application {
 	       root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
 	       root.setExpanded(true);
 	       
-	       TItems = new ArrayList<>();
-	          
+	       
+	       TItems = new ArrayList<>(); // creating profile
+	       
+	       // put tree item in tree    
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
 	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
 	    	   if(NewValue != null) {
+
+	    		   // row is the position of the file name
+
 	    		   row = Tree.getRow(NewValue); 
 	    		   profilename = NewValue.getValue();
 	    	   }
@@ -139,6 +145,7 @@ public class GuiConfig extends Application {
 	       Tree.setLayoutY(30);
 	       Tree.setMaxSize(200, 200);
 	       
+	       //Remove Profile Button 
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
@@ -153,7 +160,11 @@ public class GuiConfig extends Application {
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
 	       Back.getChildren().add(PN);
+
+	       PN.setOnMouseClicked(e -> PN.clear()); //clears when clicked
+
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
+
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
 
 	       
@@ -172,7 +183,7 @@ public class GuiConfig extends Application {
 	       text.setLayoutY(570);
 	       Back.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
-	       text.setOnAction(e -> filename = text.getText());
+	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
 	       
 	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
@@ -183,12 +194,13 @@ public class GuiConfig extends Application {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} });
-	       
+	       // to start recording
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(880);
 	       Start.setLayoutY(530);
 	       Back.getChildren().add(Start);
 	       
+	       // to stop recording
 	       Button Stop = new Button("Stop");
 
 	       Stop.setLayoutX(925);
@@ -220,11 +232,12 @@ public class GuiConfig extends Application {
 	    	   tbc.AudioName = audioFiles();
 	    	   tbc.path = src;
 	    	   tbc.Profiles = profiles();
-				Serializer.Save(tbc, "bin/TalkBoxData/");
+				Serializer.Save(tbc, "bin/TalkBoxData/"); //saves in serializer
 			} catch (Exception e1) {
 			e1.printStackTrace();
-			}
+			}	     
 	    	   Gui g = new Gui(); //?
+
 	    	  try {
 				g.start(new Stage());
 				primaryStage.close();	
@@ -268,14 +281,14 @@ public class GuiConfig extends Application {
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	  }
 	 
-
+// add titles for audio files 
 	public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
 		  return item; }
 
-	  
+	// put all the audio files into an array   
 	  public File[] finder(String dirName) {
 				File directoryPath = new File(dirName);
 				File[] files=directoryPath.listFiles(new FilenameFilter() {
