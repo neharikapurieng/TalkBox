@@ -224,9 +224,6 @@ public class GuiConfig extends Application {
 			} catch (Exception e1) {
 			e1.printStackTrace();
 			}
-
-	       });
-	       LaunchSim.setOnAction(e -> {
 	    	   Gui g = new Gui(); //?
 	    	  try {
 				g.start(new Stage());
