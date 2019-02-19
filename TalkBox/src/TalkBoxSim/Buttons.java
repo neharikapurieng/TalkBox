@@ -22,6 +22,10 @@ public class Buttons {
 	public ArrayList<Button> Buttons = new ArrayList<>();
 	boolean collide = false;
 	Clip clip;
+	
+	/*
+	 * Adds the amounts of buttons from TalkBoxData.tbc to an ArrayList
+	 */
 	public Buttons() {
 		  try {
 			tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");

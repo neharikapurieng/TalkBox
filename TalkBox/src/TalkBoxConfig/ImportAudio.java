@@ -44,10 +44,13 @@ public class ImportAudio {
 		name = file.getName();
 		to = Paths.get(src + file.getName());
 		from = file.toPath();
+		/*This sets the initial directory when the file explorer opens
+		 works on MACS but not windows. Windows default directory is "This PC"
+		 */
 		fc.setInitialDirectory(new File(System.getProperty("user.home")));
 		if(file != null) {
 		try {
-			Files.copy(from, to);
+			Files.copy(from, to); //Copies files from personal directory to src/Audio
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

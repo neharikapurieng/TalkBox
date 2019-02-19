@@ -148,6 +148,10 @@ public class GuiConfig extends Application {
 	       * having to expand root.
 	       * If it was false then the profiles would not show unless manually expanded such as 
 	       * when we expand the profiles to view the audio.
+	       * 
+	       * 
+	       * If mans are confused about TreeView watch the javafx tutorial on youtube
+	       * from a guy named thenewboston
 	       */
 	       root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
 	       root.setExpanded(true);
@@ -173,6 +177,7 @@ public class GuiConfig extends Application {
 	       RemoveProfile.setLayoutY(100);
 	       pane.getChildren().add(RemoveProfile);
 	       
+	       // Add sound to the profiles
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
 	       AddSound.setLayoutY(400);
@@ -231,7 +236,6 @@ public class GuiConfig extends Application {
 	       Stop.setLayoutX(925);
 	       Stop.setLayoutY(530);
 	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-	       
 	       pane.getChildren().add(Stop);
 	      
 	       
