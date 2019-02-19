@@ -1,9 +1,13 @@
 package TalkBoxConfig;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
+import java.io.Serializable;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -14,9 +18,22 @@ import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuBar;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TreeItem;
+import javafx.scene.control.TreeView;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.ScrollEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -24,49 +41,197 @@ import javafx.scene.control.Label;
 
 
 
-public class GuiConfig extends Application {
+public class GuiConfig2 extends Application {
 	
 
 	boolean collide = false;
 	private Clip clip;
-	
-	//Strings
 	public String profilename = "";
 	private String soundname = "";
 	private String filename;
 	public String src = "src/Audio/";
-	
-	//Profile & Audio
 	private TreeItem<String> root;
 	public TreeView <String> Tree;
 	@SuppressWarnings("rawtypes")
 	private ArrayList<TreeItem> TItems;
-	public ArrayList<Button> BList = new ArrayList<Button>();
+	public ArrayList<Button> BList;
 	private ListView <String> ListofAudio;
-	
-	//Items to Pane
 	private Button SetProfile;
 	private TextField PN;
-	public TextField numofB;
-	
-	//Panes
 	public Pane pane;
 	private GridPane sp;
 	private Pane Back;
 	public ScrollPane sc;
-	
-	//Ints
 	int ctr = 480;
 	int row = 0;
 	int increment = 0;
 	int increment2 = 0;
+	private int  repeat=0;
 	private int ctr2;
-	
-
-	//Serialization
 	public int numofbuttons;
 	public Path pathtofile = null;
+	private Menu menu;
+	private MenuItem mi;
+	private MenuBar mb;
 
+	
+	
+	public GuiConfig2() {
+		SetProfile = new Button("Set Profile");
+		BList = new ArrayList<>();
+	
+	}
+	
+	public void setPane() {
+		
+		this.pane = new Pane();
+		this.Back= new Pane();
+	}
+	
+	
+	public void setGridPane() {
+		
+		this.sp= new GridPane();                                   // Created a gridpane
+		this.sp.setMinSize(800, 300);                            
+		this.sp.setLayoutY(80);
+		}
+	
+	public GridPane getGridPane() {
+		
+		return this.sp;                                        // returns gridpane
+	}
+	
+	public void setScrollPane() {
+		
+		 this.sc = new ScrollPane(sp);                                        // Sets the scrollpane
+		 this.sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+	     this.sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+	     this.sc.setLayoutY(80);
+	     this.sc.setMinSize(800, 300);
+	     this.sc.setMaxSize(800, 300);
+	}
+	
+	public ScrollPane getScrollPane() {
+		
+		 
+		return this.sc;                                                          // returns scrollpane
+	} 
+	
+	
+	public void setMenu() {
+		
+		 this.menu = new Menu();
+	     this.menu.setText("File");
+	     this.mi = new MenuItem("Import Audio");
+	     mi.setStyle("-fx-text-fill:black");
+	     this.menu.getItems().addAll(mi);
+		
+		
+	}
+	
+	
+	public void ClickMenuButton() {
+		
+		  this.mi.setOnAction(e -> {
+	    	   ImportAudio ia = new ImportAudio();  
+	    	   ia.open();
+	    	   refresh(ia.name);
+	       });
+	       
+	}
+	
+	public void setMenuBar() {
+		
+		this.mb = new MenuBar();
+		this.mb.getMenus().addAll(this.menu);
+		this.pane.getChildren().add(this.mb);
+		
+	}
+	
+	
+	public void setLisOfAudio() {
+		
+	       this.ListofAudio = new ListView<String>();
+	       this.ListofAudio.getItems().addAll(ListofAudio());
+	       this.pane.getChildren().add(this.ListofAudio);
+	       this.ListofAudio.setLayoutX(800);
+	       this.ListofAudio.setLayoutY(300);
+	       this.ListofAudio.setMaxSize(200, 175);
+	       this.ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
+	       this.soundname = newValue.toString();
+	    	  
+	       });
+		
+	}
+	
+	public void setProfile() {
+		
+		  this.root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
+	      this.root.setExpanded(true);
+	       
+	       this.TItems = new ArrayList<>();
+	          
+	       TreeView <String> Tree = new TreeView<>(this.root);
+	       Tree.setShowRoot(false);
+	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
+	    	   if(NewValue != null) {
+	    		   this.row = Tree.getRow(NewValue); 
+	    		   this.profilename = NewValue.getValue();
+	    	   }
+	       });
+	       
+	       this.pane.getChildren().add(Tree);
+	       Tree.setLayoutX(800);
+	       Tree.setLayoutY(30);
+	       Tree.setMaxSize(200, 200);
+		
+	}
+	
+	public void addRemoveButton() {
+		
+		   Button RemoveProfile = new Button("Remove Profile");
+	       RemoveProfile.setLayoutX(1000);
+	       RemoveProfile.setLayoutY(100);
+	       this.Back.getChildren().add(RemoveProfile);
+		
+		
+	}
+	
+	
+	public void addSoundButton() {
+		
+		   Button AddSound = new Button("Add Sound");
+	       AddSound.setLayoutX(1000);
+	       AddSound.setLayoutY(400);
+	      this.Back.getChildren().add(AddSound);
+	       
+	}
+	
+	public void addProfileText() {
+		
+		   this.PN = new TextField("Enter Profile Name");                    
+	       this.PN.setLayoutX(800);
+	       this.PN.setLayoutY(230);
+	       this.Back.getChildren().add(PN);
+		
+	}
+	
+	public void clickProfileText() {
+		
+		this.PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
+	    this.PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
+		
+	}
+	
+	public void addSetProfileButton() {
+		
+		 this.SetProfile.setLayoutX(1000);
+	     this.SetProfile.setLayoutY(30);
+	     this.Back.getChildren().add(SetProfile);
+		
+	}
+	
+	
 	
 	
 	  public void start(Stage primaryStage) throws FileNotFoundException {
@@ -80,10 +245,10 @@ public class GuiConfig extends Application {
 	        scene.getStylesheets().add("application.css");       
 	        Back = new Pane();
 	       
-	       sp = new GridPane(); // matrix 
-	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
-	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
-	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
+	       sp = new GridPane();
+	       sc = new ScrollPane(sp);
+	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
 		   sp.setMinSize(800, 300);
 		   sp.setLayoutY(80);
 		   sc.setLayoutY(80);
@@ -92,23 +257,24 @@ public class GuiConfig extends Application {
 	       pane.getChildren().addAll(Back,sc);
 	       
 	       Menu menu = new Menu();
-	       menu.setText("File"); // file button 
-	       MenuItem mi = new MenuItem("Import Audio"); // another button when we press file
+	       menu.setText("File");
+	       MenuItem mi = new MenuItem("Import Audio");
 	       mi.setStyle("-fx-text-fill:black");
 	       menu.getItems().addAll(mi);
 	       
 	       mi.setOnAction(e -> {
 	    	   ImportAudio ia = new ImportAudio();  
-	    	   ia.open(); 
-	    	   refresh(ia.name);// leads to home directory 
+	    	   ia.open();
+	    	   refresh(ia.name);
 	       });
 	       
-	       // make the menu bar 
+	       GuiConfig2 gui = new GuiConfig2();
+	       gui.ClickMenuButton();
+
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
 	       pane.getChildren().add(mb);
 	       
-	       //list of pre-recorded audios 
 	       ListofAudio = new ListView<String>();
 	       ListofAudio.getItems().addAll(ListofAudio());
 	       pane.getChildren().add(ListofAudio);
@@ -124,17 +290,12 @@ public class GuiConfig extends Application {
 	       root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
 	       root.setExpanded(true);
 	       
-	       
-	       TItems = new ArrayList<>(); // creating profile
-	       
-	       // put tree item in tree    
+	       TItems = new ArrayList<>();
+	          
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
 	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
 	    	   if(NewValue != null) {
-
-	    		   // row is the position of the file name
-
 	    		   row = Tree.getRow(NewValue); 
 	    		   profilename = NewValue.getValue();
 	    	   }
@@ -145,7 +306,6 @@ public class GuiConfig extends Application {
 	       Tree.setLayoutY(30);
 	       Tree.setMaxSize(200, 200);
 	       
-	       //Remove Profile Button 
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
@@ -160,15 +320,9 @@ public class GuiConfig extends Application {
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
 	       Back.getChildren().add(PN);
-
-	       PN.setOnMouseClicked(e -> PN.clear()); //clears when clicked
-
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
-
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
 
-	       
-	       SetProfile = new Button("Set Profile");
 	       SetProfile.setLayoutX(1000);
 	       SetProfile.setLayoutY(30);
 	       Back.getChildren().add(SetProfile);
@@ -183,7 +337,7 @@ public class GuiConfig extends Application {
 	       text.setLayoutY(570);
 	       Back.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
-	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
+	       text.setOnAction(e -> filename = text.getText());
 	       
 	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
@@ -194,13 +348,12 @@ public class GuiConfig extends Application {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} });
-	       // to start recording
+	       
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(880);
 	       Start.setLayoutY(530);
 	       Back.getChildren().add(Start);
 	       
-	       // to stop recording
 	       Button Stop = new Button("Stop");
 
 	       Stop.setLayoutX(925);
@@ -209,13 +362,14 @@ public class GuiConfig extends Application {
 	       
 	       Back.getChildren().add(Stop);
 	      
-	       numofB = new TextField("Enter number of buttons");
+	       TextField numofB = new TextField("Enter number of buttons");
 	       numofB.setLayoutX(0);
 	       numofB.setLayoutY(475);
 	       numofB.setMinSize(200, 50);
 	       Back.getChildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});  //?
+	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();
+	       this.repeat++;});  //?
 	       
 	       Button LaunchSim = new Button("Launch");
 	       LaunchSim.setLayoutX(450);
@@ -232,18 +386,22 @@ public class GuiConfig extends Application {
 	    	   tbc.AudioName = audioFiles();
 	    	   tbc.path = src;
 	    	   tbc.Profiles = profiles();
-				Serializer.Save(tbc, "bin/TalkBoxData/"); //saves in serializer
+				Serializer.Save(tbc, "bin/TalkBoxData/");
 			} catch (Exception e1) {
 			e1.printStackTrace();
 			}
 
-	    	   Gui g = new Gui(); //gui obj is created so the things can be stored from configurator to stimulator 
-
-
 	       });
-	       LaunchSim.setOnAction(e -> {
+	       
+	       Button LaunchSim1 = new Button("Launch");
+	       LaunchSim1.setLayoutX(600);
+	       LaunchSim1.setLayoutY(450);
+	       LaunchSim1.setMinSize(100, 100);
+	       Back.getChildren().add(LaunchSim1);
+	       LaunchSim1.setOnAction(e -> {
 	    	   Gui g = new Gui(); //?
 
+	    	 
 	    	  try {
 				g.start(new Stage());
 				primaryStage.close();	
@@ -287,14 +445,14 @@ public class GuiConfig extends Application {
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));
 	  }
 	 
-// add titles for audio files 
+
 	public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
 		  parent.getChildren().add(item);
 		  return item; }
 
-	// put all the audio files into an array   
+	  
 	  public File[] finder(String dirName) {
 				File directoryPath = new File(dirName);
 				File[] files=directoryPath.listFiles(new FilenameFilter() {
@@ -305,6 +463,8 @@ public class GuiConfig extends Application {
 	 
 
 	  public void bAdder() {
+		  
+		 
 	      sp.getChildren().clear();
 			   for(int i = ctr2; i < numofbuttons; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);

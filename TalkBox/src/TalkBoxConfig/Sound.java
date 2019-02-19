@@ -86,7 +86,8 @@ public class Sound {
 		
 		
 		thread.start();
-		Thread.sleep(2000); // This is how long the recorder will play in milliseconds
+		System.out.println("Recording");
+		Thread.sleep(Integer.MAX_VALUE); // This is the max the recorder can play but the user will never play that long
 		stop();
 		}
 		catch(InterruptedException ie) {
