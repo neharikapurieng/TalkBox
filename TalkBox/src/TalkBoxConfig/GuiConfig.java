@@ -1,13 +1,9 @@
 package TalkBoxConfig;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,22 +14,9 @@ import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -58,12 +41,13 @@ public class GuiConfig extends Application {
 	public TreeView <String> Tree;
 	@SuppressWarnings("rawtypes")
 	private ArrayList<TreeItem> TItems;
-	public ArrayList<Button> BList;
+	public ArrayList<Button> BList = new ArrayList<Button>();
 	private ListView <String> ListofAudio;
 	
 	//Items to Pane
 	private Button SetProfile;
 	private TextField PN;
+	public TextField numofB;
 	
 	//Panes
 	public Pane pane;
@@ -76,7 +60,6 @@ public class GuiConfig extends Application {
 	int row = 0;
 	int increment = 0;
 	int increment2 = 0;
-	private int  repeat=0;
 	private int ctr2;
 	
 
@@ -84,12 +67,6 @@ public class GuiConfig extends Application {
 	public int numofbuttons;
 	public Path pathtofile = null;
 
-	
-	
-	public GuiConfig() {
-		SetProfile = new Button("Set Profile");
-		BList = new ArrayList<>();
-	}
 	
 	
 	  public void start(Stage primaryStage) throws FileNotFoundException {
@@ -179,6 +156,8 @@ public class GuiConfig extends Application {
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
 
+	       
+	       SetProfile = new Button("Set Profile");
 	       SetProfile.setLayoutX(1000);
 	       SetProfile.setLayoutY(30);
 	       Back.getChildren().add(SetProfile);
@@ -218,14 +197,13 @@ public class GuiConfig extends Application {
 	       
 	       Back.getChildren().add(Stop);
 	      
-	       TextField numofB = new TextField("Enter number of buttons");
+	       numofB = new TextField("Enter number of buttons");
 	       numofB.setLayoutX(0);
 	       numofB.setLayoutY(475);
 	       numofB.setMinSize(200, 50);
 	       Back.getChildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();
-	       this.repeat++;});  //?
+	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();});  //?
 	       
 	       Button LaunchSim = new Button("Launch");
 	       LaunchSim.setLayoutX(450);
@@ -248,16 +226,8 @@ public class GuiConfig extends Application {
 			}
 
 	       });
-	       
-	       Button LaunchSim1 = new Button("Launch");
-	       LaunchSim1.setLayoutX(600);
-	       LaunchSim1.setLayoutY(450);
-	       LaunchSim1.setMinSize(100, 100);
-	       Back.getChildren().add(LaunchSim1);
-	       LaunchSim1.setOnAction(e -> {
+	       LaunchSim.setOnAction(e -> {
 	    	   Gui g = new Gui(); //?
-
-	    	 
 	    	  try {
 				g.start(new Stage());
 				primaryStage.close();	
@@ -319,8 +289,6 @@ public class GuiConfig extends Application {
 	 
 
 	  public void bAdder() {
-		  
-		 
 	      sp.getChildren().clear();
 			   for(int i = ctr2; i < numofbuttons; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
