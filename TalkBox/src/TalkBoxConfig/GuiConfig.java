@@ -1,13 +1,9 @@
 package TalkBoxConfig;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
-import java.io.IOException;
-import java.io.Serializable;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -18,7 +14,6 @@ import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -30,10 +25,6 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
@@ -224,7 +215,7 @@ public class GuiConfig extends Application {
 	       numofB.setMinSize(200, 50);
 	       Back.getChildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder();
+	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder(numofbuttons);
 	       this.repeat++;});  //?
 	       
 	       Button LaunchSim = new Button("Launch");
@@ -249,12 +240,7 @@ public class GuiConfig extends Application {
 
 	       });
 	       
-	       Button LaunchSim1 = new Button("Launch");
-	       LaunchSim1.setLayoutX(600);
-	       LaunchSim1.setLayoutY(450);
-	       LaunchSim1.setMinSize(100, 100);
-	       Back.getChildren().add(LaunchSim1);
-	       LaunchSim1.setOnAction(e -> {
+	       LaunchSim.setOnAction(e -> {
 	    	   Gui g = new Gui(); //?
 
 	    	 
@@ -318,19 +304,19 @@ public class GuiConfig extends Application {
 				return files;}
 	 
 
-	  public void bAdder() {
+	  public void bAdder(int n) {
 		  
 		 
 	      sp.getChildren().clear();
-			   for(int i = ctr2; i < numofbuttons; i++) {
+			   for(int i = ctr2; i < n; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
 		    	   BList.add(new Button(buttonname));
 		    	   BList.get(i).setPadding(new Insets(10,10,10,10)); // tried adding padding to the buttons
 		       }
 			  this.ctr2 = 0;
 			 
-			   int count = numofbuttons;
-			 for(int j = 0; j <= Math.ceil(numofbuttons/10);j++) {
+			   int count = n;
+			 for(int j = 0; j <= Math.ceil(n/10);j++) {
 				 if(count >= 10) {
 					 for(int k = 0; k < 10; k++) {
 						 BList.get(ctr2).setMinSize(75, 75);
