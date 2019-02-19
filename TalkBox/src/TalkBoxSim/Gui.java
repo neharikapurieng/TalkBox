@@ -19,7 +19,6 @@ public class Gui extends Application {
 	  public void start(Stage primaryStage) throws Exception {
 		  tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
 		  Pane pane = new Pane();
-		  Pane Back = new Pane();
 		  GridP.setLayoutX(0);
 		  GridP.setLayoutY(100);
 		  ScrollP.setLayoutX(0);
@@ -27,7 +26,7 @@ public class Gui extends Application {
 		  GridP.setMinSize(800, 300);
 		  ScrollP.setMinSize(800, 300);
 		  Adder(GridP);
-		  pane.getChildren().addAll(ScrollP,Back);
+		  pane.getChildren().add(ScrollP);
 		  Scene scene = new Scene(pane,800,400);
 		  primaryStage.setScene(scene);
 		  primaryStage.show();

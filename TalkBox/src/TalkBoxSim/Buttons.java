@@ -11,6 +11,11 @@ import TalkBoxConfig.Serializer;
 import TalkBoxConfig.TalkBoxConfiguration;
 import javafx.scene.control.Button;
 
+
+/*
+ * Button class for the simulator 
+ * Deserializes the information from TalkBoxData 
+ */
 public class Buttons {
 
 	TalkBoxConfiguration tbc;	

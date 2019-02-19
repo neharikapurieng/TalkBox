@@ -10,6 +10,14 @@ import javafx.application.Platform;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+
+/*
+ * This class allows user to import their own audio files
+ * it opens up their personal file explorer where the user can navigate
+ * and add any wav file they want
+ * 
+ * 
+ */
 public class ImportAudio {
 
 	private Stage stage;
@@ -18,10 +26,18 @@ public class ImportAudio {
 	private String src = "src/Audio/";
 	public String name;
 	
+	
+	/*
+	 * This acts as the visible stage of their file explorer
+	 */
 	public void init(Stage stage) {
 		this.stage = stage;
 	}
 	
+	/*
+	 * This opens their file explorer and copies the chosen audio
+	 * to src/Audio
+	 */
 	public void open() {
 		FileChooser fc = new FileChooser();
 		File file = fc.showOpenDialog(stage);
@@ -38,6 +54,9 @@ public class ImportAudio {
 		}
 	}
 	
+	/*
+	 * Closes file explorer
+	 */
 	public void close() {
 		Platform.exit();
 	}
