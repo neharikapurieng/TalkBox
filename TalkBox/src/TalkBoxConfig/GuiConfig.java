@@ -99,10 +99,10 @@ public class GuiConfig extends Application {
 	        scene.getStylesheets().add("application.css");       
 	        Back = new Pane();
 	       
-	       sp = new GridPane();
-	       sc = new ScrollPane(sp);
-	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED);
+	       sp = new GridPane(); // matrix 
+	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
+	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
+	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
 		   sp.setMinSize(800, 300);
 		   sp.setLayoutY(80);
 		   sc.setLayoutY(80);
@@ -111,22 +111,23 @@ public class GuiConfig extends Application {
 	       pane.getChildren().addAll(Back,sc);
 	       
 	       Menu menu = new Menu();
-	       menu.setText("File");
-	       MenuItem mi = new MenuItem("Import Audio");
+	       menu.setText("File"); // file button 
+	       MenuItem mi = new MenuItem("Import Audio"); // another button when we press file
 	       mi.setStyle("-fx-text-fill:black");
 	       menu.getItems().addAll(mi);
 	       
 	       mi.setOnAction(e -> {
 	    	   ImportAudio ia = new ImportAudio();  
-	    	   ia.open();
-	    	   refresh(ia.name);
+	    	   ia.open(); 
+	    	   refresh(ia.name);// leads to home directory 
 	       });
 	       
-
+	       // make the menu bar 
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
 	       pane.getChildren().add(mb);
 	       
+	       //list of pre-recorded audios 
 	       ListofAudio = new ListView<String>();
 	       ListofAudio.getItems().addAll(ListofAudio());
 	       pane.getChildren().add(ListofAudio);
@@ -141,13 +142,16 @@ public class GuiConfig extends Application {
 	       root = new TreeItem<String>();
 	       root.setExpanded(true);
 	       
-	       TItems = new ArrayList<>();
-	          
+	       
+	       TItems = new ArrayList<>(); // creating profile
+	       
+	       // put tree item in tree    
 	       TreeView <String> Tree = new TreeView<>(root);
 	       Tree.setShowRoot(false);
 	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
 	    	   if(NewValue != null) {
-	    		   row = Tree.getRow(NewValue);
+	    		   // row is the position of the file name
+	    		   row = Tree.getRow(NewValue); 
 	    		   profilename = NewValue.getValue();
 	    	   }
 	       });
