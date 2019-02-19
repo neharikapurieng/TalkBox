@@ -242,11 +242,11 @@ public class GuiConfig extends Application {
 	    	   tbc.AudioName = audioFiles();
 	    	   tbc.path = src;
 	    	   tbc.Profiles = profiles();
-				Serializer.Save(tbc, "bin/TalkBoxData/");
+				Serializer.Save(tbc, "bin/TalkBoxData/"); //saves in serializer
 			} catch (Exception e1) {
 			e1.printStackTrace();
 			}
-	    	   Gui g = new Gui();
+	    	   Gui g = new Gui(); //gui obj is created so the things can be stored from configurator to stimulator 
 	    	  try {
 				g.start(new Stage());
 				primaryStage.close();	
