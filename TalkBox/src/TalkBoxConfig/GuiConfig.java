@@ -161,6 +161,7 @@ public class GuiConfig extends Application {
 	       Tree.setLayoutY(30);
 	       Tree.setMaxSize(200, 200);
 	       
+	       //Remove Profile Button 
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
@@ -175,7 +176,7 @@ public class GuiConfig extends Application {
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
 	       Back.getChildren().add(PN);
-	       PN.setOnMouseClicked(e -> PN.clear());
+	       PN.setOnMouseClicked(e -> PN.clear()); //clears when clicked
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();});
 
 	       SetProfile.setLayoutX(1000);
@@ -192,7 +193,7 @@ public class GuiConfig extends Application {
 	       text.setLayoutY(570);
 	       Back.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
-	       text.setOnAction(e -> filename = text.getText());
+	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
 	       
 	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
@@ -203,12 +204,13 @@ public class GuiConfig extends Application {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		} });
-	       
+	       // to start recording
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(880);
 	       Start.setLayoutY(530);
 	       Back.getChildren().add(Start);
 	       
+	       // to stop recording
 	       Button Stop = new Button("Stop");
 
 	       Stop.setLayoutX(925);
