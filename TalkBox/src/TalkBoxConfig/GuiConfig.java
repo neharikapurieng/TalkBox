@@ -1,7 +1,5 @@
 package TalkBoxConfig;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
@@ -16,15 +14,11 @@ import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
-import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -93,6 +87,9 @@ public class GuiConfig extends Application {
 	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
 		   sp.setMinSize(800, 300);
 	       sc.setMinSize(800, 300);
+	       
+	       
+	     //----------------------------------------------------------------------------------------------------------------------//	       
 	       VBox msbal = new VBox(25); 
 	       /*
 	        *The menu objects are to allows users to import their own audio files
@@ -120,7 +117,15 @@ public class GuiConfig extends Application {
 	    	   refresh(ia.name);
 	       });
 	       MenuBar mb = new MenuBar();
+	       mb.setMaxWidth(65);
 	       mb.getMenus().addAll(menu);
+	       
+	       
+	       
+	       Label label = new Label("						TalkBox Preview");
+	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
+
+	       
 
 	       
 	       
@@ -198,16 +203,10 @@ public class GuiConfig extends Application {
 				e1.printStackTrace();
 			}
 	       });
-	       
-	       
-	       ButtonsandLaunch.getChildren().addAll(numofB,LaunchSim);
 
-	       
-	       HBox RecordingArea = new HBox();
-	       VBox StopandFile = new VBox();
-	       
-	       
-	       //////////////////////////////////////////////////
+	       ButtonsandLaunch.getChildren().addAll(numofB,LaunchSim);
+//----------------------------------------------------------------------------------------------------------------------//
+
 	       HBox ListandAddAudio = new HBox();
 	      /*
 	       * This shows all the audio files in src/Audio in the form of a ListView
@@ -225,9 +224,10 @@ public class GuiConfig extends Application {
 	       });
 	       Button AddSound = new Button("Add Sound");
 	       ListandAddAudio.getChildren().addAll(ListofAudio,AddSound);
-	       ////////////////////////////////////////////////
-	       VBox RemoveandSet = new VBox();
-	       
+	     //----------------------------------------------------------------------------------------------------------------------//
+
+	       HBox TreeandButton = new HBox();
+	       VBox RemoveandSet = new VBox();      
 	      /*
 	       * root is where we add all the profiles. So just like how all the audio files
 	       * are added to specified profiles. All the profiles must be added to a root in order
@@ -259,21 +259,16 @@ public class GuiConfig extends Application {
 	       SetProfile = new Button("Set Profile");
 	       RemoveandSet.setSpacing(50);
 	       RemoveandSet.getChildren().addAll(SetProfile,RemoveProfile);
-	       
-	      HBox TreeandButton = new HBox();
+	   
 	      TreeandButton.getChildren().addAll(Tree,RemoveandSet);
-	      /////////////////////////////////////////////////////
+	      //----------------------------------------------------------------------------------------------------------------------//
 	       
-	       PN = new TextField("Enter Profile Name");
-	       PN.setMaxWidth(247);
-	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
-	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
-
-
+	       
+	       HBox RecordingArea = new HBox();
+	       VBox StopandFile = new VBox();
+	       
 	       
 	       Button Record = new Button("Record");
-
-
 	       TextField text = new TextField("Enter Filename");
 	       text.setOnMouseClicked(e -> text.clear());
 	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it for serializer
@@ -298,15 +293,18 @@ public class GuiConfig extends Application {
 	       // to stop recording
 	       Button Stop = new Button("Stop");
 	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-	       //pane.getchildren().add(Stop);
 	      
 	       StopandFile.getChildren().addAll(Stop,text);
 	       RecordingArea.getChildren().addAll(Record,StopandFile);
-
+	     //----------------------------------------------------------------------------------------------------------------------//
+	       
 	       
 	       VBox ProfileandAudio = new VBox();
-	       
-	       
+	       PN = new TextField("Enter Profile Name");
+	       PN.setMaxWidth(247);
+	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
+	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
+
 	       SetProfile.setOnAction(e -> swapAudio()); //Set Profile by calling swapAudio
 	       AddSound.setOnAction(e ->SoundAdder(soundname)); //Adds sound by calling SoundAdder
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));//Removes Profile by calling ProfileRemover
@@ -319,11 +317,6 @@ public class GuiConfig extends Application {
 	       Label labelAudio = new Label("		Audio");
 	       labelAudio.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
 
-	       
-	       Label label = new Label("						TalkBox Preview");
-	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
-
-	       
 	       Label labelRecord = new Label("Record Audio");
 	      
 	       labelRecord.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
@@ -335,6 +328,8 @@ public class GuiConfig extends Application {
 	       lsbl.getChildren().addAll(labelandsc,ButtonsandLaunch);
 	       
 	       ProfileandAudio.getChildren().addAll(labelProfile,TreeandButton,PN,labelAudio,ListandAddAudio,labelRecord,RecordingArea);
+	       
+	       //----------------------------------------------------------------------------------------------------------------------//
 	       
 	       msbal.getChildren().addAll(mb,lsbl);
 	       temp.getChildren().addAll(msbal,ProfileandAudio);
@@ -557,6 +552,15 @@ public class GuiConfig extends Application {
 		  ListofAudio.getItems().add(sb.toString());
 	  }
 	  
+	  /*
+	   * This method is to copy the recorded audio into src/audio
+	  public void copy(String s) throws IOException {
+		 for(File f : finder("TalkBox")) {
+			 if(f.getName() == s + ".wav") {
+				 Files.copy(f.toPath(), Paths.get(src));
+			 }
+		 }
+	  }*/
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
