@@ -53,8 +53,7 @@ public class GuiConfig extends Application {
 	public TextField numofB;
 	
 	//Panes
-	public Pane pane;
-	private GridPane sp;
+	public GridPane sp;
 	public ScrollPane sc;
 	
 	//Ints
@@ -73,34 +72,17 @@ public class GuiConfig extends Application {
 	
 	  public void start(Stage primaryStage) throws FileNotFoundException {
 		  // Create a scene and place a button in the scene
-		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbox
-		    VBox pane = new VBox();
+		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbo
 		    HBox temp = new HBox();
-	        Scene scene = new Scene(temp,1115,600);
+	        Scene scene = new Scene(temp,1200,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
-	        
 	        //This line applys all the css code from application.css
 	        scene.getStylesheets().add("application.css");       
 	       
-	       sp = new GridPane(); // matrix 
-	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
-	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
-	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
-		   sp.setMinSize(800, 300);
-		   sp.setLayoutY(80);
-		   sc.setLayoutY(80);
-	       sc.setMinSize(800, 300);
-	       sc.setMaxSize(800, 300);
-	    //   //pane().add(sc);
-	       
-	       
-	       HBox RecordingArea = new HBox();
-	       
-	       
-	       
-	       
+		   
+	       VBox msbal = new VBox(25); 
 	       /*
 	        *The menu objects are to allows users to import their own audio files
 	        *MenuBar mb creates the menubar to hold menus
@@ -132,133 +114,22 @@ public class GuiConfig extends Application {
 	       
 	       
 	       
-	       
-	      /*
-	       * This shows all the audio files in src/Audio in the form of a ListView
-	       * It calls ListofAudio to get and add all the names
-	       * an action listener is added so that when you click on the specific sound
-	       * the global variable "soundname" is changed to that sound
-	       * soundname is used when sounds to profiles
-	       */
-	       ListofAudio = new ListView<String>();
-	       ListofAudio.getItems().addAll(ListofAudio());
-	       // //pane.getchildren().add(ListofAudio);
-	       ListofAudio.setLayoutX(800);
-	       ListofAudio.setLayoutY(300);
-	       ListofAudio.setMinSize(200, 175);
-	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
-	    	   soundname = newValue.toString();
-	    	  
-	       });
-	      
-	      /*
-	       * root is where we add all the profiles. So just like how all the audio files
-	       * are added to specified profiles. All the profiles must be added to a root in order
-	       * to hold them. The "root" is set to setExpanded(true) so that the profiles show without
-	       * having to expand root.
-	       * If it was false then the profiles would not show unless manually expanded such as 
-	       * when we expand the profiles to view the audio.
-	       * 
-	       * 
-	       * If mans are confused about TreeView watch the javafx tutorial on youtube
-	       * from a guy named thenewboston
-	       */
-	       root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
-	       root.setExpanded(true);
-	       TItems = new ArrayList<>(); // creating profile   
-	       TreeView <String> Tree = new TreeView<>(root); //put item in tree
-	       Tree.setShowRoot(false);
-	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
-	    	   if(NewValue != null) {
-	    		   row = Tree.getRow(NewValue); // row is the position of the file name
-	    		   profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
-	    	   }
-	       });
-	       //pane.getchildren().add(Tree);
-	       Tree.setLayoutX(800);
-	       Tree.setLayoutY(30);
-	       Tree.setMinSize(200, 200);
-	       
-	       
-
-	       //Remove Profile Button 
-	       Button RemoveProfile = new Button("Remove Profile");
-	       RemoveProfile.setLayoutX(1000);
-	       RemoveProfile.setLayoutY(100);
-	       //pane.getchildren().add(RemoveProfile);
-	       
-	       // Add sound to the profiles
-	       Button AddSound = new Button("Add Sound");
-	       AddSound.setLayoutX(1000);
-	       AddSound.setLayoutY(400);
-	       //pane.getchildren().add(AddSound);
-	       
-	       
-	       PN = new TextField("Enter Profile Name");
-	       PN.setLayoutX(800);
-	       PN.setLayoutY(230);
-	       //pane.getchildren().add(PN);
-	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
-	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
+	       sp = new GridPane(); // matrix 
+	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
+	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
+	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
+		   sp.setMinSize(800, 300);
+		   sc.setMinSize(800, 300);
 
 	       
-	       SetProfile = new Button("Set Profile");
-	       SetProfile.setLayoutX(1000);
-	       SetProfile.setLayoutY(30);
-	       //pane.getchildren().add(SetProfile);
 	       
-	       Button Record = new Button("Record");
-	       Record.setLayoutX(800);
-	       Record.setLayoutY(520);
-	       //pane.getchildren().add(Record);
-
-	       TextField text = new TextField("Enter Filename");
-	       text.setLayoutX(875);
-	       text.setLayoutY(570);
-	       //pane.getchildren().add(text);
-	       text.setOnMouseClicked(e -> text.clear());
-	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
-	       
-	       
-	       /*
-	        * The Recorder button calls the Sound class which allows us to record audio
-	        * sound.temp = filename will allow them to save the audio to the desired audio name
-	        * 
-	        */
-	       Record.setMinSize(75, 75);
-	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
-	    	sound.SoundFormart();
-	    	sound.temp = filename;
-			sound.start();
-		} catch (InterruptedException | LineUnavailableException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		} });
-	       // to start recording
-	       Button Start = new Button("Start");
-	       Start.setLayoutX(880);
-	       Start.setLayoutY(530);
-	       //pane.getchildren().add(Start);
-	       
-	       // to stop recording
-	       Button Stop = new Button("Stop");
-
-	       Stop.setLayoutX(925);
-	       Stop.setLayoutY(530);
-	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-	       //pane.getchildren().add(Stop);
-	      
-	       
-	       
+	       HBox ButtonsandLaunch = new HBox(300);
 	       /*
 	        * This allows users to enter how many buttons they want
 	        * It parses the entered number and then calls bAdder 
 	        * to add the buttons in
 	        */
 	       numofB = new TextField("Enter number of buttons");
-	       numofB.setLayoutX(0);
-	       numofB.setLayoutY(475);
-	       numofB.setMinSize(200, 50);
 	       //pane.getchildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
 	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder(numofbuttons);});  //?
@@ -274,9 +145,7 @@ public class GuiConfig extends Application {
 	        * It opens the the simulator and closes the configurator 
 	        */
 	       Button LaunchSim = new Button("Launch");
-	       LaunchSim.setLayoutX(450);
-	       LaunchSim.setLayoutY(425);
-	       LaunchSim.setMinSize(150, 150);
+	       LaunchSim.setMinSize(100, 100);
 	       //pane.getchildren().add(LaunchSim);
 	       LaunchSim.setOnAction(e -> {
 	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
@@ -303,53 +172,155 @@ public class GuiConfig extends Application {
 			}
 	       });
 	       
-	       VBox temp2 = new VBox();
 	       
-	       Label labelProfile = new Label("Profiles");
-	       labelProfile.setLabelFor(pane);
-	       labelProfile.setLayoutX(860);
-	       labelProfile.setLayoutY(0);
+	       ButtonsandLaunch.getChildren().addAll(numofB,LaunchSim);
+
+	       
+	       HBox RecordingArea = new HBox();
+	       VBox StopandFile = new VBox();
+	       
+	       
+	       //////////////////////////////////////////////////
+	       HBox ListandAddAudio = new HBox();
+	      /*
+	       * This shows all the audio files in src/Audio in the form of a ListView
+	       * It calls ListofAudio to get and add all the names
+	       * an action listener is added so that when you click on the specific sound
+	       * the global variable "soundname" is changed to that sound
+	       * soundname is used when sounds to profiles
+	       */
+	       ListofAudio = new ListView<String>();
+	       ListofAudio.getItems().addAll(ListofAudio());
+	       // //pane.getchildren().add(ListofAudio);
+	       ListofAudio.setMinSize(200, 175);
+	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
+	    	   soundname = newValue.toString();
+	    	  
+	       });
+	       
+	       Button AddSound = new Button("Add Sound");
+	       
+	       ListandAddAudio.getChildren().addAll(ListofAudio,AddSound);
+	       
+	      
+	       ////////////////////////////////////////////////
+	       VBox RemoveandSet = new VBox();
+	       
+	      /*
+	       * root is where we add all the profiles. So just like how all the audio files
+	       * are added to specified profiles. All the profiles must be added to a root in order
+	       * to hold them. The "root" is set to setExpanded(true) so that the profiles show without
+	       * having to expand root.
+	       * If it was false then the profiles would not show unless manually expanded such as 
+	       * when we expand the profiles to view the audio.
+	       * 
+	       * 
+	       * If mans are confused about TreeView watch the javafx tutorial on youtube
+	       * from a guy named thenewboston
+	       */
+	       root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
+	       root.setExpanded(true);
+	       TItems = new ArrayList<>(); // creating profile   
+	       TreeView <String> Tree = new TreeView<>(root); //put item in tree
+	       Tree.setShowRoot(false);
+	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
+	    	   if(NewValue != null) {
+	    		   row = Tree.getRow(NewValue); // row is the position of the file name
+	    		   profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
+	    	   }
+	       });
+
+	       Tree.setMinSize(200, 200);
+	       
+
+	       //Remove Profile Button 
+	       Button RemoveProfile = new Button("Remove Profile");
+
+	       
+	       SetProfile = new Button("Set Profile");
+	       RemoveandSet.setSpacing(50);
+	       RemoveandSet.getChildren().addAll(SetProfile,RemoveProfile);
+	       
+	      HBox TreeandButton = new HBox();
+	      TreeandButton.getChildren().addAll(Tree,RemoveandSet);
+	      /////////////////////////////////////////////////////
+	       
+	       PN = new TextField("Enter Profile Name");
+	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
+	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
+
+
+	       
+	       Button Record = new Button("Record");
+
+
+	       TextField text = new TextField("Enter Filename");
+	       text.setOnMouseClicked(e -> text.clear());
+	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
+	       
+	       
+	       /*
+	        * The Recorder button calls the Sound class which allows us to record audio
+	        * sound.temp = filename will allow them to save the audio to the desired audio name
+	        * 
+	        */
+	       Record.setMinSize(75, 75);
+	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
+	    	sound.SoundFormart();
+	    	sound.temp = filename;
+			sound.start();
+		} catch (InterruptedException | LineUnavailableException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} });
+	       // to start recording
+	    
+	       // to stop recording
+	       Button Stop = new Button("Stop");
+	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
+	       //pane.getchildren().add(Stop);
+	      
+	       StopandFile.getChildren().addAll(Stop,text);
+	       RecordingArea.getChildren().addAll(Record,StopandFile);
+
+	       
+	       VBox ProfileandAudio = new VBox();
+	       
+	       Label labelProfile = new Label("		Profiles");
 	       labelProfile.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
 	       //pane.getchildren().add(labelProfile);
 	       
-	       Label labelAudio = new Label("Audio");
-	       labelAudio.setLabelFor(pane);
-	       labelAudio.setLayoutX(860);
-	       labelAudio.setLayoutY(270);
+	       Label labelAudio = new Label("		Audio");
 	       labelAudio.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
 	       //pane.getchildren().add(labelAudio);
 	       
-	       Label label = new Label("TalkBox Preview");
-	       label.setLabelFor(pane);
-	       label.setLayoutX(325);
-	       label.setLayoutY(10);
+	       Label label = new Label("						TalkBox Preview");
 	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
 	       //pane.getchildren().add(label);
 	       
 	       Label labelRecord = new Label("Record Audio");
-	       labelRecord.setLabelFor(pane);
-	       labelRecord.setLayoutX(825);
-	       labelRecord.setLayoutY(490);
+	      
 	       labelRecord.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       //pane.getchildren().add(labelRecord);
-
 	       
-	       temp2.getChildren().addAll(labelProfile,Tree,labelAudio,ListofAudio,labelRecord);
+	       VBox labelandsc = new VBox(5);
+	       labelandsc.getChildren().addAll(label,sc);
+	       
+	       VBox lsbl = new VBox(100);
+	       lsbl.getChildren().addAll(labelandsc,ButtonsandLaunch);
+	       
+	      ProfileandAudio.getChildren().addAll(labelProfile,TreeandButton,PN,labelAudio,ListandAddAudio,labelRecord,RecordingArea);
 	       
 	       SetProfile.setOnAction(e -> swapAudio()); //Set Profile by calling swapAudio
 	       AddSound.setOnAction(e ->SoundAdder(soundname)); //Adds sound by calling SoundAdder
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));//Removes Profile by calling ProfileRemover
-	       
-	       pane.getChildren().add(0, mb);
-	       pane.getChildren().add(1, sc);
-	       pane.setSpacing(75);
-	       temp.getChildren().addAll(pane,temp2);
-	       
-	       
-	       HBox.setHgrow(pane, Priority.ALWAYS);
-	       VBox.setVgrow(pane, Priority.ALWAYS);
-	       
-	       
+	       msbal.getChildren().addAll(mb,lsbl);
+	       temp.getChildren().addAll(msbal,ProfileandAudio);
+
+	       VBox.setVgrow(temp, Priority.ALWAYS);
+	       HBox.setHgrow(msbal, Priority.ALWAYS);
+	       VBox.setVgrow(lsbl, Priority.ALWAYS);
+	       VBox.setVgrow(labelandsc, Priority.ALWAYS);
+	       VBox.setVgrow(sc, Priority.ALWAYS);
 	  }
 	 
 	  /*
