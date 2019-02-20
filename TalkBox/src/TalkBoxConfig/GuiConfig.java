@@ -23,7 +23,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -56,8 +59,7 @@ public class GuiConfig extends Application {
 	private int count=0;
 	
 	//Panes
-	public Pane pane;
-	private GridPane sp;
+	public GridPane sp;
 	public ScrollPane sc;
 	
 	//Ints
@@ -76,111 +78,22 @@ public class GuiConfig extends Application {
 	
 	  public void start(Stage primaryStage) throws FileNotFoundException {
 		  // Create a scene and place a button in the scene
-		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbox
-		    Pane pane = new Pane();
-	        Scene scene = new Scene(pane,1115,600);
+		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbo
+		    HBox temp = new HBox();
+	        Scene scene = new Scene(temp,1200,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        
 	        primaryStage.show();
-	        
 	        //This line applys all the css code from application.css
 	        scene.getStylesheets().add("application.css");       
-	        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 	       sp = new GridPane(); // matrix 
-	   
 	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
 	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
 	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
 		   sp.setMinSize(800, 300);
-		   sp.setLayoutY(80);
-		   sc.setLayoutY(80);
 	       sc.setMinSize(800, 300);
-	       sc.setMaxSize(800,500);
-	       sc.prefHeightProperty().bind(scene.heightProperty().divide(2));
-	       sc.prefWidthProperty().bind(scene.widthProperty().divide(2));
-	       
-	       
-	      
-
-	 
-	      pane.getChildren().add(sc);
-	      
-	      
-		     pane.heightProperty().addListener(new ChangeListener()  {
-		    	 	
-					
-					private ScrollPane sc;
-
-					@Override
-					public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-						// TODO Auto-generated method stub
-						
-					          double  newValue1 = (double)newValue;
-					           this.sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
-						       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
-						       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
-							   sp.setMinSize(800, 300);
-							   sp.setLayoutY(newValue1);
-							   sc.setMinSize(800, 300);
-						       sc.setMaxSize(800,300);
-						       
-					      
-						      
-					
-					}
-
-			    	 
-			    	 
-			    	 
-			    	 
-			    	 
-			    	 
-			     });
-			     pane.widthProperty().addListener(new ChangeListener()  {
-			    	 	
-						
-						private ScrollPane sc;
-
-						@Override
-						public void changed(ObservableValue observable, Object oldValue, Object newValue) {
-							// TODO Auto-generated method stub
-							
-						           double  newValue1 = (double)newValue;
-						           this.sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
-							       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
-							       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
-								   sp.setMinSize(800, 300);
-								   sp.setLayoutX(newValue1);
-								   sc.setMinSize(800, 300);
-							       sc.setMaxSize(800,300);
-							       
-							       ListofAudio = new ListView<String>();
-								      
-								       ListofAudio.getItems().addAll(ListofAudio()); // addAll an arrayList ListofAudio
-								       
-								       ListofAudio.setLayoutX(newValue1);
-								       ListofAudio.setLayoutY(300);
-								       ListofAudio.setMaxSize(200, 175);
-								      
-							    
-						      
-							      
-						
-						}
-
-				    	 
-				    	 
-				    	 
-				    	 
-				    	 
-				    	 
-				     });
-			      
-			      
-	      
-	      
-	       
+	       VBox msbal = new VBox(25); 
 	       /*
 	        *The menu objects are to allows users to import their own audio files
 	        *MenuBar mb creates the menubar to hold menus
@@ -208,13 +121,94 @@ public class GuiConfig extends Application {
 	       });
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
-	      // mb.prefWidthProperty().bind(pane.widthProperty());
-	      // mb.prefHeightProperty().bind(pane.heightProperty());
-	       pane.getChildren().add(mb);
+
 	       
 	       
+	       sp = new GridPane(); // matrix 
+	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
+	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
+	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
+		   sp.setMinSize(800, 300);
+		   sc.setMinSize(800, 300);
+
 	       
 	       
+	       HBox ButtonsandLaunch = new HBox(300);
+	       /*
+	        * This allows users to enter how many buttons they want
+	        * It parses the entered number and then calls bAdder 
+	        * to add the buttons in
+	        */
+
+	       /*
+	        * This allows users to enter how many buttons they want
+	        * It parses the entered number and then calls bAdder 
+	        * to add the buttons in
+	        */
+	       numofB = new TextField("Enter number of buttons");
+	       numofB.setMinSize(200, 50);
+	       wrongInput = new TextField();
+	       wrongInput.setLayoutX(0);
+	       wrongInput.setLayoutY(550);
+	       
+	       numofB.setOnMouseClicked(e -> numofB.clear());
+	       numofB.setOnAction(e -> {
+	    	   try {numofbuttons = Integer.parseInt(numofB.getText());
+	    	   	wrongInput.clear();}
+	    	   catch (NumberFormatException e1) {
+	    		   wrongInput.setText("Wrong Input");
+	
+	    	   } ;bAdder(numofbuttons);});  //?
+	       
+
+	       
+	       /*
+	        * LaunchSim serializes all the information needed and launches the simulator
+	        * using the information
+	        * TalkBoxConfiguration is where all the information is stores
+	        * Serializer.Save saves the information and serializes into TalkBoxData.tbc
+	        * 
+	        * It then calls Gui g = new Gui() which is our simulator class
+	        * It opens the the simulator and closes the configurator 
+	        */
+	       Button LaunchSim = new Button("Launch");
+	       LaunchSim.setMinSize(100, 100);
+	       //pane.getchildren().add(LaunchSim);
+	       LaunchSim.setOnAction(e -> {
+	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
+	    	   try {
+	    	   tbc.NumOfAudioButtons = numofbuttons; //Numbder of Buttons
+	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size(); //number of audio sets in each profile
+	    	   tbc.NumOfButtons = numofbuttons + 7; // all the buttons plus the buttons to set, add, etc
+	    	   tbc.PathToAudioFiles = null; // cant serialize Path object
+	    	   tbc.AudioName = audioFiles(); // 2-D array of audio
+	    	   tbc.path = src; // path to audio
+	    	   tbc.Profiles = profiles(); //array of profile anames
+				Serializer.Save(tbc, "bin/TalkBoxData/"); //saves in serializer
+			} catch (Exception e1) {
+			e1.printStackTrace();
+			}
+	    	   Gui g = new Gui(); // Calls Simulator Class
+
+	    	  try {
+				g.start(new Stage()); //Starts simulator
+				primaryStage.close();	//Close configurator
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+	       });
+	       
+	       
+	       ButtonsandLaunch.getChildren().addAll(numofB,LaunchSim);
+
+	       
+	       HBox RecordingArea = new HBox();
+	       VBox StopandFile = new VBox();
+	       
+	       
+	       //////////////////////////////////////////////////
+	       HBox ListandAddAudio = new HBox();
 	      /*
 	       * This shows all the audio files in src/Audio in the form of a ListView
 	       * It calls ListofAudio to get and add all the names
@@ -223,16 +217,17 @@ public class GuiConfig extends Application {
 	       * soundname is used when sounds to profiles
 	       */
 	       ListofAudio = new ListView<String>();
-	       ListofAudio.getItems().addAll(ListofAudio()); // addAll an arrayList ListofAudio
-	       pane.getChildren().add(ListofAudio);
-	       ListofAudio.setLayoutX(800);
-	       ListofAudio.setLayoutY(300);
-	       ListofAudio.setMaxSize(200, 175);
-	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> { // when clicked 
-	    	   soundname = newValue.toString(); // this is used for the profiles
-	    	  
+	       ListofAudio.getItems().addAll(ListofAudio());
+	       // //pane.getchildren().add(ListofAudio);
+	       ListofAudio.setMinSize(200, 175);
+	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
+	    	   soundname = newValue.toString();
 	       });
-	      
+	       Button AddSound = new Button("Add Sound");
+	       ListandAddAudio.getChildren().addAll(ListofAudio,AddSound);
+	       ////////////////////////////////////////////////
+	       VBox RemoveandSet = new VBox();
+	       
 	      /*
 	       * root is where we add all the profiles. So just like how all the audio files
 	       * are added to specified profiles. All the profiles must be added to a root in order
@@ -256,56 +251,30 @@ public class GuiConfig extends Application {
 	    		   profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
 	    	   }
 	       });
+	       Tree.setMinSize(200, 200);
 
-	       //pane.getChildren().add(Tree);
-	       Tree.prefHeightProperty().bind(pane.heightProperty());
-	       Tree.prefWidthProperty().bind(pane.widthProperty());
-	       Tree.setLayoutX(800);
-	       Tree.setLayoutY(30);
-	       Tree.setMaxSize(200, 200);
-	       Tree.prefHeightProperty().bind(pane.heightProperty());
-	       Tree.prefWidthProperty().bind(pane.widthProperty());
-	       pane.getChildren().add(Tree);
-		       
-		    
-	       //Remove Profile Button 
+	       
 	       Button RemoveProfile = new Button("Remove Profile");
-	       RemoveProfile.setLayoutX(1000);
-	       RemoveProfile.setLayoutY(100);
-	       pane.getChildren().add(RemoveProfile);
 	       
-	       // Add sound to the profiles
-	       Button AddSound = new Button("Add Sound");
-	       AddSound.setLayoutX(1000);
-	       AddSound.setLayoutY(400);
+	       SetProfile = new Button("Set Profile");
+	       RemoveandSet.setSpacing(50);
+	       RemoveandSet.getChildren().addAll(SetProfile,RemoveProfile);
 	       
-	       //AddSound.prefHeightProperty().bind(pane.heightProperty().multiply(0.5));
-	       //AddSound.prefWidthProperty().bind(pane.widthProperty().multiply(0.5));
-	       pane.getChildren().add(AddSound);
-	       
+	      HBox TreeandButton = new HBox();
+	      TreeandButton.getChildren().addAll(Tree,RemoveandSet);
+	      /////////////////////////////////////////////////////
 	       
 	       PN = new TextField("Enter Profile Name");
-	       PN.setLayoutX(800);
-	       PN.setLayoutY(230);
-	       pane.getChildren().add(PN);
+	       PN.setMaxWidth(247);
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
 
-	       
-	       SetProfile = new Button("Set Profile");
-	       SetProfile.setLayoutX(1000);
-	       SetProfile.setLayoutY(30);
-	       pane.getChildren().add(SetProfile);
+
 	       
 	       Button Record = new Button("Record");
-	       Record.setLayoutX(800);
-	       Record.setLayoutY(520);
-	       pane.getChildren().add(Record);
+
 
 	       TextField text = new TextField("Enter Filename");
-	       text.setLayoutX(875);
-	       text.setLayoutY(570);
-	       pane.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
 	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it for serializer
 	       
@@ -325,116 +294,57 @@ public class GuiConfig extends Application {
 			e1.printStackTrace();
 		} });
 	       // to start recording
-	       Button Start = new Button("Start");
-	       Start.setLayoutX(880);
-	       Start.setLayoutY(530);
-	       pane.getChildren().add(Start);
-	       
+	    
 	       // to stop recording
 	       Button Stop = new Button("Stop");
-
-	       Stop.setLayoutX(925);
-	       Stop.setLayoutY(530);
 	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-	       pane.getChildren().add(Stop);
+	       //pane.getchildren().add(Stop);
 	      
-	       
-	       
-	       /*
-	        * This allows users to enter how many buttons they want
-	        * It parses the entered number and then calls bAdder 
-	        * to add the buttons in
-	        */
-	       numofB = new TextField("Enter number of buttons");
-	       numofB.setLayoutX(0);
-	       numofB.setLayoutY(475);
-	       numofB.setMinSize(200, 50);
-	       wrongInput = new TextField();
-	       wrongInput.setLayoutX(0);
-	       wrongInput.setLayoutY(550);
-	       
-	       pane.getChildren().add(numofB);
-	       pane.getChildren().add(wrongInput);
-	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {
-	    	   try {numofbuttons = Integer.parseInt(numofB.getText());
-	    	   	wrongInput.clear();}
-	    	   catch (NumberFormatException e1) {
-	    		   wrongInput.setText("Wrong Input");
-	
-	    	   } ;bAdder(numofbuttons);});  //?
-	       
-	       /*
-	        * LaunchSim serializes all the information needed and launches the simulator
-	        * using the information
-	        * TalkBoxConfiguration is where all the information is stores
-	        * Serializer.Save saves the information and serializes into TalkBoxData.tbc
-	        * 
-	        * It then calls Gui g = new Gui() which is our simulator class
-	        * It opens the the simulator and closes the configurator 
-	        */
-	       Button LaunchSim = new Button("Launch");
-	       LaunchSim.setLayoutX(450);
-	       LaunchSim.setLayoutY(425);
-	       LaunchSim.setMinSize(150, 150);
-	       pane.getChildren().add(LaunchSim);
-	       LaunchSim.setOnAction(e -> {
-	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
-	    	   try {
-	    	   tbc.NumOfAudioButtons = numofbuttons; //Numbder of Buttons
-	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size(); //number of audio sets in each profile
-	    	   tbc.NumOfButtons = numofbuttons + 7; // all the buttons plus the buttons to set, add, etc
-	    	   tbc.PathToAudioFiles = null; // cant serialize Path object
-	    	   tbc.AudioName = audioFiles(); // 2-D array of audio
-	    	   tbc.path = src; // path to audio
-	    	   tbc.Profiles = profiles(); //array of profile anames
-				Serializer.Save(tbc, "bin/TalkBoxData/"); //saves in serializer
-			} catch (Exception e1) {
-			e1.printStackTrace();
-			}	     
-	    	   Gui g = new Gui(); // Calls Simulator Class
+	       StopandFile.getChildren().addAll(Stop,text);
+	       RecordingArea.getChildren().addAll(Record,StopandFile);
 
-	    	  try {
-				g.start(new Stage()); //Starts simulator
-				primaryStage.close();	//Close configurator
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-	       });
 	       
-	       Label labelProfile = new Label("Profiles");
-	       labelProfile.setLabelFor(pane);
-	       labelProfile.setLayoutX(860);
-	       labelProfile.setLayoutY(0);
-	       labelProfile.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       pane.getChildren().add(labelProfile);
+	       VBox ProfileandAudio = new VBox();
 	       
-	       Label labelAudio = new Label("Audio");
-	       labelAudio.setLabelFor(pane);
-	       labelAudio.setLayoutX(860);
-	       labelAudio.setLayoutY(270);
-	       labelAudio.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       pane.getChildren().add(labelAudio);
-	       
-	       Label label = new Label("TalkBox Preview");
-	       label.setLabelFor(pane);
-	       label.setLayoutX(325);
-	       label.setLayoutY(10);
-	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
-	       pane.getChildren().add(label);
-	       
-	       Label labelRecord = new Label("Record Audio");
-	       labelRecord.setLabelFor(pane);
-	       labelRecord.setLayoutX(825);
-	       labelRecord.setLayoutY(490);
-	       labelRecord.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       pane.getChildren().add(labelRecord);
-
 	       
 	       SetProfile.setOnAction(e -> swapAudio()); //Set Profile by calling swapAudio
 	       AddSound.setOnAction(e ->SoundAdder(soundname)); //Adds sound by calling SoundAdder
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));//Removes Profile by calling ProfileRemover
+	       
+	
+	       Label labelProfile = new Label("		Profiles");
+	       labelProfile.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+
+	       
+	       Label labelAudio = new Label("		Audio");
+	       labelAudio.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+
+	       
+	       Label label = new Label("						TalkBox Preview");
+	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
+
+	       
+	       Label labelRecord = new Label("Record Audio");
+	      
+	       labelRecord.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+	       
+	       VBox labelandsc = new VBox(5);
+	       labelandsc.getChildren().addAll(label,sc);
+	       
+	       VBox lsbl = new VBox(100);
+	       lsbl.getChildren().addAll(labelandsc,ButtonsandLaunch);
+	       
+	       ProfileandAudio.getChildren().addAll(labelProfile,TreeandButton,PN,labelAudio,ListandAddAudio,labelRecord,RecordingArea);
+	       
+	       msbal.getChildren().addAll(mb,lsbl);
+	       temp.getChildren().addAll(msbal,ProfileandAudio);
+
+	       VBox.setVgrow(temp, Priority.ALWAYS);
+	       HBox.setHgrow(msbal, Priority.ALWAYS);
+	       VBox.setVgrow(lsbl, Priority.ALWAYS);
+	       VBox.setVgrow(labelandsc, Priority.ALWAYS);
+	       VBox.setVgrow(sc, Priority.ALWAYS);
+	       VBox.setVgrow(sp, Priority.ALWAYS);
 	  }
 	 
 	  /*
@@ -444,17 +354,6 @@ public class GuiConfig extends Application {
 	   * and profiles for the audio files
 	   * 
 	   */
-	  
-
-	
-
-	  public void changed(ObservableValue arg0, Object arg1, Object arg2) {
-		  
-		   double width = (double) arg2;
-		   this.sc.setPrefHeight(width/2);
-		  
-		  
-	  }
 	  
 	public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
@@ -475,7 +374,6 @@ public class GuiConfig extends Application {
 						return name.endsWith(".wav");}});
 				return files;}
 	 
-
 	  
 	  /*
 	   * This method adds the buttons to the scrollPane
@@ -484,7 +382,6 @@ public class GuiConfig extends Application {
 	   * Second for loop makes it so that max of 10 buttons per row
 	   */
 	  public void bAdder(int n) throws IllegalArgumentException {
-	     
 		  try {
 		  sp.getChildren().clear();
 			   for(int i = ctr2; i < n; i++) {
@@ -503,6 +400,8 @@ public class GuiConfig extends Application {
 						 sp.setHgap(5.5);
 						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), k, j);
+						 HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						 VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						 ctr2++;
 						 count--;}}
 				 else {
@@ -512,6 +411,8 @@ public class GuiConfig extends Application {
 						 sp.setHgap(5.5);
 						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), h, j);
+						 HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						 VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						 ctr2++; }}}}
 		  catch(IllegalArgumentException io) {
 			 System.out.println("Wrong input");
@@ -659,13 +560,6 @@ public class GuiConfig extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
-		//System.out.println(row);
-		//System.out.println(profilename);
-		System.out.println(root.getChildren().get(row).getChildren().size());
-		System.out.println(row);
-		System.out.println(profilename);
-
-		
 	}
 
 }

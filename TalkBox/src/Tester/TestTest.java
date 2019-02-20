@@ -1,22 +1,35 @@
 package Tester;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import TalkBoxConfig.ImportAudio;
+import TalkBoxConfig.TalkBoxConfiguration;
+
 
 class TestTest {
+
+	TestGui t;
+	ImportAudio imobj = new ImportAudio();
+	TalkBoxConfiguration tbc = new TalkBoxConfiguration();
+	
 		
-	TestGui test = new TestGui();
-	
-	@Test
-	 void Start() throws Exception {
-		test.init();
+	@SuppressWarnings("static-access")
+	@BeforeEach
+	void setup() {
+		t = new TestGui();
+		t.launch(TestGui.class);
+		
 	}
 	
+	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void AddButtons() {
+		assertEquals(5,tbc.getNumberOfAudioButtons());
 	}
+
+	
+	
 
 }
