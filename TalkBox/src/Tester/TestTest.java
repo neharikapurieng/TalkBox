@@ -13,12 +13,14 @@ class TestTest {
 	TestGui t;
 	ImportAudio imobj = new ImportAudio();
 	TalkBoxConfiguration tbc = new TalkBoxConfiguration();
+	
 		
 	@SuppressWarnings("static-access")
 	@BeforeEach
 	void setup() {
 		t = new TestGui();
 		t.launch(TestGui.class);
+		
 	}
 	
 	

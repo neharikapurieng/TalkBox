@@ -197,12 +197,8 @@ public class GuiConfig extends Application {
 	    	   soundname = newValue.toString();
 	    	  
 	       });
-	       
 	       Button AddSound = new Button("Add Sound");
-	       
 	       ListandAddAudio.getChildren().addAll(ListofAudio,AddSound);
-	       
-	      
 	       ////////////////////////////////////////////////
 	       VBox RemoveandSet = new VBox();
 	       
@@ -246,6 +242,7 @@ public class GuiConfig extends Application {
 	      /////////////////////////////////////////////////////
 	       
 	       PN = new TextField("Enter Profile Name");
+	       PN.setMaxWidth(247);
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
 
@@ -321,6 +318,7 @@ public class GuiConfig extends Application {
 	       VBox.setVgrow(lsbl, Priority.ALWAYS);
 	       VBox.setVgrow(labelandsc, Priority.ALWAYS);
 	       VBox.setVgrow(sc, Priority.ALWAYS);
+	       VBox.setVgrow(sp, Priority.ALWAYS);
 	  }
 	 
 	  /*
@@ -371,12 +369,16 @@ public class GuiConfig extends Application {
 					 for(int k = 0; k < 10; k++) {
 						 BList.get(ctr2).setMinSize(75, 75);
 						 sp.add(BList.get(ctr2), k, j);
+						 HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						 VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						 ctr2++;
 						 count--;}}
 				 else {
 					 for(int h = 0; h < count; h++) {
 						 BList.get(ctr2).setMinSize(75, 75);
 						 sp.add(BList.get(ctr2), h, j);
+						 HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						 VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						 ctr2++; }}}}
 
 	  
