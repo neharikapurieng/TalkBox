@@ -60,12 +60,12 @@ public class Sound {
 	}
 
 	
-	public void start() throws InterruptedException {
+	public void start(String name) throws InterruptedException {
 		
 		try {
 
 		Thread thread = new Thread() {
-			
+	    String temp = name;
 			
 		 public void run()  {
 				
