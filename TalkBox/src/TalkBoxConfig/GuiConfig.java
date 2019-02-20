@@ -18,7 +18,10 @@ import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -71,8 +74,9 @@ public class GuiConfig extends Application {
 	  public void start(Stage primaryStage) throws FileNotFoundException {
 		  // Create a scene and place a button in the scene
 		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbox
-		    Pane pane = new Pane();
-	        Scene scene = new Scene(pane,1115,600);
+		    VBox pane = new VBox();
+		    HBox temp = new HBox();
+	        Scene scene = new Scene(temp,1115,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
 	        primaryStage.show();
@@ -89,7 +93,13 @@ public class GuiConfig extends Application {
 		   sc.setLayoutY(80);
 	       sc.setMinSize(800, 300);
 	       sc.setMaxSize(800, 300);
-	       pane.getChildren().add(sc);
+	    //   //pane().add(sc);
+	       
+	       
+	       HBox RecordingArea = new HBox();
+	       
+	       
+	       
 	       
 	       /*
 	        *The menu objects are to allows users to import their own audio files
@@ -118,7 +128,7 @@ public class GuiConfig extends Application {
 	       });
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
-	       pane.getChildren().add(mb);
+	   //    //pane.getchildren().add(mb);
 	       
 	       
 	       
@@ -132,10 +142,10 @@ public class GuiConfig extends Application {
 	       */
 	       ListofAudio = new ListView<String>();
 	       ListofAudio.getItems().addAll(ListofAudio());
-	       pane.getChildren().add(ListofAudio);
+	       // //pane.getchildren().add(ListofAudio);
 	       ListofAudio.setLayoutX(800);
 	       ListofAudio.setLayoutY(300);
-	       ListofAudio.setMaxSize(200, 175);
+	       ListofAudio.setMinSize(200, 175);
 	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
 	    	   soundname = newValue.toString();
 	    	  
@@ -164,10 +174,10 @@ public class GuiConfig extends Application {
 	    		   profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
 	    	   }
 	       });
-	       pane.getChildren().add(Tree);
+	       //pane.getchildren().add(Tree);
 	       Tree.setLayoutX(800);
 	       Tree.setLayoutY(30);
-	       Tree.setMaxSize(200, 200);
+	       Tree.setMinSize(200, 200);
 	       
 	       
 
@@ -175,19 +185,19 @@ public class GuiConfig extends Application {
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
 	       RemoveProfile.setLayoutY(100);
-	       pane.getChildren().add(RemoveProfile);
+	       //pane.getchildren().add(RemoveProfile);
 	       
 	       // Add sound to the profiles
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
 	       AddSound.setLayoutY(400);
-	       pane.getChildren().add(AddSound);
+	       //pane.getchildren().add(AddSound);
 	       
 	       
 	       PN = new TextField("Enter Profile Name");
 	       PN.setLayoutX(800);
 	       PN.setLayoutY(230);
-	       pane.getChildren().add(PN);
+	       //pane.getchildren().add(PN);
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
 
@@ -195,17 +205,17 @@ public class GuiConfig extends Application {
 	       SetProfile = new Button("Set Profile");
 	       SetProfile.setLayoutX(1000);
 	       SetProfile.setLayoutY(30);
-	       pane.getChildren().add(SetProfile);
+	       //pane.getchildren().add(SetProfile);
 	       
 	       Button Record = new Button("Record");
 	       Record.setLayoutX(800);
 	       Record.setLayoutY(520);
-	       pane.getChildren().add(Record);
+	       //pane.getchildren().add(Record);
 
 	       TextField text = new TextField("Enter Filename");
 	       text.setLayoutX(875);
 	       text.setLayoutY(570);
-	       pane.getChildren().add(text);
+	       //pane.getchildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
 	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
 	       
@@ -228,7 +238,7 @@ public class GuiConfig extends Application {
 	       Button Start = new Button("Start");
 	       Start.setLayoutX(880);
 	       Start.setLayoutY(530);
-	       pane.getChildren().add(Start);
+	       //pane.getchildren().add(Start);
 	       
 	       // to stop recording
 	       Button Stop = new Button("Stop");
@@ -236,7 +246,7 @@ public class GuiConfig extends Application {
 	       Stop.setLayoutX(925);
 	       Stop.setLayoutY(530);
 	       Stop.setOnAction(e ->{ Sound sound = new Sound(); sound.stop();});
-	       pane.getChildren().add(Stop);
+	       //pane.getchildren().add(Stop);
 	      
 	       
 	       
@@ -249,7 +259,7 @@ public class GuiConfig extends Application {
 	       numofB.setLayoutX(0);
 	       numofB.setLayoutY(475);
 	       numofB.setMinSize(200, 50);
-	       pane.getChildren().add(numofB);
+	       //pane.getchildren().add(numofB);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
 	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder(numofbuttons);});  //?
 
@@ -267,7 +277,7 @@ public class GuiConfig extends Application {
 	       LaunchSim.setLayoutX(450);
 	       LaunchSim.setLayoutY(425);
 	       LaunchSim.setMinSize(150, 150);
-	       pane.getChildren().add(LaunchSim);
+	       //pane.getchildren().add(LaunchSim);
 	       LaunchSim.setOnAction(e -> {
 	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
 	    	   try {
@@ -293,38 +303,53 @@ public class GuiConfig extends Application {
 			}
 	       });
 	       
+	       VBox temp2 = new VBox();
+	       
 	       Label labelProfile = new Label("Profiles");
 	       labelProfile.setLabelFor(pane);
 	       labelProfile.setLayoutX(860);
 	       labelProfile.setLayoutY(0);
 	       labelProfile.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       pane.getChildren().add(labelProfile);
+	       //pane.getchildren().add(labelProfile);
 	       
 	       Label labelAudio = new Label("Audio");
 	       labelAudio.setLabelFor(pane);
 	       labelAudio.setLayoutX(860);
 	       labelAudio.setLayoutY(270);
 	       labelAudio.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       pane.getChildren().add(labelAudio);
+	       //pane.getchildren().add(labelAudio);
 	       
 	       Label label = new Label("TalkBox Preview");
 	       label.setLabelFor(pane);
 	       label.setLayoutX(325);
 	       label.setLayoutY(10);
 	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
-	       pane.getChildren().add(label);
+	       //pane.getchildren().add(label);
 	       
 	       Label labelRecord = new Label("Record Audio");
 	       labelRecord.setLabelFor(pane);
 	       labelRecord.setLayoutX(825);
 	       labelRecord.setLayoutY(490);
 	       labelRecord.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-	       pane.getChildren().add(labelRecord);
+	       //pane.getchildren().add(labelRecord);
 
+	       
+	       temp2.getChildren().addAll(labelProfile,Tree,labelAudio,ListofAudio,labelRecord);
 	       
 	       SetProfile.setOnAction(e -> swapAudio()); //Set Profile by calling swapAudio
 	       AddSound.setOnAction(e ->SoundAdder(soundname)); //Adds sound by calling SoundAdder
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));//Removes Profile by calling ProfileRemover
+	       
+	       pane.getChildren().add(0, mb);
+	       pane.getChildren().add(1, sc);
+	       pane.setSpacing(75);
+	       temp.getChildren().addAll(pane,temp2);
+	       
+	       
+	       HBox.setHgrow(pane, Priority.ALWAYS);
+	       VBox.setVgrow(pane, Priority.ALWAYS);
+	       
+	       
 	  }
 	 
 	  /*
