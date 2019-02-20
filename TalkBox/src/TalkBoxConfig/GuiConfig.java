@@ -42,17 +42,18 @@ public class GuiConfig extends Application {
 	public String src = "src/Audio/";
 	
 	//Profile & Audio
-	private TreeItem<String> root;
+	private static TreeItem<String> root;
 	public TreeView <String> Tree;
 	@SuppressWarnings("rawtypes")
 	private static ArrayList<TreeItem> TItems;
 	public ArrayList<Button> BList = new ArrayList<Button>();
 	private ListView <String> ListofAudio;
-	
+	private TextField wrongInput;
 	//Items to Pane
 	private Button SetProfile;
 	private TextField PN;
 	public TextField numofB;
+	private int count=0;
 	
 	//Panes
 	public Pane pane;
@@ -348,9 +349,20 @@ public class GuiConfig extends Application {
 	       numofB.setLayoutX(0);
 	       numofB.setLayoutY(475);
 	       numofB.setMinSize(200, 50);
+	       wrongInput = new TextField();
+	       wrongInput.setLayoutX(0);
+	       wrongInput.setLayoutY(550);
+	       
 	       pane.getChildren().add(numofB);
+	       pane.getChildren().add(wrongInput);
 	       numofB.setOnMouseClicked(e -> numofB.clear());
-	       numofB.setOnAction(e -> {numofbuttons = Integer.parseInt(numofB.getText()); bAdder(numofbuttons);});  //?
+	       numofB.setOnAction(e -> {
+	    	   try {numofbuttons = Integer.parseInt(numofB.getText());
+	    	   	wrongInput.clear();}
+	    	   catch (NumberFormatException e1) {
+	    		   wrongInput.setText("Wrong Input");
+	
+	    	   } ;bAdder(numofbuttons);});  //?
 	       
 	       /*
 	        * LaunchSim serializes all the information needed and launches the simulator
@@ -471,8 +483,10 @@ public class GuiConfig extends Application {
 	   * First for loop Adds button into an arraylist called BList
 	   * Second for loop makes it so that max of 10 buttons per row
 	   */
-	  public void bAdder(int n) {
-	      sp.getChildren().clear();
+	  public void bAdder(int n) throws IllegalArgumentException {
+	     
+		  try {
+		  sp.getChildren().clear();
 			   for(int i = ctr2; i < n; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
 		    	   BList.add(new Button(buttonname));
@@ -499,6 +513,11 @@ public class GuiConfig extends Application {
 						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), h, j);
 						 ctr2++; }}}}
+		  catch(IllegalArgumentException io) {
+			 System.out.println("Wrong input");
+			  
+		  }
+		  }
 
 	  
 	  /*
@@ -513,7 +532,8 @@ public class GuiConfig extends Application {
 	   * This methods removes profiles from the TreeView
 	   */
 	  public void ProfileRemover(int r) {
-		  root.getChildren().remove(r);}
+		  root.getChildren().remove(r);
+		  System.out.println("No");}
 
 	  /*
 	   * This method set the audio files to the associated buttons by numerical order
@@ -522,14 +542,34 @@ public class GuiConfig extends Application {
 	   * The second for loop sets the audio to each button adds an action listener to play sound
 	   */
 	  public void swapAudio() {
+		
 		  int size = root.getChildren().get(row).getChildren().size();
+		  System.out.println(size);
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(int k = 0; k < size; k++) {
 			  al.add(root.getChildren().get(row).getChildren().get(k).getValue());}
+		 while(Math.abs(numofbuttons-count)>0 && count != 0 ) {
+			 
+			 for(int i=0; i<=numofbuttons-count-1; i++) {
+				 
+				  String name = al.get(i);
+				  BList.get(i).setText(name);
+				  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
+				 
+			 }
+			 
+			 count++;
+			 
+		 }
+		  
 		  for(int i = 0; i < size; i++) {
+			  count++;
 			  String name = al.get(i);
 			  BList.get(i).setText(name);
-			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));}}
+			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"))
+			  
+			  
+			  ;}}
 	  
 	  /*
 	   * This method adds the sounds to the profiles by calling branch
@@ -619,9 +659,11 @@ public class GuiConfig extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
+		//System.out.println(row);
+		//System.out.println(profilename);
+		System.out.println(root.getChildren().get(row).getChildren().size());
 		System.out.println(row);
 		System.out.println(profilename);
-		System.out.println(TItems.get(row).getChildren().size());
 
 		
 	}
