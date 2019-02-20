@@ -27,7 +27,7 @@ public class Sound {
 	}
 	
 
-	public void SoundFormart() throws LineUnavailableException {
+	public void soundFormat() throws LineUnavailableException {
 		
 		
 		try {
@@ -70,11 +70,20 @@ public class Sound {
 		 public void run()  {
 				
 				AudioInputStream audioStream = new AudioInputStream(targetLine);
-				File audioFile = new File(temp + ".wav");
+				
+				String fileName = temp + ".wav";
+				
+				File audioFile = new File(fileName);
+				
+				System.out.println("The recording is being saved as:");
+				
+				System.out.println(fileName);
 				try {
-				AudioSystem.write(audioStream, AudioFileFormat.Type.WAVE, audioFile);
+					
+					AudioSystem.write(audioStream, AudioFileFormat.Type.WAVE, audioFile);
+
 				}
-				catch(IOException ioe) {
+				catch(Exception ioe) {
 					
 					ioe.printStackTrace();
 				}
@@ -87,10 +96,12 @@ public class Sound {
 		
 		thread.start();
 		System.out.println("Recording");
-		Thread.sleep(Integer.MAX_VALUE); // This is the max the recorder can play but the user will never play that long
-		stop();
+		//Thread.sleep(5000); 
+		// don't put the thread to sleep, it wont be able to do any work!
+		// This is why your system was locking up.
+	
 		}
-		catch(InterruptedException ie) {
+		catch(Exception ie) {
 			
 			ie.printStackTrace();
 		}
@@ -98,8 +109,10 @@ public class Sound {
 	}
 	
 	public void stop() {
-	this.targetLine.stop();
-	this.targetLine.close();
+		
+		
+		this.targetLine.stop();
+		this.targetLine.close();
 	}
 	
 }	

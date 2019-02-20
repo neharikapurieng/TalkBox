@@ -317,7 +317,7 @@ public class GuiConfig extends Application {
 	        */
 	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
-	    	sound.SoundFormart();
+	    	sound.soundFormat();
 	    	sound.temp = filename;
 			sound.start();
 		} catch (InterruptedException | LineUnavailableException e1) {
@@ -548,7 +548,7 @@ public class GuiConfig extends Application {
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(int k = 0; k < size; k++) {
 			  al.add(root.getChildren().get(row).getChildren().get(k).getValue());}
-		 while(Math.abs(numofbuttons-count)>0 && count != 0 ) {
+		 while(Math.abs(numofbuttons-count)>0 && count != 0 ) { //
 			 
 			 for(int i=0; i<=numofbuttons-count-1; i++) {
 				 
