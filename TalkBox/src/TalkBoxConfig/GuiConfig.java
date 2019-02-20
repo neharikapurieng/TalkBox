@@ -126,9 +126,6 @@ public class GuiConfig extends Application {
 	       label.setStyle("-fx-font-family: TRON; -fx-font-size: 25;");
 
 	       
-
-	       
-	       
 	       sp = new GridPane(); // matrix 
 	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
 	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
@@ -139,6 +136,8 @@ public class GuiConfig extends Application {
 	       
 	       
 	       HBox ButtonsandLaunch = new HBox(300);
+	       
+	       VBox ButtonsandError = new VBox(10);
 	       /*
 	        * This allows users to enter how many buttons they want
 	        * It parses the entered number and then calls bAdder 
@@ -164,6 +163,8 @@ public class GuiConfig extends Application {
 	    		   wrongInput.setText("Wrong Input");
 	
 	    	   } ;bAdder(numofbuttons);});  //?
+	       
+	       ButtonsandError.getChildren().addAll(numofB,wrongInput);
 	       
 
 	       
@@ -204,7 +205,7 @@ public class GuiConfig extends Application {
 			}
 	       });
 
-	       ButtonsandLaunch.getChildren().addAll(numofB,LaunchSim);
+	       ButtonsandLaunch.getChildren().addAll(ButtonsandError,LaunchSim);
 //----------------------------------------------------------------------------------------------------------------------//
 
 	       HBox ListandAddAudio = new HBox();
