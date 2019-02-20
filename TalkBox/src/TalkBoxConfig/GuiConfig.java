@@ -1,5 +1,7 @@
 package TalkBoxConfig;
 
+import java.awt.Dimension;
+import java.awt.Toolkit;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
@@ -14,6 +16,9 @@ import javax.sound.sampled.LineUnavailableException;
 
 import TalkBoxSim.Gui;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -31,7 +36,7 @@ public class GuiConfig extends Application {
 	private Clip clip;
 	
 	//Strings
-	public String profilename = "";
+	public static String profilename = "";
 	private String soundname = "";
 	private String filename;
 	public String src = "src/Audio/";
@@ -40,7 +45,7 @@ public class GuiConfig extends Application {
 	private TreeItem<String> root;
 	public TreeView <String> Tree;
 	@SuppressWarnings("rawtypes")
-	private ArrayList<TreeItem> TItems;
+	private static ArrayList<TreeItem> TItems;
 	public ArrayList<Button> BList = new ArrayList<Button>();
 	private ListView <String> ListofAudio;
 	
@@ -56,7 +61,7 @@ public class GuiConfig extends Application {
 	
 	//Ints
 	int ctr = 480;
-	int row = 0;
+	static int row = 0;
 	int increment = 0;
 	int increment2 = 0;
 	private int ctr2;
@@ -75,12 +80,14 @@ public class GuiConfig extends Application {
 	        Scene scene = new Scene(pane,1115,600);
 	        primaryStage.setScene(scene);
 	        primaryStage.setTitle("TalkBox");
+	        
 	        primaryStage.show();
 	        
 	        //This line applys all the css code from application.css
 	        scene.getStylesheets().add("application.css");       
-	       
+	        Dimension screensize = Toolkit.getDefaultToolkit().getScreenSize();
 	       sp = new GridPane(); // matrix 
+	   
 	       sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
 	       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
 	       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
@@ -88,8 +95,90 @@ public class GuiConfig extends Application {
 		   sp.setLayoutY(80);
 		   sc.setLayoutY(80);
 	       sc.setMinSize(800, 300);
-	       sc.setMaxSize(800, 300);
-	       pane.getChildren().add(sc);
+	       sc.setMaxSize(800,500);
+	       sc.prefHeightProperty().bind(scene.heightProperty().divide(2));
+	       sc.prefWidthProperty().bind(scene.widthProperty().divide(2));
+	       
+	       
+	      
+
+	 
+	      pane.getChildren().add(sc);
+	      
+	      
+		     pane.heightProperty().addListener(new ChangeListener()  {
+		    	 	
+					
+					private ScrollPane sc;
+
+					@Override
+					public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+						// TODO Auto-generated method stub
+						
+					          double  newValue1 = (double)newValue;
+					           this.sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
+						       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
+						       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
+							   sp.setMinSize(800, 300);
+							   sp.setLayoutY(newValue1);
+							   sc.setMinSize(800, 300);
+						       sc.setMaxSize(800,300);
+						       
+					      
+						      
+					
+					}
+
+			    	 
+			    	 
+			    	 
+			    	 
+			    	 
+			    	 
+			     });
+			     pane.widthProperty().addListener(new ChangeListener()  {
+			    	 	
+						
+						private ScrollPane sc;
+
+						@Override
+						public void changed(ObservableValue observable, Object oldValue, Object newValue) {
+							// TODO Auto-generated method stub
+							
+						           double  newValue1 = (double)newValue;
+						           this.sc = new ScrollPane(sp); // launch the gui, the white space (scroll)
+							       sc.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER); // size of the scroll bar 
+							       sc.setVbarPolicy(ScrollPane.ScrollBarPolicy.AS_NEEDED); 
+								   sp.setMinSize(800, 300);
+								   sp.setLayoutX(newValue1);
+								   sc.setMinSize(800, 300);
+							       sc.setMaxSize(800,300);
+							       
+							       ListofAudio = new ListView<String>();
+								      
+								       ListofAudio.getItems().addAll(ListofAudio()); // addAll an arrayList ListofAudio
+								       
+								       ListofAudio.setLayoutX(newValue1);
+								       ListofAudio.setLayoutY(300);
+								       ListofAudio.setMaxSize(200, 175);
+								      
+							    
+						      
+							      
+						
+						}
+
+				    	 
+				    	 
+				    	 
+				    	 
+				    	 
+				    	 
+				     });
+			      
+			      
+	      
+	      
 	       
 	       /*
 	        *The menu objects are to allows users to import their own audio files
@@ -118,6 +207,8 @@ public class GuiConfig extends Application {
 	       });
 	       MenuBar mb = new MenuBar();
 	       mb.getMenus().addAll(menu);
+	      // mb.prefWidthProperty().bind(pane.widthProperty());
+	      // mb.prefHeightProperty().bind(pane.heightProperty());
 	       pane.getChildren().add(mb);
 	       
 	       
@@ -131,13 +222,13 @@ public class GuiConfig extends Application {
 	       * soundname is used when sounds to profiles
 	       */
 	       ListofAudio = new ListView<String>();
-	       ListofAudio.getItems().addAll(ListofAudio());
+	       ListofAudio.getItems().addAll(ListofAudio()); // addAll an arrayList ListofAudio
 	       pane.getChildren().add(ListofAudio);
 	       ListofAudio.setLayoutX(800);
 	       ListofAudio.setLayoutY(300);
 	       ListofAudio.setMaxSize(200, 175);
-	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> {
-	    	   soundname = newValue.toString();
+	       ListofAudio.getSelectionModel().selectedItemProperty().addListener((v,oldValue,newValue)-> { // when clicked 
+	    	   soundname = newValue.toString(); // this is used for the profiles
 	    	  
 	       });
 	      
@@ -164,13 +255,18 @@ public class GuiConfig extends Application {
 	    		   profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
 	    	   }
 	       });
-	       pane.getChildren().add(Tree);
+
+	       //pane.getChildren().add(Tree);
+	       Tree.prefHeightProperty().bind(pane.heightProperty());
+	       Tree.prefWidthProperty().bind(pane.widthProperty());
 	       Tree.setLayoutX(800);
 	       Tree.setLayoutY(30);
 	       Tree.setMaxSize(200, 200);
-	       
-	       
-
+	       Tree.prefHeightProperty().bind(pane.heightProperty());
+	       Tree.prefWidthProperty().bind(pane.widthProperty());
+	       pane.getChildren().add(Tree);
+		       
+		    
 	       //Remove Profile Button 
 	       Button RemoveProfile = new Button("Remove Profile");
 	       RemoveProfile.setLayoutX(1000);
@@ -181,6 +277,9 @@ public class GuiConfig extends Application {
 	       Button AddSound = new Button("Add Sound");
 	       AddSound.setLayoutX(1000);
 	       AddSound.setLayoutY(400);
+	       
+	       //AddSound.prefHeightProperty().bind(pane.heightProperty().multiply(0.5));
+	       //AddSound.prefWidthProperty().bind(pane.widthProperty().multiply(0.5));
 	       pane.getChildren().add(AddSound);
 	       
 	       
@@ -207,7 +306,7 @@ public class GuiConfig extends Application {
 	       text.setLayoutY(570);
 	       pane.getChildren().add(text);
 	       text.setOnMouseClicked(e -> text.clear());
-	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it sor serializer
+	       text.setOnAction(e -> filename = text.getText()); //whatever input is, it is stored in the variable so we can use it for serializer
 	       
 	       
 	       /*
@@ -333,6 +432,18 @@ public class GuiConfig extends Application {
 	   * and profiles for the audio files
 	   * 
 	   */
+	  
+
+	
+
+	  public void changed(ObservableValue arg0, Object arg1, Object arg2) {
+		  
+		   double width = (double) arg2;
+		   this.sc.setPrefHeight(width/2);
+		  
+		  
+	  }
+	  
 	public TreeItem<String> branch(String title, TreeItem<String> parent){
 		  TreeItem<String> item = new TreeItem<>(title);
 		  item.setExpanded(false);
@@ -374,12 +485,18 @@ public class GuiConfig extends Application {
 				 if(count >= 10) {
 					 for(int k = 0; k < 10; k++) {
 						 BList.get(ctr2).setMinSize(75, 75);
+						 BList.get(ctr2).setPadding(new Insets(13,10,15,17));
+						 sp.setHgap(5.5);
+						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), k, j);
 						 ctr2++;
 						 count--;}}
 				 else {
 					 for(int h = 0; h < count; h++) {
 						 BList.get(ctr2).setMinSize(75, 75);
+						 BList.get(ctr2).setPadding(new Insets(13,10,15,17));
+						 sp.setHgap(5.5);
+						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), h, j);
 						 ctr2++; }}}}
 
@@ -451,7 +568,7 @@ public class GuiConfig extends Application {
 		  for(File temp : finder(src)){
 			  StringBuilder sb = new StringBuilder();
 			  sb.append(temp.getName());
-			  sb.delete(sb.length()-4, sb.length());
+			  sb.delete(sb.length()-4, sb.length()); // removes the .wav string
 			  al.add(sb.toString());}
 		  return al;
 		  }
@@ -502,6 +619,11 @@ public class GuiConfig extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
+		System.out.println(row);
+		System.out.println(profilename);
+		System.out.println(TItems.get(row).getChildren().size());
+
+		
 	}
 
 }
