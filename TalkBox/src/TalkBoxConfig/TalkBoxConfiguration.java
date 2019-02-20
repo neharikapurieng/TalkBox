@@ -71,10 +71,16 @@ public class TalkBoxConfiguration implements Serializable
     	return AudioName;
     }
     
+    /*
+     * Returns an array of Strings that contains all the profile names
+     */
     public String[] getProfile() {
 		return Profiles;
     }
     
+    /*
+     * Returns the path to the audio files in a String
+     */
     public String path() {
     	return path;
     }

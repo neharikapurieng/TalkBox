@@ -10,7 +10,11 @@ import java.nio.file.Paths;
 
 public class Serializer {
 	
-	
+/*
+ * Serializes and saves the data from TalkBoxConfiguration
+ * and creates a directory called TalkBoxData in bin where the
+ * TalkBoxData.tbc will be stores
+ */
 public static void Save(Serializable data, String s) throws Exception{
 	File directory = new File(s);
 	directory.mkdir();
@@ -19,6 +23,9 @@ public static void Save(Serializable data, String s) throws Exception{
 	os.close();
 }	
 	
+/*
+ * Deserializes TalkBoxData.tbc and allows access to all the information
+ */
 public static Object Load( String s) throws Exception{
 	ObjectInputStream is = new ObjectInputStream(Files.newInputStream(Paths.get(s)));
 	return is.readObject();

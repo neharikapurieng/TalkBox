@@ -12,14 +12,14 @@ import javafx.stage.Stage;
 
 public class Gui extends Application {
 
-	  TalkBoxConfiguration tbc;
-	  Buttons b = new Buttons();
-	  GridPane GridP = new GridPane();
-	  ScrollPane ScrollP = new ScrollPane(GridP);
+	  TalkBoxConfiguration tbc; // TalkBoxConfiguration Data
+	  Buttons b = new Buttons(); //Buttons from button class
+	  GridPane GridP = new GridPane(); //GridPane
+	  ScrollPane ScrollP = new ScrollPane(GridP); //ScrollPane with GridPane Back
 	  public void start(Stage primaryStage) throws Exception {
+		  //Deserializers and Loads information from TalkBoxData
 		  tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
 		  Pane pane = new Pane();
-		  Pane Back = new Pane();
 		  GridP.setLayoutX(0);
 		  GridP.setLayoutY(100);
 		  ScrollP.setLayoutX(0);
@@ -27,12 +27,17 @@ public class Gui extends Application {
 		  GridP.setMinSize(800, 300);
 		  ScrollP.setMinSize(800, 300);
 		  Adder(GridP);
-		  pane.getChildren().addAll(ScrollP,Back);
+		  pane.getChildren().add(ScrollP);
 		  Scene scene = new Scene(pane,800,400);
 		  primaryStage.setScene(scene);
 		  primaryStage.show();
 	  }
 
+	  /*
+	   * Adds all the buttons onto the GridPane which is also attached to the ScrollPane
+	   * Calls the Button Class & the TalkBoxData
+	   * Max 10 buttons per line
+	   */
 	  public void Adder(GridPane p) {
 		  int ctr = 0;
 		  int count = tbc.NumOfAudioButtons;

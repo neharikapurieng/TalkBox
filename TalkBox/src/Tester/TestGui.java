@@ -6,6 +6,7 @@ import javafx.stage.Stage;
 
 public class TestGui extends Application {
 
+
 	public GuiConfig g;
 	@Override
 	public void start(Stage arg0) throws Exception {
@@ -16,6 +17,5 @@ public class TestGui extends Application {
 	public static void main(String [] args) {
 		Application.launch(args);
 	}
-	
 	
 }
