@@ -302,6 +302,7 @@ public class GuiConfig extends Application {
 	       Record.setLayoutY(520);
 	       pane.getChildren().add(Record);
 
+	       // Filename Text field
 	       TextField text = new TextField("Enter Filename");
 	       text.setLayoutX(875);
 	       text.setLayoutY(570);
