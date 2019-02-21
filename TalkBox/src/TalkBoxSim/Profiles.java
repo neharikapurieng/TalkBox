@@ -15,6 +15,7 @@ public class Profiles {
 	private int row;
 	private String profilename;
 	
+	
 	public Profiles() {
 		//TalkBoxConfiguration tbc;
 		this.tbc=null;
@@ -77,11 +78,40 @@ public class Profiles {
 	       Tree.setLayoutX(900);
 	       Tree.setLayoutY(100);
 	       
-	       String[] profile = tbc.Profiles;
-	     
 	       
+	       String[] profile = tbc.Profiles;
+	       String[][] audioname = tbc.AudioName;
+	       TreeItem<String> parent = new TreeItem<String>();
+	       for(int i=0; i<=profile.length-1; i++) {
+	    	   
+	    	   //root.getChildren().add(profile[i]);
+	    	   
+	       }
+	       for(int i=0; i<=profile.length-1; i++) {
+
+			int column = audioname[i].length;
+			String profilename = profile[i];
+			this.SetProfile(profilename, root);
+
+			for (int j = 0; j <= column; j++) {
+
+				//this.SetProfile(audioname[i][j], profilename);
+
+			}
+
+		}
+
+		return Tree;
+
+	}
+
+	public void SetProfile(String title, TreeItem<String> parent) {
+	
+			  TreeItem<String> item = new TreeItem<>(title);
+			  item.setExpanded(false);
+			  parent.getChildren().add(item);
+			
 		
-	       return Tree;
 		
 	}
 	

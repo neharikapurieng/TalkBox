@@ -29,6 +29,7 @@ public class Gui extends Application {
 		  Adder(GridP);
 		  pane.getChildren().add(ScrollP);
 		  Profiles profile = new Profiles();
+		  profile.profiles();
 		  //profile.LaunchProfileDisplay().setLayoutX(200);
 		  //profile.LaunchProfileDisplay().setLayoutY(100);
 		  pane.getChildren().add(profile.LaunchProfileDisplay());
