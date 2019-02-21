@@ -452,10 +452,11 @@ public class GuiConfig extends Application {
 				  String name = al.get(i);
 				  BList.get(i).setText(name);
 				  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
+				  count++;
 				 
 			 }
 			 
-			 count++;
+			// count++;
 			 
 		 }
 		  
@@ -463,7 +464,8 @@ public class GuiConfig extends Application {
 			  count++;
 			  String name = al.get(i);
 			  BList.get(i).setText(name);
-			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"))
+			  BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
+			  System.out.println("Hello");
 			  
 			  
 			  ;}}
@@ -565,6 +567,7 @@ public class GuiConfig extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
+		System.out.println(row);
 	}
 
 }

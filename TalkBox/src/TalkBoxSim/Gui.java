@@ -28,7 +28,11 @@ public class Gui extends Application {
 		  ScrollP.setMinSize(800, 300);
 		  Adder(GridP);
 		  pane.getChildren().add(ScrollP);
-		  Scene scene = new Scene(pane,800,400);
+		  Profiles profile = new Profiles();
+		  //profile.LaunchProfileDisplay().setLayoutX(200);
+		  //profile.LaunchProfileDisplay().setLayoutY(100);
+		  pane.getChildren().add(profile.LaunchProfileDisplay());
+		  Scene scene = new Scene(pane,1200,600);
 		  primaryStage.setScene(scene);
 		  primaryStage.show();
 	  }
