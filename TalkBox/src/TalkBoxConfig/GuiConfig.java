@@ -297,6 +297,7 @@ public class GuiConfig extends Application {
 	       SetProfile.setLayoutY(30);
 	       pane.getChildren().add(SetProfile);
 	       
+	       //Record button layout 
 	       Button Record = new Button("Record");
 	       Record.setLayoutX(800);
 	       Record.setLayoutY(520);
