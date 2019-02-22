@@ -1,5 +1,10 @@
 package Tester;
 
+import TalkBoxConfig.GuiConfig;
+import javafx.application.Application;
+import javafx.stage.Stage;
+
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.File;
@@ -15,7 +20,7 @@ class FileManagerTest {
 	void testFindFilesReturnArrayofFiles() throws IOException {
 		
 		FileManager file  =  new FileManager();
-		Object[] files = file.finder("waves");
+		Object[] files = file.finder("Yes");
 		assertEquals(File[].class,files.getClass());              
 	}
 	

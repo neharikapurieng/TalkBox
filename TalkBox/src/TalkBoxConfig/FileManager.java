@@ -10,7 +10,11 @@ public class FileManager {
 	 * 
 	 * 
 	 */
-	
+	public FileManager() {
+		
+		
+		
+	}
 	
 	public File[] finder(String dirName) throws IOException {
 	

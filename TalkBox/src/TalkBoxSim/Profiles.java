@@ -14,88 +14,64 @@ public class Profiles {
 	private TalkBoxConfiguration tbc;
 	private int row;
 	private String profilename;
+	private TreeItem<String> root;
 	
 	
-	public Profiles() {
+	public Profiles() throws Exception {
 		//TalkBoxConfiguration tbc;
-		this.tbc=null;
+		this.tbc=(TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
 	}
 
 	//TalkBoxConfiguration tbc;
-	public void profiles() throws Exception {
-		tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
-		
-		/*  public String[][] audioFiles(){
-			  String[][] temp = new String[root.getChildren().size()][BList.size()];
-			  for(int i = 0; i < root.getChildren().size(); i++) {
-			  int numofAudio = TItems.get(i).getChildren().size();
-				for(int j = 0; j < numofAudio; j++) {
-					temp[i][j] = TItems.get(i).getChildren().get(j).toString();}}
-			  for(String[] row : temp) {
-				  System.out.println(Arrays.toString(row));}
-			return temp;}
-		  */
-		  
-		 String[][] temp = tbc.getAudioFileNames();
-		 
-		 for(int i=0; i<=temp.length-1; i++) {
-			 
-			  int profileLength = temp[i].length; 
-			 
-			 for(int j=0; j<=profileLength-1; j++) {
-				 
-				 System.out.println(temp[i][j] + "Hello");
-				 
-			 }
-			 
-			 
-		 }
 	
-	
-		
-		
-		
-		
-		
-	}
+	/*
+	 * This method basically launches a display panel of the profile names that were used on the configurator
+	 * 
+	 */
 	
 	public TreeView LaunchProfileDisplay() {
-		
-		
-		 TreeItem<String> root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
-	       root.setExpanded(true);
-	       ArrayList<TreeItem> TItems = new ArrayList<>(); // creating profile   
-	       TreeView <String> Tree = new TreeView<>(root); //put item in tree
-	       Tree.setShowRoot(false);
-	       Tree.getSelectionModel().selectedItemProperty().addListener((v,oldValue,NewValue) -> {   
-	    	   if(NewValue != null) {
-	    		   row = Tree.getRow(NewValue); // row is the position of the file name
-	    		   profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
-	    	   }
-	       });
-	       Tree.setMinSize(300, 300);
-	       Tree.setMaxSize(300, 300);
-	       Tree.setLayoutX(900);
-	       Tree.setLayoutY(100);
-	       
-	       
-	       String[] profile = tbc.Profiles;
-	       String[][] audioname = tbc.AudioName;
-	       TreeItem<String> parent = new TreeItem<String>();
-	       for(int i=0; i<=profile.length-1; i++) {
-	    	   
-	    	   //root.getChildren().add(profile[i]);
-	    	   
-	       }
-	       for(int i=0; i<=profile.length-1; i++) {
+
+		this.root = new TreeItem<String>(); // This is used to create the profile and root and branches are
+														// added
+		root.setExpanded(true);
+		ArrayList<TreeItem> TItems = new ArrayList<>(); // creating profile
+		TreeView<String> Tree = new TreeView<>(root); // put item in tree
+		Tree.setShowRoot(false);
+		Tree.getSelectionModel().selectedItemProperty().addListener((v, oldValue, NewValue) -> {
+			if (NewValue != null) {
+				row = Tree.getRow(NewValue); // row is the position of the file name
+				profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
+			}
+		});
+		Tree.setMinSize(300, 300);
+		Tree.setMaxSize(300, 300);
+		Tree.setLayoutX(900);
+		Tree.setLayoutY(100);
+
+		String[] profile = tbc.Profiles;
+		String[][] audioname = tbc.AudioName;
+		TreeItem<String> parent = new TreeItem<String>();
+		for (int i = 0; i <= profile.length - 1; i++) {
+
+		}
+		for (int i = 0; i <= profile.length - 1; i++) {
 
 			int column = audioname[i].length;
-			String profilename = profile[i];
+			System.out.println(column + "length");
+			String profilename = profile[i].substring(17, profile[i].length() - 1);
+
 			this.SetProfile(profilename, root);
 
-			for (int j = 0; j <= column; j++) {
+			for (int j = 0; j <= column - 1; j++) {
 
-				//this.SetProfile(audioname[i][j], profilename);
+				TreeItem<String> item = new TreeItem<>(profilename);
+
+				if (audioname[i][j] != null) {
+					this.SetProfile(audioname[i][j].substring(17, audioname[i][j].length() - 1),
+							root.getChildren().get(i));
+
+				}
+				System.out.println(audioname[i][j] + "Yes");
 
 			}
 
@@ -104,6 +80,27 @@ public class Profiles {
 		return Tree;
 
 	}
+	
+	
+	
+	public TreeItem<String> getRoot() {
+		
+		return this.root;
+	}
+	
+	
+	public int getRow() {
+		
+		return this.row;
+	} 
+	
+	public String getProfilename() {
+		
+		return this.profilename;
+	}
+	/*
+	 * This method allows many profiles to concantanate into the profile display panel
+	 */
 
 	public void SetProfile(String title, TreeItem<String> parent) {
 	
@@ -119,14 +116,6 @@ public class Profiles {
 	
 	
 	
-	public static void main(String[] args) throws Exception {
-		// TODO Auto-generated method stub
 	
-		
-	    Profiles profile = new Profiles();
-	    profile.profiles();
-
-		
-	}
 
 }

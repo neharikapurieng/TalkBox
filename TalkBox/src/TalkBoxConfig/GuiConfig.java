@@ -3,6 +3,7 @@ package TalkBoxConfig;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,7 +23,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 
 
@@ -70,7 +70,7 @@ public class GuiConfig extends Application {
 
 	
 	
-	  public void start(Stage primaryStage) throws FileNotFoundException {
+	  public void start(Stage primaryStage) throws IOException {
 		  // Create a scene and place a button in the scene
 		    primaryStage.setTitle("TalkBoxConfig");   // Set title of talkbo
 		    HBox temp = new HBox();
@@ -415,7 +415,19 @@ public class GuiConfig extends Application {
 			  
 		  }
 		  }
-
+	  
+	  public GridPane getPane() {
+		  
+		  return this.sp;
+	  }
+	  
+	  public ArrayList<Button> getArray() {
+		
+		  
+		  return this.BList;
+		  
+		  }
+	  
 	  
 	  /*
 	   * This methods adds profiles by adding to the arrayList TItems
@@ -445,7 +457,7 @@ public class GuiConfig extends Application {
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(int k = 0; k < size; k++) {
 			  al.add(root.getChildren().get(row).getChildren().get(k).getValue());}
-		 while(Math.abs(numofbuttons-count)>0 && count != 0 ) { //
+		/* while(Math.abs(numofbuttons-count)>0 && count != 0 ) { //
 			 
 			 for(int i=0; i<=numofbuttons-count-1; i++) {
 				 
@@ -458,7 +470,7 @@ public class GuiConfig extends Application {
 			 
 			// count++;
 			 
-		 }
+		 }*/
 		  
 		  for(int i = 0; i < size; i++) {
 			  count++;
@@ -502,9 +514,11 @@ public class GuiConfig extends Application {
 	   * It will removes all characters and will be stored in the ArrayList as Hello
 	   * 
 	   */
-	  public ArrayList<String> ListofAudio() {
+	  public ArrayList<String> ListofAudio() throws IOException {
 		  ArrayList<String> al = new ArrayList<String>();
-		  for(File temp : finder(src)){
+		  FileManager file = new FileManager();
+		  
+		  for(File temp : file.finder(src)){
 			  StringBuilder sb = new StringBuilder();
 			  sb.append(temp.getName());
 			  sb.delete(sb.length()-4, sb.length()); // removes the .wav string

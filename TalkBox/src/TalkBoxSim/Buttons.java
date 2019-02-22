@@ -10,6 +10,7 @@ import javax.sound.sampled.Clip;
 import TalkBoxConfig.Serializer;
 import TalkBoxConfig.TalkBoxConfiguration;
 import javafx.scene.control.Button;
+import javafx.scene.layout.GridPane;
 
 
 /*
@@ -19,9 +20,10 @@ import javafx.scene.control.Button;
 public class Buttons {
 
 	TalkBoxConfiguration tbc;	
-	public ArrayList<Button> Buttons = new ArrayList<>();
+	private ArrayList<Button> Buttons = new ArrayList<Button>();
 	boolean collide = false;
 	Clip clip;
+	private GridPane GridP;
 	
 	/*
 	 * Adds the amounts of buttons from TalkBoxData.tbc to an ArrayList
@@ -39,6 +41,37 @@ public class Buttons {
 		}		
 		  System.out.println(tbc.NumOfAudioSets);
 	}
+	
+	public ArrayList<Button> getButtonList() {
+		
+		return this.Buttons;
+	}
+	
+
+	
+	
+	  public void Adder(GridPane p) {
+		  int ctr = 0;
+		  int count = tbc.NumOfAudioButtons;
+		  for(int j = 0; j <= Math.ceil(tbc.NumOfAudioButtons/10);j++) {
+				 if(count >= 10) {
+					 for(int k = 0; k < 10; k++) {
+						 this.Buttons.get(ctr).setMinSize(75, 75);
+						 p.add(this.Buttons.get(ctr), k, j);
+						 ctr++;
+						 count--;
+					 }
+				 }
+				 else {
+					 for(int h = 0; h < count; h++) {
+						 this.Buttons.get(ctr).setMinSize(75, 75);
+						 p.add(this.Buttons.get(ctr), h, j);
+						 ctr++;
+				 }
+			 }
+			 }
+	  }
+	  
 	
 	
 	  public void handle(String s) {	
