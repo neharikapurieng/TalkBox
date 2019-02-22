@@ -8,11 +8,9 @@ import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 
 import java.io.IOException;
-
-
-
+import java.nio.file.Files;
 import java.nio.file.Path;
-
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import java.util.Arrays;
@@ -1014,20 +1012,16 @@ public class GuiConfig extends Application {
 		  for(File temp : file.finder(src)){
 
 
-		  for(File temp1 : finder(src)){
+		
 
 
 			  StringBuilder sb = new StringBuilder();
 
-			  sb.append(temp1.getName());
+			  sb.append(temp.getName());
 
 			  sb.delete(sb.length()-4, sb.length()); // removes the .wav string
 
 			  al.add(sb.toString());}
-
-	
-
-		  }
 		return al;
 
 	  }
@@ -1118,9 +1112,9 @@ public class GuiConfig extends Application {
 
 	  
 
-	  /*
+	  
 
-	   * This method is to copy the recorded audio into src/audio
+	   // This method is to copy the recorded audio into src/audio
 
 	  public void copy(String s) throws IOException {
 
@@ -1129,14 +1123,15 @@ public class GuiConfig extends Application {
 			 if(f.getName() == s + ".wav") {
 
 				 Files.copy(f.toPath(), Paths.get(src));
+				 
 
 			 }
 
 		 }
 
-	  }*/
+	  }
 
-	public static void main(String[] args) {
+	public static void main(String[] args) { 
 
 		// TODO Auto-generated method stub
 
