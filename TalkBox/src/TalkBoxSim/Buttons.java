@@ -42,6 +42,7 @@ public class Buttons {
 		  System.out.println(tbc.NumOfAudioSets);
 	}
 	
+
 	public ArrayList<Button> getButtonList() {
 		
 		return this.Buttons;
@@ -74,6 +75,9 @@ public class Buttons {
 	  
 	
 	
+
+	// will let the user know, if the file is not found 
+
 	  public void handle(String s) {	
 			if(this.collide == true) this.clip.stop();
 			try {
