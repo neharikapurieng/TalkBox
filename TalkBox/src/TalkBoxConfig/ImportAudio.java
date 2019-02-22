@@ -25,6 +25,7 @@ public class ImportAudio {
 	private Path from;
 	private String src = "src/Audio/";
 	public String name;
+	public File file;
 	
 	
 	/*
@@ -40,7 +41,7 @@ public class ImportAudio {
 	 */
 	public void open() {
 		FileChooser fc = new FileChooser();
-		File file = fc.showOpenDialog(stage);
+		file = fc.showOpenDialog(stage);
 		name = file.getName();
 		to = Paths.get(src + file.getName());
 		from = file.toPath();
@@ -56,6 +57,7 @@ public class ImportAudio {
 		}
 		}
 	}
+	
 	
 	/*
 	 * Closes file explorer

@@ -341,9 +341,9 @@ public class GuiConfig2 extends Application {
 	       
 	       Record.setMinSize(75, 75);
 	       Record.setOnAction(e ->{ Sound sound = new Sound(); try {
-	    	sound.SoundFormart();
+	    	sound.soundFormat();
 	    	sound.temp = filename;
-			sound.start();
+			sound.start(filename);
 		} catch (InterruptedException | LineUnavailableException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
