@@ -634,17 +634,7 @@ if(this.numofButtons-this.numofAudioAdded> 0 && counter>0){
 				BList.get(i).setText(name);
 				BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
 			}
-			
-			
-			
-			
 		}
-		
-		
-		
-		
-		
-		
 		}
 	
 	

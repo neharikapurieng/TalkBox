@@ -36,7 +36,6 @@ class TestButtons extends ButtonGui  {
 			
 		}
 		TestButtons.buttons = new ButtonGui();
-	
 		TestButtons.buttons.buttonAdder(n);
 		Thread.sleep(1000);
 		assertTrue(buttons.getArray().size()== buttonList.size());

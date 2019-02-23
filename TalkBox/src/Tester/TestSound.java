@@ -12,6 +12,7 @@ import javax.sound.sampled.TargetDataLine;
 import org.junit.jupiter.api.Test;
 
 import TalkBoxConfig.Sound;
+import junit.framework.Assert;
 
 class TestSound {
 
@@ -70,9 +71,8 @@ class TestSound {
 		sound.start("Null");
 		sound.stop();;
 		targetLineTest.stop();
-	    assertEquals(sound.getTargetLine(), targetLineTest);
-		
-		
+		targetLineTest.close();
+	    assertEquals(sound.getTargetLine().isOpen(), targetLineTest.isOpen());	
 	}
 
 }
