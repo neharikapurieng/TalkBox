@@ -67,7 +67,7 @@ public class Profiles {
 				TreeItem<String> item = new TreeItem<>(profilename);
 
 				if (audioname[i][j] != null) {
-					this.SetProfile(audioname[i][j].substring(17, audioname[i][j].length() - 1),
+					this.SetProfile(audioname[i][j].substring(18, audioname[i][j].length() - 2),
 							root.getChildren().get(i));
 
 				}

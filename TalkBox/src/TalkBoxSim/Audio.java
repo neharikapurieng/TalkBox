@@ -1,5 +1,14 @@
 package TalkBoxSim;
 
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FilenameFilter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -15,12 +24,16 @@ public class Audio {
 	
 	private TalkBoxConfiguration tbc;
 	private int count;
-	private String src = "src/Audio/";
-	boolean collide = false;
+	private String src;
+	boolean collide;
 	private Clip clip;
 	
 	public Audio() {
 		
+		this.src= "src/Audio/";
+		this.clip=null;
+		this.collide=false;
+		this.count=0;
 		
 		}
 	
@@ -45,8 +58,9 @@ public class Audio {
 			  count++;
 			  String name = al.get(i);
 			  button.getButtonList().get(i).setText(name);
-			  button.getButtonList().get(i).setOnAction(e -> handle(src + name + ".wav"));
+			  button.getButtonList().get(i).setOnAction(e -> this.handle(src + name +".wav"));
 			  System.out.println(button.getButtonList().get(i));
+			  System.out.println(src + name+ ".wav");
 			  
 			  
 			  ;}}
@@ -56,10 +70,13 @@ public class Audio {
 			if(this.collide == true) this.clip.stop();
 			try {
 				AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
+			
 				this.clip = AudioSystem.getClip();
 				clip.open(audio);
 				clip.start();
 				this.collide = true;}
 			catch(Exception e) {	
 				System.out.println("Can't find audio file");}}
+	  
+}
 	  

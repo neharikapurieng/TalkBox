@@ -1,5 +1,6 @@
 package TalkBoxConfig;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
 
@@ -7,6 +8,7 @@ import javax.sound.sampled.Clip;
 
 import javafx.application.Application;
 import javafx.geometry.Insets;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
@@ -15,10 +17,12 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
-public class ButtonAdder {
+public class ButtonGui extends Application {
 	
 	
 
@@ -34,10 +38,11 @@ public class ButtonAdder {
 
 	
 	
-	public ButtonAdder() {
+	public ButtonGui() {
 		
 		this.BList=null;
 		this.sp=null;
+		this.ctr2=0;
 		
 		
 	}
@@ -45,7 +50,7 @@ public class ButtonAdder {
 	
 	
 	
-	  public void bAdder(int n) throws IllegalArgumentException {
+	  public void buttonAdder(int n) throws IllegalArgumentException {
 		  try {
 			
 			 
@@ -54,10 +59,11 @@ public class ButtonAdder {
 			  
 		  sp.getChildren().clear();
 		  
-		  this.ctr2 = 0;
+		
 			   for(int i = ctr2; i < n; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
-		    	   BList.add(new Button(buttonname));
+		    	   Button button = new Button(buttonname);
+		    	  BList.add(button);
 		    	   BList.get(i).setPadding(new Insets(10,10,10,10)); // tried adding padding to the buttons
 		       }
 			 // this.ctr2 = 0;
@@ -101,17 +107,40 @@ public class ButtonAdder {
 
 
 
-public static void main(String[] args) {
-	// TODO Auto-generated method stub
-	
-	ButtonAdder button = new ButtonAdder();
-	button.bAdder(6);
-	
-	System.out.println(button.getArray());
-}
+ /* public void start(Stage primaryStage) throws IOException {
+	  
+	  	primaryStage.setTitle("TalkBoxConfig"); // Set title of talkbo
+	  	ButtonAdder button = new ButtonAdder();
+	  	button.bAdder(6);
+	  	Scene scene = new Scene(this.sp, 1200, 600);
+		primaryStage.setScene(scene);
+		primaryStage.setTitle("TalkBox");
+		primaryStage.show();
+
+	  
+  } */
+  
+	public static void main(String[] args) {
+
+		// TODO Auto-generated method stub
+
+		//Application.launch(args);
+		ButtonGui button = new ButtonGui();
+		button.buttonAdder(6);
+		System.out.println(button.getArray().size());
+	}
+
+
+
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+
 
 }
-
-
-
 
