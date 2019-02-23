@@ -77,6 +77,9 @@ public class Audio {
 				this.collide = true;}
 			catch(Exception e) {	
 				System.out.println("Can't find audio file");}}
+<<<<<<< HEAD
 	  
+=======
+>>>>>>> branch 'master' of https://github.com/neharikapurieng/TalkBox
 }
 	  
