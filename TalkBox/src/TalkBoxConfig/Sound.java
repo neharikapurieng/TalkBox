@@ -16,7 +16,7 @@ public class Sound {
 	
 	
 	private TargetDataLine targetLine;
-	public String temp;
+	public String filename;
 	
 	
 	public Sound() {
@@ -66,12 +66,14 @@ public class Sound {
 
 		Thread thread = new Thread() {
 	    String temp = name;
+	    //String fileName;
 			
 		 public void run()  {
 				
 				AudioInputStream audioStream = new AudioInputStream(targetLine);
+				String fileName;
+				fileName = temp + ".wav";
 				
-				String fileName = temp + ".wav";
 				
 				File audioFile = new File(fileName);
 				
@@ -89,11 +91,13 @@ public class Sound {
 				}
 				System.out.println("Stopped Recording");
 				
+				
 			}
+		 	
 		 
 		};
 		
-		
+		this.filename=name;
 		thread.start();
 		System.out.println("Recording");
 		//Thread.sleep(5000); 
@@ -113,6 +117,16 @@ public class Sound {
 		
 		this.targetLine.stop();
 		this.targetLine.close();
+	}
+	
+	public String getFileName() {
+		
+		return this.filename;
+	}
+	
+	public TargetDataLine getTargetLine() {
+		
+		return this.targetLine;
 	}
 	
 }	
