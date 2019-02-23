@@ -165,7 +165,6 @@ public class GuiConfig extends Application {
 	        primaryStage.setTitle("TalkBox");
 
 	        
-
 	        primaryStage.show();
 
 	        //This line applys all the css code from application.css
