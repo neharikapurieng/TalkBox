@@ -52,7 +52,7 @@ class FileManagerTest {
 	void testReturnsallWavsInDirl() throws IOException {
 		
 		FileManager file  =  new FileManager();
-		Object[] files = file.finder("waves");
+		Object[] files = file.finder("");
 		assertEquals(1,files.length);  
 	}
 

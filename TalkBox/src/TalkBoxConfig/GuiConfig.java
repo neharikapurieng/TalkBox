@@ -184,7 +184,8 @@ public class GuiConfig extends Application {
 	    	   TalkBoxConfiguration tbc = new TalkBoxConfiguration();
 	    	   try {
 	    	   tbc.NumOfAudioButtons = numofbuttons; //Numbder of Buttons
-	    	   tbc.NumOfAudioSets = TItems.get(row).getChildren().size(); //number of audio sets in each profile
+	    	  // tbc.NumOfAudioSets = TItems.get(row).getChildren().size(); //number of audio sets in each profile
+	    	   tbc.NumOfAudioSets = numofAudioFiles(); //Total number of audio files
 	    	   tbc.NumOfButtons = numofbuttons + 7; // all the buttons plus the buttons to set, add, etc
 	    	   tbc.PathToAudioFiles = null; // cant serialize Path object
 	    	   tbc.AudioName = audioFiles(); // 2-D array of audio
@@ -306,7 +307,7 @@ public class GuiConfig extends Application {
 	       PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 	       PN.setOnAction(e -> {ProfileAdder(PN.getText()); PN.clear();}); //Adds the Profile to the TreeView after pressing Enter
 
-	       SetProfile.setOnAction(e -> swapAudio()); //Set Profile by calling swapAudio
+	       SetProfile.setOnAction(e -> { try {swapAudio();}catch(Exception ie){wrongInput.setText("Fix profiles");}}); //Set Profile by calling swapAudio
 	       AddSound.setOnAction(e ->SoundAdder(soundname)); //Adds sound by calling SoundAdder
 	       RemoveProfile.setOnAction(e -> ProfileRemover(row));//Removes Profile by calling ProfileRemover
 	       
@@ -526,8 +527,8 @@ public class GuiConfig extends Application {
 		  int numofAudio = TItems.get(i).getChildren().size();
 			for(int j = 0; j < numofAudio; j++) {
 				temp[i][j] = TItems.get(i).getChildren().get(j).toString();}}
-		  for(String[] row : temp) {
-			  System.out.println(Arrays.toString(row));}
+		  //for(String[] row : temp) {
+			//  System.out.println(Arrays.toString(row));}
 		return temp;}
 	  
 	  /*
@@ -539,7 +540,7 @@ public class GuiConfig extends Application {
 		  for(int i = 0; i < temp.length; i++) {
 			  temp[i] = root.getChildren().get(i).toString();
 		  }
-		  System.out.println(Arrays.toString(temp));
+		 // System.out.println(Arrays.toString(temp));
 		  return temp;
 	  }
 	 
@@ -555,6 +556,20 @@ public class GuiConfig extends Application {
 		  ListofAudio.getItems().add(sb.toString());
 	  }
 	  
+	  public int numofAudioFiles() {
+		  int ctr = 0;
+		  String [][] temp = audioFiles();
+		  for(int i = 0; i < temp.length; i++) {
+			  for(int j = 0; j < temp[i].length; j++) {
+				  if(temp[i][j] != null) {
+					  ctr++;
+				  }
+			  }
+		  }
+		  System.out.println(ctr);
+		  return ctr;
+	  }
+	  
 	  /*
 	   * This method is to copy the recorded audio into src/audio
 	  public void copy(String s) throws IOException {
@@ -567,7 +582,6 @@ public class GuiConfig extends Application {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		Application.launch(args); 
-		System.out.println(row);
 	}
 
 }
