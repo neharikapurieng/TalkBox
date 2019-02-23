@@ -62,4 +62,5 @@ public class Audio {
 				this.collide = true;}
 			catch(Exception e) {	
 				System.out.println("Can't find audio file");}}
+}
 	  
