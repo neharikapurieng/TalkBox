@@ -363,8 +363,9 @@ public class GuiConfig extends Application {
 		 */
 
 		Record.setMinSize(75, 75);
+		Sound sound = new Sound();
 		Record.setOnAction(e -> {
-			Sound sound = new Sound();
+			
 			try {
 
 				sound.soundFormat();
@@ -385,7 +386,6 @@ public class GuiConfig extends Application {
 
 		Button Stop = new Button("Stop");
 		Stop.setOnAction(e -> {
-			Sound sound = new Sound();
 			sound.stop();
 		});
 
@@ -639,7 +639,7 @@ public class GuiConfig extends Application {
 		
 	
 	
-	public void addMultipleAudioFiles() {
+	public void addInduAudioFiles() {
 		
 		
 		

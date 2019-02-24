@@ -51,9 +51,11 @@ public class ButtonGui extends Application {
 		
 			   for(int i = ctr2; i < n; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
-		    	   Button button = new Button(buttonname);
-		    	  BList.add(button);
+		    	   //Button button = new Button(buttonname);
+		    	  BList.add( new Button(buttonname));
 		    	   BList.get(i).setPadding(new Insets(10,10,10,10)); // tried adding padding to the buttons
+		    	   ctr2++;
+		    	   
 		       }
 			 // this.ctr2 = 0;
 			 
@@ -90,7 +92,10 @@ public class ButtonGui extends Application {
 		  return this.BList;
 		  }
 	
-
+ public int getNumofButton() {
+	 
+	 return this.ctr2;
+ }
 
 
  /* public void start(Stage primaryStage) throws IOException {
