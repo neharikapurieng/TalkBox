@@ -31,23 +31,12 @@ public class ButtonGui extends Application {
 	private GridPane sp;
 
 	
-
-	
-
-
-
-	
-	
 	public ButtonGui() {
 		
 		this.BList=null;
 		this.sp=null;
 		this.ctr2=0;
-		
-		
 	}
-	
-	
 	
 	
 	  public void buttonAdder(int n) throws IllegalArgumentException {
@@ -98,10 +87,7 @@ public class ButtonGui extends Application {
 		  }
 	  
   public ArrayList<Button> getArray() {
-		
-		  
 		  return this.BList;
-		  
 		  }
 	
 
