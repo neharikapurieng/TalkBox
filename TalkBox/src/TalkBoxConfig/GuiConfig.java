@@ -374,7 +374,7 @@ public class GuiConfig extends Application {
 			try {
 
 				sound.soundFormat();
-				sound.start(filename);
+				sound.start(this.filename);
 
 			} catch (InterruptedException | LineUnavailableException e1) {
 
