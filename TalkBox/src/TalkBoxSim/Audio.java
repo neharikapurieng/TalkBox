@@ -47,7 +47,6 @@ public class Audio {
 	
 	
 	  public void AudioToButton(GridPane pane,ArrayList<Button> buttons,TreeView<String> profile,int row) throws Exception {
-		  System.out.println(row);
 		  int size = profile.getRoot().getChildren().get(row).getChildren().size();
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(int k = 0; k < size; k++) {

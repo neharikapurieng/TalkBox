@@ -15,6 +15,7 @@ class AudioClipTest {
 		AudioClip clip = new AudioClip("src/Audio/boring.wav");
 		
 		clip.play();
+
 		
 		
 		assertTrue(clip.isConnecting());

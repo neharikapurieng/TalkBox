@@ -13,6 +13,7 @@ import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 
 
 /*
@@ -52,8 +53,7 @@ public class Buttons {
 	}
 	
 
-	
-	
+
 	  public void Adder(GridPane p) {
 		  int ctr = 0;
 		  int count = tbc.NumOfAudioButtons;
@@ -61,9 +61,9 @@ public class Buttons {
 				 if(count >= 5) {
 					 for(int k = 0; k < 5; k++) {
 						 this.Buttons.get(ctr).setMinSize(75, 75);
-						 GridPane.setVgrow(this.Buttons.get(k), Priority.ALWAYS);
-						 GridPane.setHgrow(this.Buttons.get(k), Priority.ALWAYS);
 						 p.add(this.Buttons.get(ctr), k, j);
+						 GridPane.setVgrow(this.Buttons.get(k), Priority.ALWAYS);
+						   GridPane.setHgrow(this.Buttons.get(k), Priority.ALWAYS);
 						 ctr++;
 						 count--;
 					 }
@@ -73,19 +73,16 @@ public class Buttons {
 						 this.Buttons.get(ctr).setMinSize(75, 75);
 						 p.add(this.Buttons.get(ctr), h, j);
 						 GridPane.setVgrow(this.Buttons.get(h), Priority.ALWAYS);
-						 GridPane.setHgrow(this.Buttons.get(h), Priority.ALWAYS);
+						   GridPane.setHgrow(this.Buttons.get(h), Priority.ALWAYS);
 						 ctr++;
 				 }
 			 }
 			 }
 	  }
-	  
 	
-	  public void SetProfile(Pane p) {
+	  public void SetProfile(VBox p) {
 		  set = new Button("Set Profile");
-		  set.setLayoutX(800);
-		  set.setLayoutY(350);
-		  set.setMinSize(200, 50);
+		  set.setMinSize(250, 50);
 		  p.getChildren().add(set);
 	  }
 	

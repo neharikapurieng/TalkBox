@@ -20,7 +20,7 @@ class FileInputOutputTest {
 	void testFindFilesReturnArrayofFiles() throws IOException {
 		
 		FileInputOutput file  =  new FileInputOutput();
-		Object[] files = file.finder("recordings");
+		Object[] files = file.finder("src/Audio/");
 		assertEquals(File[].class,files.getClass());              
 	}
 	
@@ -57,8 +57,8 @@ class FileInputOutputTest {
 	void testReturnsAllWavsInDir() throws IOException {
 		
 		FileInputOutput file  =  new FileInputOutput();
-		Object[] files = file.finder("recordings");
-		assertEquals(1,files.length);  
+		Object[] files = file.finder("src/Audio");
+		assertEquals(10,files.length);  
 	}
 
 
