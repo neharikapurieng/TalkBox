@@ -57,7 +57,7 @@ public class GuiConfig extends Application {
 	private Button SetProfile;
 	private TextField PN;
 	public TextField numofB;
-	private int count = 0;
+	//private int count = 0;
 	
 	// Panes
 	public GridPane sp;
@@ -190,8 +190,8 @@ public class GuiConfig extends Application {
 				wrongInput.setText("Wrong Input");
 
 			}
-			;
-			bAdder(numofbuttons);
+			ButtonGui b = new ButtonGui();
+			b.buttonAdder(numofbuttons,sp);
 		}); // ?
 
 		ButtonsandError.getChildren().addAll(numofB, wrongInput);
@@ -493,6 +493,7 @@ public class GuiConfig extends Application {
 	 * arraylist called BList Second for loop makes it so that max of 10 buttons per
 	 * row
 	 */
+	/*
 	public void bAdder(int n) throws IllegalArgumentException {
 		try {
 			sp.getChildren().clear();
@@ -530,6 +531,7 @@ public class GuiConfig extends Application {
 
 		}
 	}
+	*/
 
 	public GridPane getPane() {
 		return this.sp;
@@ -619,14 +621,7 @@ public class GuiConfig extends Application {
 			}
 	}
 	*/
-	
 
-	
-	public void addInduAudioFiles() {
-		
-		
-		
-	}
 
 
 	public void SoundAdder(String s) {
@@ -775,15 +770,6 @@ public class GuiConfig extends Application {
 		return ctr;
 	}
 	
-
-	/*
-	 * // This method is to copy the recorded audio into src/audio
-	 * 
-	 * public void copy(String s) throws IOException { for(File f :
-	 * finder("TalkBox")) { if(f.getName() == s + ".wav") { Files.copy(f.toPath(),
-	 * Paths.get(src)); } } }
-	 */
-
 	public static void main(String[] args) {
 
 		// TODO Auto-generated method stub

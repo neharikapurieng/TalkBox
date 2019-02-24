@@ -28,59 +28,41 @@ public class ButtonGui extends Application {
 
 	private int ctr2;
 	private ArrayList<Button> BList;
-	private GridPane sp;
 
 	
 	public ButtonGui() {
 		
 		this.BList=null;
-		this.sp=null;
 		this.ctr2=0;
 	}
 	
 	
-	  public void buttonAdder(int n) throws IllegalArgumentException {
+	  public void buttonAdder(int n,GridPane sp) throws IllegalArgumentException {
 		  try {
-			
-			 
-			  this.BList= new ArrayList<Button>();
-			  this.sp= new GridPane();
-			  
+			  this.BList= new ArrayList<Button>();;
 		  sp.getChildren().clear();
-		  
-		
 			   for(int i = ctr2; i < n; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
-		    	   //Button button = new Button(buttonname);
-		    	  BList.add( new Button(buttonname));
-		    	   BList.get(i).setPadding(new Insets(10,10,10,10)); // tried adding padding to the buttons
+		    	   BList.add( new Button(buttonname));
 		    	   ctr2++;
-		    	   
 		       }
-			 // this.ctr2 = 0;
-			 
+			   this.ctr2 = 0;
 			   int count = n;
-			 for(int j = 0; j <= Math.ceil(n/10);j++) {
-				 if(count >= 10) {
-					 for(int k = 0; k < 10; k++) {
+			 for(int j = 0; j <= Math.ceil(n/5);j++) {
+				 if(count >= 5) {
+					 for(int k = 0; k < 5; k++) {
 						 BList.get(ctr2).setMinSize(75, 75);
-						 BList.get(ctr2).setPadding(new Insets(13,10,15,17));
-						 sp.setHgap(5.5);
-						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), k, j);
-						 HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
-						 VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						 GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						 GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						 ctr2++;
 						 count--;}}
 				 else {
 					 for(int h = 0; h < count; h++) {
 						 BList.get(ctr2).setMinSize(75, 75);
-						 BList.get(ctr2).setPadding(new Insets(13,10,15,17));
-						 sp.setHgap(5.5);
-						 sp.setVgap(5.5);
 						 sp.add(BList.get(ctr2), h, j);
-						 HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
-						 VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						 GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						 GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						 ctr2++; }}}}
 		  catch(IllegalArgumentException io) {
 			 System.out.println("Wrong input");
@@ -96,33 +78,6 @@ public class ButtonGui extends Application {
 	 
 	 return this.ctr2;
  }
-
-
- /* public void start(Stage primaryStage) throws IOException {
-	  
-	  	primaryStage.setTitle("TalkBoxConfig"); // Set title of talkbo
-	  	ButtonAdder button = new ButtonAdder();
-	  	button.bAdder(6);
-	  	Scene scene = new Scene(this.sp, 1200, 600);
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("TalkBox");
-		primaryStage.show();
-
-	  
-  } */
-  
-	public static void main(String[] args) {
-
-		// TODO Auto-generated method stub
-
-		//Application.launch(args);
-		ButtonGui button = new ButtonGui();
-		button.buttonAdder(6);
-		System.out.println(button.getArray().size());
-	}
-
-
-
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
