@@ -6,16 +6,14 @@ import javafx.scene.control.Button;
 
 public class AudioHandler<ActionEvent>  implements javafx.event.EventHandler<javafx.event.ActionEvent> {
 	
-	
 	private AudioClip clip;
 	
 
 	
 	
 	public AudioHandler(String audioPath) {
-		
 		this.clip = new AudioClip(audioPath);
-
+		
 	}
 
 

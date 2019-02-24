@@ -16,7 +16,11 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+import TalkBoxConfig.AudioHandler;
 import TalkBoxConfig.TalkBoxConfiguration;
+import javafx.event.ActionEvent;
+import javafx.scene.control.Button;
+import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
 
 public class Audio {
@@ -27,6 +31,7 @@ public class Audio {
 	private String src;
 	boolean collide;
 	private Clip clip;
+	public boolean result = false;
 	
 	public Audio() {
 		
@@ -41,31 +46,19 @@ public class Audio {
 	
 	
 	
-	  public void AudioToButton(GridPane pane) throws Exception {
-			
-		  Profiles profile = new Profiles();
-		  profile.LaunchProfileDisplay();
-		  Buttons button = new Buttons();
-		  button.Adder(pane);
-		  int size = profile.getRoot().getChildren().get(profile.getRow()).getChildren().size();
-		  System.out.println(size);
+	  public void AudioToButton(GridPane pane,ArrayList<Button> buttons,TreeView<String> profile,int row) throws Exception {
+		  System.out.println(row);
+		  int size = profile.getRoot().getChildren().get(row).getChildren().size();
 		  ArrayList<String> al = new ArrayList<String>();
 		  for(int k = 0; k < size; k++) {
-			  al.add(profile.getRoot().getChildren().get(profile.getRow()).getChildren().get(k).getValue());}
-	
-		  
+			  al.add(profile.getRoot().getChildren().get(row).getChildren().get(k).getValue());}
 		  for(int i = 0; i < size; i++) {
-			  count++;
 			  String name = al.get(i);
-			  button.getButtonList().get(i).setText(name);
-			  button.getButtonList().get(i).setOnAction(e -> this.handle(src + name +".wav"));
-			  System.out.println(button.getButtonList().get(i));
-			  System.out.println(src + name+ ".wav");
-			  
-			  
-			  ;}}
-	  
-	  
+			  buttons.get(i).setText(name);
+			  buttons.get(i).setOnAction(e -> this.handle(src + name +".wav"));
+			  ;}
+	  }
+	 
 	  public void handle(String s) {	// Play Audio Files and checks if it exists
 			if(this.collide == true) this.clip.stop();
 			try {

@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 public class Gui extends Application {
 
 	  TalkBoxConfiguration tbc; // TalkBoxConfiguration Data
-	  Buttons b = new Buttons(); //Buttons from button class
+	   //Buttons from button class
 	  GridPane GridP = new GridPane(); //GridPane
 	  ScrollPane ScrollP = new ScrollPane(GridP); //ScrollPane with GridPane Back
 	  public void start(Stage primaryStage) throws Exception {
@@ -32,11 +32,20 @@ public class Gui extends Application {
 		  Profiles profile = new Profiles();
 		  pane.getChildren().add(profile.LaunchProfileDisplay());
 		  Audio audio = new Audio();
-		  audio.AudioToButton(GridP);
-		  Scene scene = new Scene(pane,1200,600);
+		  button.SetProfile(pane);
+		  button.set.setOnAction(e->{
+			  try {
+				  audio.AudioToButton(GridP, button.getButtonList(),profile.LaunchProfileDisplay(),profile.row);
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		  });
+		  Scene scene = new Scene(pane,1000,400);
+		  scene.getStylesheets().add("application.css");
 		  Label label = new Label("TalkBox Simulator");
 		  label.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-		  label.setLayoutX(500);
+		  label.setLayoutX(400);
 		  label.setLayoutY(0);
 		  pane.getChildren().add(label);
 		  primaryStage.setScene(scene);

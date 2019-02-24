@@ -12,9 +12,10 @@ import javafx.scene.control.TreeView;
 public class Profiles {
 	
 	private TalkBoxConfiguration tbc;
-	private int row;
-	private String profilename;
-	private TreeItem<String> root;
+	public int row;
+	public
+	String profilename;
+	public TreeItem<String> root;
 	
 	
 	public Profiles() throws Exception {
@@ -29,11 +30,10 @@ public class Profiles {
 	 * 
 	 */
 	
-	public TreeView LaunchProfileDisplay() {
+	public TreeView<String> LaunchProfileDisplay() {
 
-		this.root = new TreeItem<String>(); // This is used to create the profile and root and branches are
-														// added
-		root.setExpanded(true);
+		this.root = new TreeItem<String>(); // This is used to create the profile and root and branches are									// added
+		root.setExpanded(false);
 		ArrayList<TreeItem> TItems = new ArrayList<>(); // creating profile
 		TreeView<String> Tree = new TreeView<>(root); // put item in tree
 		Tree.setShowRoot(false);
@@ -43,9 +43,9 @@ public class Profiles {
 				profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
 			}
 		});
-		Tree.setMinSize(300, 300);
-		Tree.setMaxSize(300, 300);
-		Tree.setLayoutX(900);
+		Tree.setMinSize(200, 250);
+		Tree.setMaxSize(200, 250);
+		Tree.setLayoutX(800);
 		Tree.setLayoutY(100);
 
 		String[] profile = tbc.Profiles;
@@ -53,11 +53,8 @@ public class Profiles {
 		TreeItem<String> parent = new TreeItem<String>();
 		for (int i = 0; i <= profile.length - 1; i++) {
 
-		}
-		for (int i = 0; i <= profile.length - 1; i++) {
-
 			int column = audioname[i].length;
-			System.out.println(column + "length");
+			////System.out.println(column + "length");
 			String profilename = profile[i].substring(17, profile[i].length() - 1);
 
 			this.SetProfile(profilename, root);
@@ -71,7 +68,7 @@ public class Profiles {
 							root.getChildren().get(i));
 
 				}
-				System.out.println(audioname[i][j]);
+				//System.out.println(audioname[i][j]);
 
 			}
 
@@ -105,7 +102,7 @@ public class Profiles {
 	public void SetProfile(String title, TreeItem<String> parent) {
 	
 			  TreeItem<String> item = new TreeItem<>(title);
-			  item.setExpanded(true);
+			  item.setExpanded(false);
 			  parent.getChildren().add(item);
 			
 		

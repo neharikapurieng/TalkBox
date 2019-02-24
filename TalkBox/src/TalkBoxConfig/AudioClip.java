@@ -12,8 +12,8 @@ import javax.sound.sampled.Clip;
 import TalkBoxConfig.FileInputOutput;
 
 public class AudioClip {
-
 	
+
 	private Clip clip = null;
 
 	private String clipPath;
@@ -47,13 +47,8 @@ public class AudioClip {
 
 			
 			if(this.clip != null && this.clip.isRunning()) {
-				
 				this.clip.stop();
 				this.clip.flush();
-				
-	
-				
-			
 			}
 			try {
 				
@@ -78,5 +73,4 @@ public class AudioClip {
 			}
 
 		}
-
-}
+	}
