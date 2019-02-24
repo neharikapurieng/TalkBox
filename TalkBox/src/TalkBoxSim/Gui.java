@@ -7,7 +7,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.Priority;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Gui extends Application {
@@ -17,22 +20,19 @@ public class Gui extends Application {
 	  GridPane GridP = new GridPane(); //GridPane
 	  ScrollPane ScrollP = new ScrollPane(GridP); //ScrollPane with GridPane Back
 	  public void start(Stage primaryStage) throws Exception {
+		  VBox main = new VBox();
 		  //Deserializers and Loads information from TalkBoxData
 		  tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
 		  Buttons button = new Buttons();
-		  Pane pane = new Pane();
-		  GridP.setLayoutX(0);
-		  GridP.setLayoutY(100);
-		  ScrollP.setLayoutX(0);
-		  ScrollP.setLayoutY(100);
+		  HBox pane = new HBox();
 		  GridP.setMinSize(800, 300);
 		  ScrollP.setMinSize(800, 300);
 		  button.Adder(GridP);
-		  pane.getChildren().add(ScrollP);
+		  VBox v = new VBox();
 		  Profiles profile = new Profiles();
-		  pane.getChildren().add(profile.LaunchProfileDisplay());
+		  v.getChildren().add(profile.LaunchProfileDisplay());
 		  Audio audio = new Audio();
-		  button.SetProfile(pane);
+		  button.SetProfile(v);
 		  button.set.setOnAction(e->{
 			  try {
 				  audio.AudioToButton(GridP, button.getButtonList(),profile.LaunchProfileDisplay(),profile.row);
@@ -41,16 +41,31 @@ public class Gui extends Application {
 				e1.printStackTrace();
 			}
 		  });
-		  Scene scene = new Scene(pane,1000,400);
+		  pane.getChildren().addAll(ScrollP,v);
+		  Scene scene = new Scene(main,1050,400);
 		  scene.getStylesheets().add("application.css");
 		  Label label = new Label("TalkBox Simulator");
+		  label.setCenterShape(true);
 		  label.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
-		  label.setLayoutX(400);
-		  label.setLayoutY(0);
-		  pane.getChildren().add(label);
+		  main.getChildren().addAll(label,pane);
 		  primaryStage.setScene(scene);
 		  primaryStage.setTitle("TalkBox Simulator");
 		  primaryStage.show();
+		  
+		  /*
+		  VBox.setVgrow(main, Priority.ALWAYS);
+		  HBox.setHgrow(main, Priority.ALWAYS);
+		  VBox.setVgrow(v, Priority.ALWAYS);
+		  VBox.setVgrow(ScrollP, Priority.ALWAYS);
+		  VBox.setVgrow(GridP, Priority.ALWAYS);
+		  VBox.setVgrow(button.set, Priority.ALWAYS);
+		  VBox.setVgrow(profile.LaunchProfileDisplay(), Priority.ALWAYS);
+		  HBox.setHgrow(pane, Priority.ALWAYS);
+		  VBox.setVgrow(pane, Priority.ALWAYS);
+		  HBox.setHgrow(ScrollP, Priority.ALWAYS);
+		  HBox.setHgrow(GridP, Priority.ALWAYS);
+
+		  */
 	  }
 
 	

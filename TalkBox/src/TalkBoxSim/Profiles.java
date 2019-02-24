@@ -44,9 +44,6 @@ public class Profiles {
 			}
 		});
 		Tree.setMinSize(200, 250);
-		Tree.setMaxSize(200, 250);
-		Tree.setLayoutX(800);
-		Tree.setLayoutY(100);
 
 		String[] profile = tbc.Profiles;
 		String[][] audioname = tbc.AudioName;

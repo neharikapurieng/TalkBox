@@ -27,7 +27,7 @@ public class ButtonConfig extends Application {
 	
 
 	private int ctr2;
-	private ArrayList<Button> BList;
+	public ArrayList<Button> BList;
 	private GridPane gridpane;
 
 	

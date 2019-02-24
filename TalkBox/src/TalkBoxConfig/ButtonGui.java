@@ -27,7 +27,7 @@ public class ButtonGui extends Application {
 	
 
 	private int ctr2;
-	private ArrayList<Button> BList;
+	public ArrayList<Button> BList;
 
 	
 	public ButtonGui() {

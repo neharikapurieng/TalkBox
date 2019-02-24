@@ -48,7 +48,8 @@ public class GuiConfig extends Application {
 	@SuppressWarnings("rawtypes")
 
 	private static ArrayList<TreeItem> TItems;
-	public ArrayList<Button> BList = new ArrayList<Button>();
+	public ButtonGui b;
+	//public ArrayList<Button> BList = new ArrayList<Button>();
 	private ListView<String> ListofAudio;
 	private TextField wrongInput;
 
@@ -66,7 +67,7 @@ public class GuiConfig extends Application {
 	// Ints
 
 	int ctr = 480;
-	static int row = 0;
+	public static int row = 0;
 	int increment = 0;
 	int increment2 = 0;
 	private int ctr2;
@@ -190,7 +191,7 @@ public class GuiConfig extends Application {
 				wrongInput.setText("Wrong Input");
 
 			}
-			ButtonGui b = new ButtonGui();
+			b = new ButtonGui();
 			b.buttonAdder(numofbuttons,sp);
 		}); 
 
@@ -413,6 +414,7 @@ public class GuiConfig extends Application {
 			try {
 				swapAudio();
 			} catch (Exception ie) {
+				ie.printStackTrace();
 				wrongInput.setText("Fix profiles");
 			}
 		}); // Set Profile by calling swapAudio
@@ -477,6 +479,7 @@ public class GuiConfig extends Application {
 	 * 
 	 */
 
+	/*
 	public File[] finder(String dirName) {
 		File directoryPath = new File(dirName);
 		File[] files = directoryPath.listFiles(new FilenameFilter() {
@@ -487,6 +490,7 @@ public class GuiConfig extends Application {
 		});
 		return files;
 	}
+	*/
 
 	/*
 	 * This method adds the buttons to the scrollPane sp.getChildren.clear() allows
@@ -571,51 +575,19 @@ public class GuiConfig extends Application {
 	 */
 
 	public void swapAudio() {
-		/*
-		if(counter>0) {	
-			this.swapMultipleProfiles();
-		}
-	 		else {
-	*/
 		int size = root.getChildren().get(row).getChildren().size();
 		ArrayList<String> al = new ArrayList<String>();
 		for (int k = 0; k < size; k++) {
 			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
-			//numofAudioAdded++;
 		}
 		for (int i = 0; i < size; i++) {
 			String name = al.get(i);
-			BList.get(i).setText(name);
-			//counter++;
-			//BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
-	        AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
-	        BList.get(i).setOnAction(handler);
-	        //System.out.println(src + name + ".wav");
-	        System.out.println("Added button");
-		
+			b.getArray().get(i).setText(name);
+	        AudioHandler<ActionEvent> handler = new AudioHandler<ActionEvent>(src + name + ".wav");
+	        b.getArray().get(i).setOnAction(handler);
 		}
 	 		}
 		
-		
-
-	/*
-	public void swapMultipleProfiles() {
-		int size = root.getChildren().get(row).getChildren().size();
-		ArrayList<String> al = new ArrayList<String>();
-		for (int k = 0; k < size; k++) {
-			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
-			numofAudioAdded++;
-		}
-		for (int i=counter, j=0; i < BList.size(); i++,j++) {
-				String name = al.get(j);
-				BList.get(i).setText(name);
-				//counter++;
-				AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
-			    BList.get(i).setOnAction(handler);
-			    System.out.println("Added another button");
-			}
-	}
-	*/
 
 
 
@@ -634,7 +606,7 @@ public class GuiConfig extends Application {
 	 * 
 	 * 
 	 */
-/*
+
 	public void handle(String s) { // Play Audio Files and checks if it exists
 
 		if (this.collide == true)
@@ -650,7 +622,7 @@ public class GuiConfig extends Application {
 			System.out.println("Can't find audio file");
 		}
 	}
-	*/
+	
 
 	/*
 	 * 
@@ -672,7 +644,6 @@ public class GuiConfig extends Application {
 	 */
 
 	public ArrayList<String> ListofAudio() throws IOException {
-
 		ArrayList<String> al = new ArrayList<String>();
 		FileInputOutput file = new FileInputOutput();
 		for (File temp : file.finder(src)) {
@@ -695,7 +666,7 @@ public class GuiConfig extends Application {
 	 * 
 	 */
 	public String[][] audioFiles() {
-		String[][] temp = new String[root.getChildren().size()][BList.size()];
+		String[][] temp = new String[root.getChildren().size()][b.getArray().size()];
 		for (int i = 0; i < root.getChildren().size(); i++) {
 			int numofAudio = TItems.get(i).getChildren().size();
 			for (int j = 0; j < numofAudio; j++) {
