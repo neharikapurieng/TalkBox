@@ -36,17 +36,19 @@ public class ButtonGui{
 				 if(count >= 5) {
 					 for(int k = 0; k < 5; k++) {
 						 BList.get(ctr2).setMinSize(75, 75);
-						 sp.add(BList.get(ctr2), k, j);
 						 GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
 						 GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						sp.setVgap(5);
+						 sp.add(BList.get(ctr2), k, j);
 						 ctr2++;
 						 count--;}}
 				 else {
 					 for(int h = 0; h < count; h++) {
 						 BList.get(ctr2).setMinSize(75, 75);
-						 sp.add(BList.get(ctr2), h, j);
 						 GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
 						 GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						 sp.add(BList.get(ctr2), h, j);
+						 sp.setVgap(5);
 						 ctr2++; }}}}
 		  catch(IllegalArgumentException io) {
 			 System.out.println("Wrong input");

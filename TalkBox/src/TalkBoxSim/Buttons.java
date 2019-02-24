@@ -54,20 +54,23 @@ public class Buttons {
 		  for(int j = 0; j <= Math.ceil(tbc.NumOfAudioButtons/5);j++) {
 				 if(count >= 5) {
 					 for(int k = 0; k < 5; k++) {
-						 this.Buttons.get(ctr).setMinSize(75, 75);
+						 Buttons.get(ctr).setMinSize(75, 75);
+						 GridPane.setHgrow(Buttons.get(ctr), Priority.ALWAYS);
+						 GridPane.setVgrow(Buttons.get(ctr),Priority.ALWAYS);
+						 p.setVgap(5);
 						 p.add(this.Buttons.get(ctr), k, j);
-						 GridPane.setVgrow(this.Buttons.get(k), Priority.ALWAYS);
-						   GridPane.setHgrow(this.Buttons.get(k), Priority.ALWAYS);
 						 ctr++;
 						 count--;
 					 }
 				 }
 				 else {
 					 for(int h = 0; h < count; h++) {
-						 this.Buttons.get(ctr).setMinSize(75, 75);
+						 Buttons.get(ctr).setMinSize(75, 75);
+						 GridPane.setHgrow(Buttons.get(ctr), Priority.ALWAYS);
+						 GridPane.setVgrow(Buttons.get(ctr),Priority.ALWAYS);
+						 p.setVgap(5);
 						 p.add(this.Buttons.get(ctr), h, j);
-						 GridPane.setVgrow(this.Buttons.get(h), Priority.ALWAYS);
-						   GridPane.setHgrow(this.Buttons.get(h), Priority.ALWAYS);
+					
 						 ctr++;
 				 }
 			 }

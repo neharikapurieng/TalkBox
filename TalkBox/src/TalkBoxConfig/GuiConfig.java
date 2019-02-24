@@ -598,7 +598,7 @@ public class GuiConfig extends Application {
 	 * 
 	 * 
 	 */
-
+/*
 	public void handle(String s) { // Play Audio Files and checks if it exists
 
 		if (this.collide == true)
@@ -615,7 +615,7 @@ public class GuiConfig extends Application {
 		}
 	}
 	
-
+*/
 	/*
 	 * 
 	 * This method iterates through the array from the finder method
