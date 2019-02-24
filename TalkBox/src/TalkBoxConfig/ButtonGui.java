@@ -22,7 +22,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-public class ButtonGui extends Application {
+public class ButtonGui{
 	
 	
 
@@ -78,12 +78,6 @@ public class ButtonGui extends Application {
 	 
 	 return this.ctr2;
  }
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 
