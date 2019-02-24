@@ -49,7 +49,6 @@ public class GuiConfig extends Application {
 
 	private static ArrayList<TreeItem> TItems;
 	public ArrayList<Button> BList = new ArrayList<Button>();
-	public ArrayList<Boolean> List = new ArrayList<Boolean>();
 	private ListView<String> ListofAudio;
 	private TextField wrongInput;
 
@@ -392,7 +391,8 @@ public class GuiConfig extends Application {
 		Button Stop = new Button("Stop");
 		Stop.setOnAction(e -> {
 			sound.stop();
-		});
+			refresh(text.getText());
+			});
 
 		StopandFile.getChildren().addAll(Stop, text);
 		RecordingArea.getChildren().addAll(Record, StopandFile);
@@ -499,7 +499,6 @@ public class GuiConfig extends Application {
 			for (int i = ctr2; i < n; i++) {
 				String buttonname = String.format("Sound %d", i + 1);
 				BList.add(new Button(buttonname));
-				List.add(false);
 				//BList.get(i).setPadding(new Insets(10, 10, 10, 10)); // tried adding padding to the buttons
 				numofButtons++;
 			}
@@ -590,7 +589,6 @@ public class GuiConfig extends Application {
 		for (int i = 0; i < size; i++) {
 			String name = al.get(i);
 			BList.get(i).setText(name);
-			List.set(i, false);
 			//counter++;
 			//BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
 	        AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
@@ -753,10 +751,14 @@ public class GuiConfig extends Application {
 	 */
 
 	public void refresh(String s) {
+		if(s.contains(".wav")) {
 		StringBuilder sb = new StringBuilder();
 		sb.append(s);
 		sb.delete(sb.length() - 4, sb.length());
-		ListofAudio.getItems().add(sb.toString());
+		ListofAudio.getItems().add(sb.toString());}
+		else {
+			ListofAudio.getItems().add(s);
+		}
 
 	}
 
@@ -773,13 +775,6 @@ public class GuiConfig extends Application {
 		return ctr;
 	}
 	
-	public void clearButtons() {
-		for(int i = 0; i < this.BList.size();i++) {
-		if(List.get(i).booleanValue() == false) {
-			List.set(i, true);
-		}
-	}
-	}
 
 	/*
 	 * // This method is to copy the recorded audio into src/audio
