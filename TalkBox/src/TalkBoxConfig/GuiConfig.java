@@ -712,7 +712,7 @@ if(this.numofButtons-this.numofAudioAdded> 0 && counter>0){
 	public ArrayList<String> ListofAudio() throws IOException {
 
 		ArrayList<String> al = new ArrayList<String>();
-		FileManager file = new FileManager();
+		FileInputOutput file = new FileInputOutput();
 
 		for (File temp : file.finder(src)) {
 

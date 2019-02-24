@@ -105,7 +105,7 @@ public class Profiles {
 	public void SetProfile(String title, TreeItem<String> parent) {
 	
 			  TreeItem<String> item = new TreeItem<>(title);
-			  item.setExpanded(false);
+			  item.setExpanded(true);
 			  parent.getChildren().add(item);
 			
 		

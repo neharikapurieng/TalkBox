@@ -4,7 +4,7 @@ import TalkBoxConfig.Serializer;
 import TalkBoxConfig.TalkBoxConfiguration;
 import javafx.application.Application;
 import javafx.scene.Scene;
-
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
@@ -34,7 +34,13 @@ public class Gui extends Application {
 		  Audio audio = new Audio();
 		  audio.AudioToButton(GridP);
 		  Scene scene = new Scene(pane,1200,600);
+		  Label label = new Label("TalkBox Simulator");
+		  label.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
+		  label.setLayoutX(500);
+		  label.setLayoutY(0);
+		  pane.getChildren().add(label);
 		  primaryStage.setScene(scene);
+		  primaryStage.setTitle("TalkBox Simulator");
 		  primaryStage.show();
 	  }
 
