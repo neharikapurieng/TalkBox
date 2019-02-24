@@ -192,7 +192,8 @@ public class GuiConfig extends Application {
 			}
 			ButtonGui b = new ButtonGui();
 			b.buttonAdder(numofbuttons,sp);
-		}); // ?
+		}); 
+
 
 		ButtonsandError.getChildren().addAll(numofB, wrongInput);
 
@@ -533,13 +534,7 @@ public class GuiConfig extends Application {
 	}
 	*/
 
-	public GridPane getPane() {
-		return this.sp;
-	}
 
-	public ArrayList<Button> getArray() {
-		return this.BList;
-	}
 
 	/*
 	 * 

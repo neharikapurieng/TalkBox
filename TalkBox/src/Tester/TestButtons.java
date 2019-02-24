@@ -8,15 +8,15 @@ import org.junit.Before;
 import org.junit.jupiter.api.Test;
 
 
-import TalkBoxConfig.ButtonGui;
+import TalkBoxConfig.ButtonConfig;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-class TestButtons extends ButtonGui  {
+class TestButtons extends ButtonConfig  {
 	
-	public  ButtonGui buttons;
+	public  ButtonConfig buttons;
 	
 	
 
@@ -27,7 +27,7 @@ class TestButtons extends ButtonGui  {
 	@Test
 	void testNumOfButtons()  {
 		
-		buttons = new ButtonGui();
+		buttons = new ButtonConfig();
 		
 		assertEquals(buttons.getNumofButton(),0);
 		
