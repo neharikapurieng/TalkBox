@@ -14,7 +14,7 @@ import javafx.scene.input.MouseEvent;
 class AudioHandlerTest {
 
 	@Test
-	void test() {
+	void testIfClipisConnecting() {
 
 	
 		 AudioHandler b = new AudioHandler("src/Audio/boring.wav");
@@ -26,6 +26,25 @@ class AudioHandlerTest {
 		 
 	
 	
+	}
+
+
+
+	@Test
+	void testifClipThrowsException() {
+		
+		try {
+		 AudioHandler b = new AudioHandler("src/Audio/boring.wav");
+		 ActionEvent e = new ActionEvent();
+		 b.handle(e);
+		}
+		
+		catch(Exception e) {
+			
+			assertTrue(true);
+		}
+		
+		
 	}
 
 }

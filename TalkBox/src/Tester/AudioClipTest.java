@@ -1,5 +1,6 @@
 package Tester;
 
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.jupiter.api.Test;
@@ -19,9 +20,25 @@ class AudioClipTest {
 		assertTrue(clip.isConnecting());
 	}
 	
+	@Test
+	void testAudioClipThrowsException() {
+		
+		try {
+		
+		AudioClip clip = new AudioClip("src/Audio/boring.wav");
+		
+		clip.play();
+		
+		}
+		
+		catch(Exception e) {
+			
+			assertTrue(true);
+		}
+		
+	}
 	
-	//src/Audio/boring.wav
-	//src/Audio/Bye.wav
+	
 
 
 }
