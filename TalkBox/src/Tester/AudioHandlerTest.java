@@ -17,7 +17,7 @@ class AudioHandlerTest {
 	void test() {
 
 	
-		 AudioHandler b = new AudioHandler("recordings/default_name.wav");
+		 AudioHandler b = new AudioHandler("src/Audio/boring.wav");
 //		 EventType<MouseEvent> event = MouseEvent.MOUSE_CLICKED;
 		 ActionEvent e = new ActionEvent();
 		 b.handle(e);

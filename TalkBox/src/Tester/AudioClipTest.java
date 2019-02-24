@@ -11,12 +11,17 @@ class AudioClipTest {
 	@Test
 	void testAudioClipStartsSuccessfully() {
 		
-		AudioClip clip = new AudioClip("recordings/default_name.wav");
+		AudioClip clip = new AudioClip("src/Audio/boring.wav");
 		
 		clip.play();
 		
 		
 		assertTrue(clip.isConnecting());
 	}
+	
+	
+	//src/Audio/boring.wav
+	//src/Audio/Bye.wav
+
 
 }

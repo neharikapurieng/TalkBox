@@ -16,6 +16,7 @@ import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import TalkBoxSim.Gui;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -581,25 +582,7 @@ public class GuiConfig extends Application {
 			numofAudioAdded++;
 		}
 		
-if(this.numofButtons-this.numofAudioAdded> 0 && counter>0){
-			
-			
-			ArrayList<String> a2 = new ArrayList<String>();
-			for (int k = 0; k < size; k++) {
-				a2.add(root.getChildren().get(row).getChildren().get(k).getValue());
-				numofAudioAdded++;
-			}
-			
-			for (int i =0; i < size; i++) {
-				String name = al.get(i);
-				BList.get(i+this.numofAudioAdded ).setText(name);
-				BList.get(i+this.numofAudioAdded ).setOnAction(e -> handle(src + name + ".wav"));
-				System.out.println((i+this.numofButtons-this.numofAudioAdded));
-			}
-		
-		System.out.println("T");
 
-	}
 		
 
 		
@@ -607,11 +590,12 @@ if(this.numofButtons-this.numofAudioAdded> 0 && counter>0){
 			
 			String name = al.get(i);
 			BList.get(i).setText(name);
-			BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
+			//BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
 			counter++;
-			System.out.println(counter);
-			System.out.println(this.numofButtons);
-			System.out.println(this.numofAudioAdded);
+	        AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
+	        BList.get(i).setOnAction(handler);
+	        System.out.println(src + name + ".wav");
+		
 		}
 		
 		
