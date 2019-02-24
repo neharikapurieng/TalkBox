@@ -1,17 +1,13 @@
 package TalkBoxSim;
 
-import java.io.File;
 import java.util.ArrayList;
 
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
 import TalkBoxConfig.Serializer;
 import TalkBoxConfig.TalkBoxConfiguration;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
@@ -28,8 +24,6 @@ public class Buttons {
 	Clip clip;
 	Audio ad;
 	public Button set;
-	private GridPane GridP;
-	
 	/*
 	 * Adds the amounts of buttons from TalkBoxData.tbc to an ArrayList
 	 */

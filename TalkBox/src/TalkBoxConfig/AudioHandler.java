@@ -1,8 +1,5 @@
 package TalkBoxConfig;
 
-import com.sun.glass.ui.View.EventHandler;
-
-import javafx.scene.control.Button;
 
 public class AudioHandler<ActionEvent>  implements javafx.event.EventHandler<javafx.event.ActionEvent> {
 	

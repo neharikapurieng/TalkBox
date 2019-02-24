@@ -2,23 +2,10 @@ package TalkBoxSim;
 
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.io.File;
-import java.util.ArrayList;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-
-import TalkBoxConfig.AudioHandler;
-import TalkBoxConfig.TalkBoxConfiguration;
-import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
@@ -26,8 +13,6 @@ import javafx.scene.layout.GridPane;
 public class Audio {
 	
 	
-	private TalkBoxConfiguration tbc;
-	private int count;
 	private String src;
 	boolean collide;
 	private Clip clip;
@@ -38,8 +23,6 @@ public class Audio {
 		this.src= "src/Audio/";
 		this.clip=null;
 		this.collide=false;
-		this.count=0;
-		
 		}
 	
 	

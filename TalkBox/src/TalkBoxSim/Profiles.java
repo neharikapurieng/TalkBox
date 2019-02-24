@@ -1,11 +1,8 @@
 package TalkBoxSim;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import TalkBoxConfig.Serializer;
 import TalkBoxConfig.TalkBoxConfiguration;
-import javafx.application.Application;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 
@@ -30,6 +27,7 @@ public class Profiles {
 	 * 
 	 */
 	
+	@SuppressWarnings({ "rawtypes", "unused" })
 	public TreeView<String> LaunchProfileDisplay() {
 
 		this.root = new TreeItem<String>(); // This is used to create the profile and root and branches are									// added
