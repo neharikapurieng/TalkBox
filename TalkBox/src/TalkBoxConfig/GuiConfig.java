@@ -548,6 +548,7 @@ public class GuiConfig extends Application {
 
 	public void ProfileRemover(int r) {
 		root.getChildren().remove(r);
+		TItems.remove(r);
 	}
 
 	/*
@@ -660,6 +661,8 @@ public class GuiConfig extends Application {
 		String[][] temp = new String[root.getChildren().size()][b.getArray().size()];
 		for (int i = 0; i < root.getChildren().size(); i++) {
 			int numofAudio = TItems.get(i).getChildren().size();
+			System.out.println(TItems.get(i));
+			System.out.println(TItems.get(i).getChildren());
 			for (int j = 0; j < numofAudio; j++) {
 				temp[i][j] = TItems.get(i).getChildren().get(j).toString();
 			}
