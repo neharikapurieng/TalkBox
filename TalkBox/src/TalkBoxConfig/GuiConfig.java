@@ -575,6 +575,15 @@ public class GuiConfig extends Application {
 	 */
 
 	public void swapAudio() {
+		
+		if(counter>0) {
+			
+			this.swapMultipleProfiles();
+			System.out.println("Hello");
+		}
+		
+		else {
+		
 		int size = root.getChildren().get(row).getChildren().size();
 		ArrayList<String> al = new ArrayList<String>();
 		for (int k = 0; k < size; k++) {
@@ -594,7 +603,10 @@ public class GuiConfig extends Application {
 			counter++;
 	        AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
 	        BList.get(i).setOnAction(handler);
-	        System.out.println(src + name + ".wav");
+	        //System.out.println(src + name + ".wav");
+	        System.out.println("Added button");
+		
+		}
 		
 		}
 		
@@ -602,24 +614,29 @@ public class GuiConfig extends Application {
 
 	}
 	
-	public void addMultipleProfiles() {
+	public void swapMultipleProfiles() {
 		 
-		if(this.numofButtons-this.numofAudioAdded> 0){
+	
+		int size = root.getChildren().get(row).getChildren().size();
+		ArrayList<String> al = new ArrayList<String>();
+		for (int k = 0; k < size; k++) {
+			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
+			numofAudioAdded++;
+		}
+		   System.out.println("Added another button");
 			
-			int size = root.getChildren().get(row).getChildren().size();
-			ArrayList<String> al = new ArrayList<String>();
-			for (int k = 0; k < size; k++) {
-				al.add(root.getChildren().get(row).getChildren().get(k).getValue());
-				numofAudioAdded++;
-			}
-			
-			for (int i =this.numofButtons-this.numofAudioAdded ; i < size; i++) {
-				String name = al.get(i);
+		for (int i=counter, j=0 ; i < BList.size(); i++,j++) {
+				String name = al.get(j);
 				BList.get(i).setText(name);
-				BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
+				counter++;
+				AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
+			    BList.get(i).setOnAction(handler);
+			    System.out.println("Added another button");
 			}
-		}
-		}
+		
+	
+	}
+		
 	
 	
 	public void addMultipleAudioFiles() {
