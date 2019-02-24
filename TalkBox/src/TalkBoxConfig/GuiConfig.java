@@ -49,6 +49,7 @@ public class GuiConfig extends Application {
 
 	private static ArrayList<TreeItem> TItems;
 	public ArrayList<Button> BList = new ArrayList<Button>();
+	public ArrayList<Boolean> List = new ArrayList<Boolean>();
 	private ListView<String> ListofAudio;
 	private TextField wrongInput;
 
@@ -72,7 +73,7 @@ public class GuiConfig extends Application {
 	private int ctr2;
 	private int numofAudioAdded;
 	private int numofButtons;
-	private int counter;
+	//private int counter;
 
 	// Serialization
 
@@ -333,7 +334,11 @@ public class GuiConfig extends Application {
 			}
 
 		});
-
+		/*
+		
+		Button CombineProfile = new Button("Combine");
+		CombineProfile.setOnAction(e ->{this.swapMultipleProfiles();});
+*/
 		Tree.setMinSize(200, 200);
 		Button RemoveProfile = new Button("Remove Profile");
 		SetProfile = new Button("Set Profile");
@@ -494,34 +499,29 @@ public class GuiConfig extends Application {
 			for (int i = ctr2; i < n; i++) {
 				String buttonname = String.format("Sound %d", i + 1);
 				BList.add(new Button(buttonname));
-				BList.get(i).setPadding(new Insets(10, 10, 10, 10)); // tried adding padding to the buttons
+				List.add(false);
+				//BList.get(i).setPadding(new Insets(10, 10, 10, 10)); // tried adding padding to the buttons
 				numofButtons++;
 			}
 			this.ctr2 = 0;
 
 			int count = n;
-			for (int j = 0; j <= Math.ceil(n / 10); j++) {
-				if (count >= 10) {
-					for (int k = 0; k < 10; k++) {
+			for (int j = 0; j <= Math.ceil(n / 5); j++) {
+				if (count >= 5) {
+					for (int k = 0; k < 5; k++) {
 						BList.get(ctr2).setMinSize(75, 75);
-						BList.get(ctr2).setPadding(new Insets(13, 10, 15, 17));
-						sp.setHgap(5.5);
-						sp.setVgap(5.5);
 						sp.add(BList.get(ctr2), k, j);
-						HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
-						VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						ctr2++;
 						count--;
 					}
 				} else {
 					for (int h = 0; h < count; h++) {
 						BList.get(ctr2).setMinSize(75, 75);
-						BList.get(ctr2).setPadding(new Insets(13, 10, 15, 17));
-						sp.setHgap(5.5);
-						sp.setVgap(5.5);
 						sp.add(BList.get(ctr2), h, j);
-						HBox.setHgrow(BList.get(ctr2), Priority.ALWAYS);
-						VBox.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
+						GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
 						ctr2++;
 					}
 				}
@@ -575,76 +575,53 @@ public class GuiConfig extends Application {
 	 */
 
 	public void swapAudio() {
-		
-		if(counter>0) {
-			
+		/*
+		if(counter>0) {	
 			this.swapMultipleProfiles();
-			System.out.println("Hello");
 		}
-		
-		else {
-		
+	 		else {
+	*/
 		int size = root.getChildren().get(row).getChildren().size();
 		ArrayList<String> al = new ArrayList<String>();
 		for (int k = 0; k < size; k++) {
 			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
-			numofAudioAdded++;
+			//numofAudioAdded++;
 		}
-		
-
-		
-
-		
 		for (int i = 0; i < size; i++) {
-			
 			String name = al.get(i);
 			BList.get(i).setText(name);
+			List.set(i, false);
+			//counter++;
 			//BList.get(i).setOnAction(e -> handle(src + name + ".wav"));
-			counter++;
 	        AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
 	        BList.get(i).setOnAction(handler);
 	        //System.out.println(src + name + ".wav");
 	        System.out.println("Added button");
 		
 		}
-		
-		}
+	 		}
 		
 		
 
-	}
-	
+	/*
 	public void swapMultipleProfiles() {
-		 
-	
 		int size = root.getChildren().get(row).getChildren().size();
 		ArrayList<String> al = new ArrayList<String>();
 		for (int k = 0; k < size; k++) {
 			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
 			numofAudioAdded++;
 		}
-		   System.out.println("Added another button");
-			
-		for (int i=counter, j=0 ; i < BList.size(); i++,j++) {
+		for (int i=counter, j=0; i < BList.size(); i++,j++) {
 				String name = al.get(j);
 				BList.get(i).setText(name);
-				counter++;
+				//counter++;
 				AudioHandler<ActionEvent> handler = new AudioHandler(src + name + ".wav");
 			    BList.get(i).setOnAction(handler);
 			    System.out.println("Added another button");
 			}
-		
-	
 	}
-		
+	*/
 	
-	
-	public void addMultipleAudioFiles() {
-		
-		
-		
-	}
-
 	public void SoundAdder(String s) {
 		branch(s, root.getChildren().get(row));
 	}
@@ -660,26 +637,23 @@ public class GuiConfig extends Application {
 	 * 
 	 * 
 	 */
-
+/*
 	public void handle(String s) { // Play Audio Files and checks if it exists
 
 		if (this.collide == true)
 			this.clip.stop();
-
 		try {
-
 			AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
 			this.clip = AudioSystem.getClip();
 			clip.open(audio);
 			clip.start();
 			this.collide = true;
 		}
-
 		catch (Exception e) {
-
 			System.out.println("Can't find audio file");
 		}
 	}
+	*/
 
 	/*
 	 * 
@@ -704,9 +678,7 @@ public class GuiConfig extends Application {
 
 		ArrayList<String> al = new ArrayList<String>();
 		FileInputOutput file = new FileInputOutput();
-
 		for (File temp : file.finder(src)) {
-
 			StringBuilder sb = new StringBuilder();
 			sb.append(temp.getName());
 			sb.delete(sb.length() - 4, sb.length()); // removes the .wav string
@@ -726,15 +698,10 @@ public class GuiConfig extends Application {
 	 * 
 	 */
 	public String[][] audioFiles() {
-
 		String[][] temp = new String[root.getChildren().size()][BList.size()];
-
 		for (int i = 0; i < root.getChildren().size(); i++) {
-
 			int numofAudio = TItems.get(i).getChildren().size();
-
 			for (int j = 0; j < numofAudio; j++) {
-
 				temp[i][j] = TItems.get(i).getChildren().get(j).toString();
 			}
 		}
@@ -795,6 +762,14 @@ public class GuiConfig extends Application {
 			}
 		}
 		return ctr;
+	}
+	
+	public void clearButtons() {
+		for(int i = 0; i < this.BList.size();i++) {
+		if(List.get(i).booleanValue() == false) {
+			List.set(i, true);
+		}
+	}
 	}
 
 	/*
