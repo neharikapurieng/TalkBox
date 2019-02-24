@@ -193,7 +193,7 @@ public class GuiConfig extends Application {
 			;
 			//ButtonConfig button = new ButtonConfig();
 			//button.buttonAdder(numofbuttons, this.sp );
-				bAdder(numofbuttons);
+				bAdder(numofbuttons);  
 		}); 
 		
 		
