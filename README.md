@@ -6,7 +6,7 @@ The TalkBox comes with two appplications; The Configurator and the Simulator.
 The configurator is used to add audio files and associate them with different buttons
 The simulator acts as a real TalkBox
 
-#The Configurator
+# The Configurator
 The features that come with the configurator include
 -Recording your own Audio
 -Importing your own Audio
@@ -18,9 +18,11 @@ The features that come with the configurator include
 ![alt text](https://github.com/neharikapurieng/TalkBox/blob/master/TalkBox/Capture4.JPG)
 
 
-#The Simulator
+# The Simulator
 The features include
 -The ability to play audio files
 -The ability to choose which profile they want
+
+![alt text](https://github.com/neharikapurieng/TalkBox/blob/master/TalkBox/Capture6.JPG)
 
 
