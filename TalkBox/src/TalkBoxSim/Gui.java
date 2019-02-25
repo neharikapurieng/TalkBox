@@ -15,17 +15,18 @@ public class Gui extends Application {
 
 	  TalkBoxConfiguration tbc; // TalkBoxConfiguration Data
 	   //Buttons from button class
+	  Buttons button;
 	  GridPane GridP = new GridPane(); //GridPane
 	  ScrollPane ScrollP = new ScrollPane(GridP); //ScrollPane with GridPane Back
 	  public void start(Stage primaryStage) throws Exception {
 		  VBox main = new VBox();
 		  //Deserializers and Loads information from TalkBoxData
 		  tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
-		  Buttons button = new Buttons();
+		  button = new Buttons(tbc.getNumberOfAudioButtons());
 		  HBox pane = new HBox();
 		  GridP.setMinSize(800, 300);
 		  ScrollP.setMinSize(800, 300);
-		  button.Adder(GridP);
+		  button.Adder(GridP,tbc.getNumberOfAudioButtons());
 		  VBox v = new VBox();
 		  Profiles profile = new Profiles();
 		  v.getChildren().add(profile.LaunchProfileDisplay());
@@ -33,6 +34,8 @@ public class Gui extends Application {
 		  button.SetProfile(v);
 		  button.set.setOnAction(e->{
 			  try {
+				  button = new Buttons(tbc.getNumberOfAudioButtons());
+				  button.Adder(GridP, tbc.getNumberOfAudioButtons());
 				  audio.AudioToButton(GridP, button.getButtonList(),profile.LaunchProfileDisplay(),profile.row);
 			} catch (Exception e1) {
 				// TODO Auto-generated catch block
@@ -49,21 +52,7 @@ public class Gui extends Application {
 		  primaryStage.setScene(scene);
 		  primaryStage.setTitle("TalkBox Simulator");
 		  primaryStage.show();
-		  
-		  /*
-		  VBox.setVgrow(main, Priority.ALWAYS);
-		  HBox.setHgrow(main, Priority.ALWAYS);
-		  VBox.setVgrow(v, Priority.ALWAYS);
-		  VBox.setVgrow(ScrollP, Priority.ALWAYS);
-		  VBox.setVgrow(GridP, Priority.ALWAYS);
-		  VBox.setVgrow(button.set, Priority.ALWAYS);
-		  VBox.setVgrow(profile.LaunchProfileDisplay(), Priority.ALWAYS);
-		  HBox.setHgrow(pane, Priority.ALWAYS);
-		  VBox.setVgrow(pane, Priority.ALWAYS);
-		  HBox.setHgrow(ScrollP, Priority.ALWAYS);
-		  HBox.setHgrow(GridP, Priority.ALWAYS);
 
-		  */
 	  }
 
 	
