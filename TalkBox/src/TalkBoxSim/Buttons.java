@@ -27,10 +27,10 @@ public class Buttons {
 	/*
 	 * Adds the amounts of buttons from TalkBoxData.tbc to an ArrayList
 	 */
-	public Buttons() {
+	public Buttons(int n) {
 		  try {
 			tbc = (TalkBoxConfiguration) Serializer.Load("bin/TalkBoxData/TalkBoxData.tbc");
-			for(int i = 0; i < tbc.getNumberOfAudioButtons(); i++) {
+			for(int i = 0; i < n; i++) {
 				String BName = String.format("Sound %d", i);
 				Buttons.add(new Button(BName));
 			}
@@ -48,10 +48,11 @@ public class Buttons {
 	
 
 
-	  public void Adder(GridPane p) {
+	  public void Adder(GridPane p,int n) {
+		  p.getChildren().clear();
 		  int ctr = 0;
 		  int count = tbc.NumOfAudioButtons;
-		  for(int j = 0; j <= Math.ceil(tbc.NumOfAudioButtons/5);j++) {
+		  for(int j = 0; j <= Math.ceil(n/5);j++) {
 				 if(count >= 5) {
 					 for(int k = 0; k < 5; k++) {
 						 Buttons.get(ctr).setMinSize(75, 75);
@@ -70,13 +71,12 @@ public class Buttons {
 						 GridPane.setVgrow(Buttons.get(ctr),Priority.ALWAYS);
 						 p.setVgap(5);
 						 p.add(this.Buttons.get(ctr), h, j);
-					
 						 ctr++;
 				 }
 			 }
 			 }
 	  }
-	
+
 	  public void SetProfile(VBox p) {
 		  set = new Button("Set Profile");
 		  set.setMinSize(250, 50);

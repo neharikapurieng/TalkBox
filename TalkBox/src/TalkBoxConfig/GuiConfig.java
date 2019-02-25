@@ -18,7 +18,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.scene.control.Label;
 
 public class GuiConfig extends Application {
 
@@ -123,8 +122,17 @@ public class GuiConfig extends Application {
 		Menu menu = new Menu();
 		menu.setText("File");
 		MenuItem mi = new MenuItem("Import Audio");
+		MenuItem li = new MenuItem("Load Profiles");
 		mi.setStyle("-fx-text-fill:black");
-		menu.getItems().addAll(mi);
+		menu.getItems().addAll(mi,li);
+		li.setOnAction(e -> {
+			try {
+				Load();
+			} catch (Exception e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
+		});
 		mi.setOnAction(e -> {
 
 			ImportAudio ia = new ImportAudio();
@@ -572,6 +580,9 @@ public class GuiConfig extends Application {
 		for (int k = 0; k < size; k++) {
 			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
 		}
+		int n = this.numofbuttons;
+		b = new ButtonGui();
+		b.buttonAdder(n, sp);
 		for (int i = 0; i < size; i++) {
 			String name = al.get(i);
 			b.getArray().get(i).setText(name);
@@ -582,7 +593,15 @@ public class GuiConfig extends Application {
 		
 
 
-
+	public void Load() throws Exception {
+		Load l = new Load();
+		l.Loader(sp,root);
+		for(int i = 0; i < l.size; i++) {
+			TItems.add(l.getTreeItem(i, root));
+		}		
+	}
+	
+	
 	public void SoundAdder(String s) {
 		branch(s, root.getChildren().get(row));
 	}
