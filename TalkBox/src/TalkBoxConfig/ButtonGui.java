@@ -1,28 +1,12 @@
 package TalkBoxConfig;
 
-import java.io.IOException;
-import java.nio.file.Path;
+
 import java.util.ArrayList;
-
-import javax.sound.sampled.Clip;
-
-import javafx.application.Application;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
-public class ButtonGui extends Application {
+public class ButtonGui{
 	
 	
 
@@ -52,17 +36,19 @@ public class ButtonGui extends Application {
 				 if(count >= 5) {
 					 for(int k = 0; k < 5; k++) {
 						 BList.get(ctr2).setMinSize(75, 75);
-						 sp.add(BList.get(ctr2), k, j);
 						 GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
 						 GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						sp.setVgap(5);
+						 sp.add(BList.get(ctr2), k, j);
 						 ctr2++;
 						 count--;}}
 				 else {
 					 for(int h = 0; h < count; h++) {
 						 BList.get(ctr2).setMinSize(75, 75);
-						 sp.add(BList.get(ctr2), h, j);
 						 GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
 						 GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
+						 sp.add(BList.get(ctr2), h, j);
+						 sp.setVgap(5);
 						 ctr2++; }}}}
 		  catch(IllegalArgumentException io) {
 			 System.out.println("Wrong input");
@@ -78,12 +64,6 @@ public class ButtonGui extends Application {
 	 
 	 return this.ctr2;
  }
-
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
 
 
 

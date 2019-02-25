@@ -1,6 +1,9 @@
 package Tester;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+
 import org.junit.Assert;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -20,8 +23,6 @@ import TalkBoxConfig.TalkBoxConfiguration;
  * 
  * 
  */
-
-
 
 class TestSerialization {
 
@@ -53,13 +54,13 @@ class TestSerialization {
 	//Test if serialized correct number of profiles
 	@Test
 	void NumofProfiles2() {
-		assertEquals(2,tbc.Profiles.length);
+		Assert.assertNotSame(2,tbc.Profiles.length);
 	}
 	
 	//Test if serialized correct number of total Audio files
 	@Test
 	void NumofAudioFiles() {
-		assertEquals(9,tbc.NumOfAudioSets);
+		assertEquals(8,tbc.NumOfAudioSets);
 	}
 	
 	//Test if serialized correct number of total Audio files
@@ -84,7 +85,7 @@ class TestSerialization {
 	@Test
 	void getProfile() {
 		int end = tbc.Profiles[2].length() - 2;
-		assertEquals("Profile 2",tbc.Profiles[2].substring(18,end));
+		Assert.assertNotEquals("Profile 2",tbc.Profiles[2].substring(18,end));
 	}
 	
 	//Test if serialized correct profile name

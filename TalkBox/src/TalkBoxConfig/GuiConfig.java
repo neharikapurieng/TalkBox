@@ -1,15 +1,9 @@
 package TalkBoxConfig;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FilenameFilter;
 import java.io.IOException;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
-
-import java.util.Arrays;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -17,15 +11,12 @@ import javax.sound.sampled.LineUnavailableException;
 import TalkBoxSim.Gui;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
 import javafx.stage.Stage;
 import javafx.scene.control.Label;
 
@@ -557,6 +548,7 @@ public class GuiConfig extends Application {
 
 	public void ProfileRemover(int r) {
 		root.getChildren().remove(r);
+		TItems.remove(r);
 	}
 
 	/*
@@ -606,7 +598,7 @@ public class GuiConfig extends Application {
 	 * 
 	 * 
 	 */
-
+/*
 	public void handle(String s) { // Play Audio Files and checks if it exists
 
 		if (this.collide == true)
@@ -623,7 +615,7 @@ public class GuiConfig extends Application {
 		}
 	}
 	
-
+*/
 	/*
 	 * 
 	 * This method iterates through the array from the finder method
@@ -669,6 +661,8 @@ public class GuiConfig extends Application {
 		String[][] temp = new String[root.getChildren().size()][b.getArray().size()];
 		for (int i = 0; i < root.getChildren().size(); i++) {
 			int numofAudio = TItems.get(i).getChildren().size();
+			System.out.println(TItems.get(i));
+			System.out.println(TItems.get(i).getChildren());
 			for (int j = 0; j < numofAudio; j++) {
 				temp[i][j] = TItems.get(i).getChildren().get(j).toString();
 			}
