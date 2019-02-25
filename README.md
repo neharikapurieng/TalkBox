@@ -1,7 +1,7 @@
 # TalkBox
 This is an app for sound generating device which helps users communicate
 
-#Applications
+# Applications
 The TalkBox comes with two appplications; The Configurator and the Simulator.
 The configurator is used to add audio files and associate them with different buttons
 The simulator acts as a real TalkBox
