@@ -192,6 +192,8 @@ public class GuiConfig extends Application {
 			}
 			b = new ButtonGui();
 			b.buttonAdder(numofbuttons,sp);
+			b.getFirstSound(numofbuttons);
+			//b.getSecondSound(numofbuttons);
 		}); 
 
 
@@ -254,7 +256,10 @@ public class GuiConfig extends Application {
 
 		});
 
-		ButtonsandLaunch.getChildren().addAll(ButtonsandError, LaunchSim);
+		Button Reorder = new Button("Switch");
+		Reorder.setMinSize(100,100);
+		
+		ButtonsandLaunch.getChildren().addAll(ButtonsandError, LaunchSim, Reorder);
 
 		// ----------------------------------------------------------------------------------------------------------------------//
 

@@ -11,8 +11,11 @@ public class ButtonGui{
 	
 
 	private int ctr2;
-	public ArrayList<Button> BList;
-
+	public ArrayList<CustomButton> BList;
+    private int count;
+    private String temp1;
+    private String temp2;
+    private int time;
 	
 	public ButtonGui() {
 		
@@ -23,11 +26,12 @@ public class ButtonGui{
 	
 	  public void buttonAdder(int n,GridPane sp) throws IllegalArgumentException {
 		  try {
-			  this.BList= new ArrayList<Button>();;
+			  this.BList= new ArrayList<CustomButton>();;
 		  sp.getChildren().clear();
 			   for(int i = ctr2; i < n; i++) {
 		    	   String buttonname = String.format("Sound %d", i+1);
-		    	   BList.add( new Button(buttonname));
+		    	  
+		    	   BList.add( new CustomButton(buttonname));
 		    	   ctr2++;
 		       }
 			   this.ctr2 = 0;
@@ -56,9 +60,51 @@ public class ButtonGui{
 		  }
 		  }
 	  
-  public ArrayList<Button> getArray() {
+  public ArrayList<CustomButton> getArray() {
 		  return this.BList;
 		  }
+  
+  
+  
+	public void getFirstSound(int size) {
+
+		
+
+			for (count = 0; count <= size - 1; count++) {
+
+				CustomButton button = this.BList.get(count);
+				button.setOnAction(e -> {
+
+					this.temp1 = button.getString();
+					System.out.println("This is the first one" +this.temp1);
+					getSecondSound(size);
+					// System.out.println(button.getString());
+
+				});
+				
+			}
+		}
+	
+	public void getSecondSound(int size) {
+	
+	
+		
+			for (count = 0; count <= size - 1; count++) {
+
+				CustomButton button = this.BList.get(count);
+				button.setOnAction(e -> {
+
+					this.temp2 = button.getString();
+					System.out.println("This is the second one" + this.temp2);
+                 
+					
+
+				});
+
+			}
+
+	   }
+	
 	
  public int getNumofButton() {
 	 
