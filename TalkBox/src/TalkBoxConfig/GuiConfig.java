@@ -273,7 +273,7 @@ public class GuiConfig extends Application {
 		  }
 		  else {
 			  
-			 b.Switch(sp, position1, position2);
+			  b.Switch(sp, position1,position2);
 			  
 		  }
 			
@@ -598,6 +598,7 @@ public class GuiConfig extends Application {
 		TItems.add(branch(title, root));
 	}
 
+	
 	/*
 	 * 
 	 * This methods removes profiles from the TreeView
