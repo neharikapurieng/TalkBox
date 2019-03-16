@@ -34,6 +34,7 @@ public class GuiConfig extends Application {
 	// Profile & Audio
 	private static TreeItem<String> root;
 	public TreeView<String> Tree;
+	private int time;
 
 	@SuppressWarnings("rawtypes")
 
@@ -48,6 +49,9 @@ public class GuiConfig extends Application {
 	private Button SetProfile;
 	private TextField PN;
 	public TextField numofB;
+	private TextField switch1;
+	private TextField switch2;
+	
 	//private int count = 0;
 	
 	// Panes
@@ -63,6 +67,8 @@ public class GuiConfig extends Application {
 	private int ctr2;
 	private int numofAudioAdded;
 	private int numofButtons;
+	private int position1;
+	private int position2;
 	//private int counter;
 
 	// Serialization
@@ -192,8 +198,8 @@ public class GuiConfig extends Application {
 			}
 			b = new ButtonGui();
 			b.buttonAdder(numofbuttons,sp);
-			b.getFirstSound(numofbuttons);
-			//b.getSecondSound(numofbuttons);
+			
+			
 		}); 
 
 
@@ -257,7 +263,46 @@ public class GuiConfig extends Application {
 		});
 
 		Button Reorder = new Button("Switch");
-		Reorder.setMinSize(100,100);
+		Reorder.setMinSize(60,60);
+		Reorder.setOnAction(e -> {
+			
+		  if(time==0) {
+			b.getFirstSound(position1);
+			b.getSecondSound(position2);
+			time++;
+		  }
+		  else {
+			  
+			 b.Switch(sp, position1, position2);
+			  
+		  }
+			
+		});
+		
+		switch1 = new TextField("Enter the 1st Sound Number");
+		switch1.setMinSize(20, 20);
+		switch1.setOnMouseClicked(e -> switch1.clear());
+		
+		switch1.setOnAction(e -> {
+
+		
+				position1 = Integer.parseInt(switch1.getText());
+				System.out.println(position1);
+		});
+
+		
+		switch2 = new TextField("Enter the 2nd Sound Number");
+		switch2.setMinSize(20, 20);
+		switch2.setOnMouseClicked(e -> switch2.clear());
+		
+		switch2.setOnAction(e -> {
+
+		
+				position2 = Integer.parseInt(switch2.getText());
+				System.out.println(position2);
+		});
+
+		
 		
 		ButtonsandLaunch.getChildren().addAll(ButtonsandError, LaunchSim, Reorder);
 
@@ -348,7 +393,7 @@ public class GuiConfig extends Application {
 		Button RemoveProfile = new Button("Remove Profile");
 		SetProfile = new Button("Set Profile");
 		RemoveandSet.setSpacing(50);
-		RemoveandSet.getChildren().addAll(SetProfile, RemoveProfile);
+		RemoveandSet.getChildren().addAll(SetProfile, RemoveProfile,switch1,switch2);
 		TreeandButton.getChildren().addAll(Tree, RemoveandSet);
 
 		// ----------------------------------------------------------------------------------------------------------------------//
