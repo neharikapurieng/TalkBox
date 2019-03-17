@@ -18,15 +18,14 @@ public class ProfileConfig {
 		
 		this.root = new TreeItem<String>();
 		this.root.setExpanded(true);
-		this.row=0;
 		this.profilename=null;
 		this.ProfileList= new ArrayList<>();
 	}
 	
 	
-	public void setRoot(TreeItem<String> root) {
+	public void setRoot() {
 		
-		this.Tree = new TreeView<String>(root);
+		this.Tree = new TreeView<String>(this.root);
 		Tree.setShowRoot(false);
 	}
 	
@@ -54,7 +53,7 @@ public class ProfileConfig {
 	}
 	
 	public void setProfileTitles(String title) {
-		ProfileList.add(branch(title, root));
+		ProfileList.add(profileBranch(title, root));
 	}
 	
 	public void removeProfileTitles(int r) {
@@ -63,7 +62,7 @@ public class ProfileConfig {
 	}
 	
 	
-	public TreeItem<String> branch(String title, TreeItem<String> parent) {
+	public TreeItem<String> profileBranch(String title, TreeItem<String> parent) {
 
 		TreeItem<String> item = new TreeItem<>(title);
 		item.setExpanded(false);
@@ -72,12 +71,37 @@ public class ProfileConfig {
 	}
 
 	
-	public void SoundAdder(String s) {
-		branch(s, root.getChildren().get(row));
+	public void addSoundToProfile(String s) {
+		profileBranch(s, root.getChildren().get(row));
 	}
 	
 	
+	public ArrayList<TreeItem> getProfileList() {
+		
+		return this.ProfileList;
+	}
 	
 	
+	public TreeView<String> getTree() {
+		
+		
+		return this.Tree;
+	}
+	
+	
+	public TreeItem<String> getRoot( ) {
+		
+		return this.root;
+	}
 
+	public int getRow() {
+		
+		return this.row;
+	}
+	
+	public String getProfileName() {
+		
+		
+		return this.profilename;
+	}
 }

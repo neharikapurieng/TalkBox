@@ -75,6 +75,12 @@ public class GuiConfig extends Application {
 
 	public int numofbuttons;
 	public Path pathtofile = null;
+	
+	
+	
+	ProfileConfig profile;
+	
+	
 	public void start(Stage primaryStage) throws IOException {
 
 		// Create a scene and place a button in the scene
@@ -359,17 +365,9 @@ public class GuiConfig extends Application {
 		 * 
 		 * when we expand the profiles to view the audio.
 		 * 
-		 * 
-		 * 
-		 * 
-		 * 
-		 * If mans are confused about TreeView watch the javafx tutorial on youtube
-		 * 
-		 * from a guy named thenewboston
-		 * 
 		 */
 
-		root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
+		/*root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
 		root.setExpanded(true);
 		TItems = new ArrayList<>(); // creating profile
 		TreeView<String> Tree = new TreeView<>(root); // put item in tree
@@ -383,18 +381,24 @@ public class GuiConfig extends Application {
 
 			}
 
-		});
-		/*
+		}); */
 		
-		Button CombineProfile = new Button("Combine");
-		CombineProfile.setOnAction(e ->{this.swapMultipleProfiles();});
-*/
-		Tree.setMinSize(200, 200);
+		
+		this.profile = new ProfileConfig();
+		this.profile.setRoot();
+		this.profile.setProfileParameters();
+		this.profile.setProfileSize(200, 200);
+		
+		
+		
+		
+
+		//Tree.setMinSize(200, 200);
 		Button RemoveProfile = new Button("Remove Profile");
 		SetProfile = new Button("Set Profile");
 		RemoveandSet.setSpacing(50);
 		RemoveandSet.getChildren().addAll(SetProfile, RemoveProfile,switch1,switch2);
-		TreeandButton.getChildren().addAll(Tree, RemoveandSet);
+		TreeandButton.getChildren().addAll(this.profile.getTree(), RemoveandSet);
 
 		// ----------------------------------------------------------------------------------------------------------------------//
 
@@ -455,7 +459,7 @@ public class GuiConfig extends Application {
 		PN.setMaxWidth(247);
 		PN.setOnMouseClicked(e -> PN.clear()); // clears the textfield when mouse is clicked on set profile textfield
 		PN.setOnAction(e -> {
-			ProfileAdder(PN.getText());
+			this.profile.setProfileTitles(PN.getText());
 			PN.clear();
 		}); // Adds the Profile to the TreeView after pressing Enter
 
@@ -468,8 +472,8 @@ public class GuiConfig extends Application {
 			}
 		}); // Set Profile by calling swapAudio
 
-		AddSound.setOnAction(e -> SoundAdder(soundname)); // Adds sound by calling SoundAdder
-		RemoveProfile.setOnAction(e -> ProfileRemover(row));// Removes Profile by calling ProfileRemover
+		AddSound.setOnAction(e -> this.profile.addSoundToProfile(soundname)); // Adds sound by calling SoundAdder
+		RemoveProfile.setOnAction(e -> this.profile.removeProfileTitles(this.profile.getRow()));// Removes Profile by calling ProfileRemover
 		Label labelProfile = new Label("		Profiles");
 		labelProfile.setStyle("-fx-font-family: TRON; -fx-font-size: 20;");
 		Label labelAudio = new Label("		Audio");
@@ -547,45 +551,8 @@ public class GuiConfig extends Application {
 	 * arraylist called BList Second for loop makes it so that max of 10 buttons per
 	 * row
 	 */
-	/*
-	public void bAdder(int n) throws IllegalArgumentException {
-		try {
-			sp.getChildren().clear();
-			for (int i = ctr2; i < n; i++) {
-				String buttonname = String.format("Sound %d", i + 1);
-				BList.add(new Button(buttonname));
-				//BList.get(i).setPadding(new Insets(10, 10, 10, 10)); // tried adding padding to the buttons
-				numofButtons++;
-			}
-			this.ctr2 = 0;
+	
 
-			int count = n;
-			for (int j = 0; j <= Math.ceil(n / 5); j++) {
-				if (count >= 5) {
-					for (int k = 0; k < 5; k++) {
-						BList.get(ctr2).setMinSize(75, 75);
-						sp.add(BList.get(ctr2), k, j);
-						GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
-						GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
-						ctr2++;
-						count--;
-					}
-				} else {
-					for (int h = 0; h < count; h++) {
-						BList.get(ctr2).setMinSize(75, 75);
-						sp.add(BList.get(ctr2), h, j);
-						GridPane.setHgrow(BList.get(ctr2), Priority.ALWAYS);
-						GridPane.setVgrow(BList.get(ctr2), Priority.ALWAYS);
-						ctr2++;
-					}
-				}
-			}
-		} catch (IllegalArgumentException io) {
-			System.out.println("Wrong input");
-
-		}
-	}
-	*/
 
 
 
@@ -626,10 +593,10 @@ public class GuiConfig extends Application {
 	 */
 
 	public void swapAudio() {
-		int size = root.getChildren().get(row).getChildren().size();
+		int size = this.profile.getRoot().getChildren().get(this.profile.getRow()).getChildren().size();
 		ArrayList<String> al = new ArrayList<String>();
 		for (int k = 0; k < size; k++) {
-			al.add(root.getChildren().get(row).getChildren().get(k).getValue());
+			al.add(this.profile.getRoot().getChildren().get(this.profile.getRow()).getChildren().get(k).getValue());
 		}
 		int n = this.numofbuttons;
 		b = new ButtonGui();
@@ -646,7 +613,7 @@ public class GuiConfig extends Application {
 
 	public void Load() throws Exception {
 		Load l = new Load();
-		l.Loader(sp,root);
+		l.Loader(sp,this.profile.getRoot());
 		for(int i = 0; i < l.size; i++) {
 			TItems.add(l.getTreeItem(i, root));
 		}		
@@ -728,13 +695,13 @@ public class GuiConfig extends Application {
 	 * 
 	 */
 	public String[][] audioFiles() {
-		String[][] temp = new String[root.getChildren().size()][b.getArray().size()];
-		for (int i = 0; i < root.getChildren().size(); i++) {
-			int numofAudio = TItems.get(i).getChildren().size();
-			System.out.println(TItems.get(i));
-			System.out.println(TItems.get(i).getChildren());
+		String[][] temp = new String[this.profile.getRoot().getChildren().size()][b.getArray().size()];
+		for (int i = 0; i < this.profile.getRoot().getChildren().size(); i++) {
+			int numofAudio = this.profile.getProfileList().get(i).getChildren().size();
+			System.out.println(this.profile.getProfileList().get(i));
+			System.out.println(this.profile.getProfileList().get(i).getChildren());
 			for (int j = 0; j < numofAudio; j++) {
-				temp[i][j] = TItems.get(i).getChildren().get(j).toString();
+				temp[i][j] = this.profile.getProfileList().get(i).getChildren().get(j).toString();
 			}
 		}
 		// for(String[] row : temp) {
@@ -752,16 +719,22 @@ public class GuiConfig extends Application {
 
 	public String[] profiles() {
 
-		String[] temp = new String[root.getChildren().size()];
+		String[] temp = new String[this.profile.getRoot().getChildren().size()];
 
 		for (int i = 0; i < temp.length; i++) {
 
-				temp[i] = root.getChildren().get(i).toString();
+				temp[i] = this.profile.getRoot().getChildren().get(i).toString();
 
 		}
 		// System.out.println(Arrays.toString(temp));
 		return temp;
 
+	}
+	
+	public void print() {
+		
+		System.out.println(this.profile.getProfileName());
+		
 	}
 
 	/*
@@ -805,5 +778,8 @@ public class GuiConfig extends Application {
 		// TODO Auto-generated method stub
 
 		Application.launch(args);
+		
+	
+		
 	}
 }
