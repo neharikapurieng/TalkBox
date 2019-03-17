@@ -280,6 +280,7 @@ public class GuiConfig extends Application {
 		  else {
 			  
 			  b.Switch(sp, position1,position2);
+			  this.switchAudio(position1, position2);
 			  
 		  }
 			
@@ -367,21 +368,7 @@ public class GuiConfig extends Application {
 		 * 
 		 */
 
-		/*root = new TreeItem<String>(); // This is used to create the profile and root and branches are added
-		root.setExpanded(true);
-		TItems = new ArrayList<>(); // creating profile
-		TreeView<String> Tree = new TreeView<>(root); // put item in tree
-		Tree.setShowRoot(false);
-		Tree.getSelectionModel().selectedItemProperty().addListener((v, oldValue, NewValue) -> {
 
-			if (NewValue != null) {
-
-				row = Tree.getRow(NewValue); // row is the position of the file name
-				profilename = NewValue.getValue(); // Gets the profile name of the clicked profile
-
-			}
-
-		}); */
 		
 		
 		this.profile = new ProfileConfig();
@@ -465,12 +452,12 @@ public class GuiConfig extends Application {
 
 		SetProfile.setOnAction(e -> {
 			try {
-				swapAudio();
+				configureAudioToButton();
 			} catch (Exception ie) {
 				ie.printStackTrace();
 				wrongInput.setText("Fix profiles");
 			}
-		}); // Set Profile by calling swapAudio
+		}); // Set Profile by calling configureAudioToButton
 
 		AddSound.setOnAction(e -> this.profile.addSoundToProfile(soundname)); // Adds sound by calling SoundAdder
 		RemoveProfile.setOnAction(e -> this.profile.removeProfileTitles(this.profile.getRow()));// Removes Profile by calling ProfileRemover
@@ -500,82 +487,14 @@ public class GuiConfig extends Application {
 
 	}
 
-	/*
-	 * 
-	 * This method creates a TreeItem using a string and TreeItem parameter
-	 * 
-	 * The String represents the name of either the profile or audio file
-	 * 
-	 * Parent represents the parent node which is root for the profiles
-	 * 
-	 * and profiles for the audio files
-	 * 
-	 * 
-	 * 
-	 */
-
-	public TreeItem<String> branch(String title, TreeItem<String> parent) {
-
-		TreeItem<String> item = new TreeItem<>(title);
-		item.setExpanded(false);
-		parent.getChildren().add(item);
-		return item;
-	}
-
-	/*
-	 * 
-	 * Finds all the wav files in any given directory
-	 * 
-	 * This is set to src/Audio as all our audio files are kept there
-	 * 
-	 * It returns all the files in an array alphabetically
-	 * 
-	 */
-
-	/*
-	public File[] finder(String dirName) {
-		File directoryPath = new File(dirName);
-		File[] files = directoryPath.listFiles(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) { // ?
-				return name.endsWith(".wav");
-			}
-		});
-		return files;
-	}
-	*/
-
-	/*
-	 * This method adds the buttons to the scrollPane sp.getChildren.clear() allows
-	 * us to refresh the numbers of buttons First for loop Adds button into an
-	 * arraylist called BList Second for loop makes it so that max of 10 buttons per
-	 * row
-	 */
-	
 
 
 
 
-	/*
-	 * 
-	 * This method adds the sounds to the profiles by calling branch
-	 * 
-	 */
-	public void ProfileAdder(String title) {
-		TItems.add(branch(title, root));
-	}
 
-	
-	/*
-	 * 
-	 * This methods removes profiles from the TreeView
-	 * 
-	 */
 
-	public void ProfileRemover(int r) {
-		root.getChildren().remove(r);
-		TItems.remove(r);
-	}
+
+
 
 	/*
 	 * 
@@ -592,15 +511,16 @@ public class GuiConfig extends Application {
 	 * 
 	 */
 
-	public void swapAudio() {
+	public void configureAudioToButton() {
 		int size = this.profile.getRoot().getChildren().get(this.profile.getRow()).getChildren().size();
 		ArrayList<String> al = new ArrayList<String>();
-		for (int k = 0; k < size; k++) {
+			for (int k = 0; k < size; k++) {
 			al.add(this.profile.getRoot().getChildren().get(this.profile.getRow()).getChildren().get(k).getValue());
+		
 		}
 		int n = this.numofbuttons;
-		b = new ButtonGui();
-		b.buttonAdder(n, sp);
+	
+		
 		for (int i = 0; i < size; i++) {
 			String name = al.get(i);
 			b.getArray().get(i).setText(name);
@@ -608,6 +528,28 @@ public class GuiConfig extends Application {
 	        b.getArray().get(i).setOnAction(handler);
 		}
 	 		}
+	
+	
+     public void switchAudio(int switch1, int switch2) {
+    	 
+    	int size = this.profile.getRoot().getChildren().get(this.profile.getRow()).getChildren().size();
+    	ArrayList<String> profilenames = new ArrayList<String>();
+    	for (int k = 0; k < size; k++) {
+    			profilenames.add(this.profile.getRoot().getChildren().get(this.profile.getRow()).getChildren().get(k).getValue());
+    		} 
+    	 
+    	 
+    	 
+    	 
+    	 String name1 = profilenames.get(switch2-1);
+    	 AudioHandler<ActionEvent> handler1 = new AudioHandler<ActionEvent>(src + name1 + ".wav");
+    	 b.getArray().get(switch1-1).setOnAction(handler1);
+    	 String name2 = profilenames.get(switch1-1);
+     	 AudioHandler<ActionEvent> handler2 = new AudioHandler<ActionEvent>(src + name2 + ".wav");
+     	 b.getArray().get(switch2-1).setOnAction(handler2);
+    
+    	 
+     }
 		
 
 
@@ -620,9 +562,6 @@ public class GuiConfig extends Application {
 	}
 	
 	
-	public void SoundAdder(String s) {
-		branch(s, root.getChildren().get(row));
-	}
 
 	/*
 	 * 
@@ -636,21 +575,7 @@ public class GuiConfig extends Application {
 	 * 
 	 */
 /*
-	public void handle(String s) { // Play Audio Files and checks if it exists
 
-		if (this.collide == true)
-			this.clip.stop();
-		try {
-			AudioInputStream audio = AudioSystem.getAudioInputStream(new File(s));
-			this.clip = AudioSystem.getClip();
-			clip.open(audio);
-			clip.start();
-			this.collide = true;
-		}
-		catch (Exception e) {
-			System.out.println("Can't find audio file");
-		}
-	}
 	
 */
 	/*
@@ -731,11 +656,7 @@ public class GuiConfig extends Application {
 
 	}
 	
-	public void print() {
-		
-		System.out.println(this.profile.getProfileName());
-		
-	}
+
 
 	/*
 	 * 

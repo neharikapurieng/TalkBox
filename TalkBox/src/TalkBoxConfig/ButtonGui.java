@@ -2,6 +2,8 @@ package TalkBoxConfig;
 
 
 import java.util.ArrayList;
+
+import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Priority;
@@ -213,18 +215,13 @@ public class ButtonGui{
 		int size = this.buttonList.size();
 		CustomButton button1 = this.getFirstSound(switch1);
 		CustomButton button2 = this.getSecondSound(switch2);
-		String temp = button1.getString();
-		String temp2= button2.getString();
-		
-
-		button1.setString(temp2);
-		button2.setString(temp);
 		System.out.println(button1.getString());
 		System.out.println(button2.getString());
 		this.buttonList.set(switch2-1, button1);
 		this.buttonList.set(switch1-1, button2);
 		switchButtonAdder(size, sp);
-		
+	
+	
 		}
 	
 	
